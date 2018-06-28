@@ -5,7 +5,9 @@
   "main": "index.js",
   "scripts": {
     "dev": "node ./node_modules/webpack-dev-server/bin/webpack-dev-server.js",
-    "build": "webpack"
+    "build": "webpack",
+    "heroku-postbuild": "webpack -p",
+    "start": "node index.js"
   },
   "author": "",
   "license": "ISC",
