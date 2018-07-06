@@ -1,31 +1,40 @@
 var express = require( "express" );
 var path = require( "path" );
 var bodyParser = require( "body-parser" );
-var mongodb = require( "mongodb" );
+var MongoClient  = require( "mongodb" ).MongoClient;
 var app = express();
-var port = process.env.PORT || 8080;
+require( "dotenv" ).config();
+var router = require( "./routes/router.js" );
+var port = process.env.PORT || 8000;
 var db;
 
 app.use( express.static( __dirname ) );
 app.use( bodyParser.json() );
-
-// Routes
-app.get( "*", function getAll( request, response ){
-    response.sendFile( path.resolve( "./index.html" ) );
-} );
+app.use( bodyParser.urlencoded( { "extended": true } ) );
 
 console.log( "MONGODB_URI", process.env.MONGODB_URI );
 
-mongodb.MongoClient.connect( process.env.MONGODB_URI || "mongodb://localhost:27017/test", function mongoClientConnect( err, database ){
-  if( err ){
-    console.log( "err", err );
-    process.exit( 1 );
-  }
+MongoClient.connect( process.env.MONGODB_URI, function mongoConnect( error, database ){
+    if( error ){
+        // Use fail.html
+        app.get( "*", function getAll( request, response ){
+            response.sendFile( path.resolve( "./fail.html" ) );
+        } );
 
-  // Save database object from the callback for reuse.
-  db = database.db();
-  console.log( "Database connection ready" );
+        console.log( "DATABASE ERROR", error );
+    }
+    else{
+        db = database.db( process.env.DB_NAME );
+        
+        router( app, db );
 
-  // Setup
-  app.listen( port );
+        // Use index.html
+        app.get( "*", function getAll( request, response ){
+            response.sendFile( path.resolve( "./index.html" ) );
+        } );
+
+        app.listen( port );
+
+        console.log( "listening to port:", port );
+    }
 } );
