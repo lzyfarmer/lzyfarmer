@@ -4,7 +4,7 @@
   "description": "Experimenting with learning how authentication in Nodejs works",
   "main": "index.js",
   "scripts": {
-    "dev": "nodemon index.js",
+    "dev": "npm run build && nodemon index.js",
     "build": "webpack",
     "heroku-postbuild": "webpack -p",
     "start": "node index.js"
@@ -12,12 +12,16 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "axios": "^0.18.0",
     "babel-core": "^6.26.0",
     "babel-loader": "^7.1.2",
     "babel-preset-es2015": "^6.24.1",
     "babel-preset-react": "^6.24.1",
+    "bcryptjs": "^2.4.3",
     "body-parser": "^1.18.3",
+    "cors": "^2.8.4",
     "css-loader": "^0.28.7",
+    "jwt-simple": "^0.5.1",
     "mongodb": "^3.1.0",
     "mongoose": "^4.5.5",
     "node-sass": "^4.7.2",

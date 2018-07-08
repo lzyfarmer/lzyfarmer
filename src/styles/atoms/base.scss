@@ -1,3 +1,15 @@
-h1{
-    color: blue;
+.container{
+    max-width: 350px;
+    margin: 0 auto;
+    border: 1px solid black;
+    display: flex;
+    position: relative;
+
+    &.column{
+        flex-direction: column;
+    }
+
+    &.row{
+        flex-direction: row;
+    }
 }

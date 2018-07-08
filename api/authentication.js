@@ -1,11 +1,14 @@
+var jwt = require( "jwt-simple" );
+
 module.exports = function( app, database ){
-  app.post( "/api/newUser", function login( req, res ){
+  app.post( "/api/signup", function login( req, res ){
       var user = {
           "name": {
               "first": req.body.firstName,
               "last": req.body.lastName
           },
           "username": req.body.username,
+          "password": req.body.password,
           "zipcode": req.body.zipcode
       };
 
@@ -14,7 +17,8 @@ module.exports = function( app, database ){
           function newUser( error, results ){
               if( error ){
                   res.send( {
-                      "text": "ERROR CREATING USER"
+                      "text": "ERROR CREATING USER",
+                      "error": error
                   } );
               }
               else{
@@ -28,6 +32,8 @@ module.exports = function( app, database ){
   } );
 
   app.post( "/api/login", function login( req, res ){
+      var token;
+
       database.collection( "users" ).findOne(
           {
               "username": req.body.username
@@ -35,13 +41,25 @@ module.exports = function( app, database ){
           function findUser( error, user ){
               if( error ){
                   res.send( {
-                      "text": "ERROR FINDING USER"
+                      "text": "ERROR FINDING USER",
+                      "error": errpr
                   } );
               }
               else{
+                  if( req.body.password == user.password ){
+                      token = jwt.encode(
+                          {
+                              "iss": user._id,
+                              "random": "blah",
+                              "exp": Date.now() + 3600000
+                          },
+                          process.env.TOKEN_SECRET
+                      );
+                  }
                   res.send( {
                       "text": "USER FOUND",
-                      "user": user
+                      "user": user,
+                      "token": token
                   } );
               }
           }
