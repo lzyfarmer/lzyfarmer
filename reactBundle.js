@@ -25346,12 +25346,18 @@ var Login = function (_React$Component) {
     }, {
         key: "login",
         value: function login() {
-            console.log("try login");
+            var _this2 = this;
+
             _axios2.default.post("/api/login", {
                 "username": this.state.username,
                 "password": this.state.password
             }).then(function (response) {
-                console.log("response", response);
+                localStorage.setItem("jwt", response.data.token);
+
+                _this2.props.history.push("/user/" + response.data.user.username);
+            }).catch(function (error, response) {
+                console.log("error login", error);
+                console.log("response login", response);
             });
         }
     }]);

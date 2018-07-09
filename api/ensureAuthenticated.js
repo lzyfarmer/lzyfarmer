@@ -31,8 +31,6 @@ module.exports = function ensureAuth( db ){
             } );
         }
 
-        console.log( "payload", payload );
-
         next();
     };
 }

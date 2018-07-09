@@ -35,18 +35,25 @@ class Login extends React.Component{
     };
 
     login(){
-        console.log( "try login" );
         axios.post(
             "/api/login",
             {
                 "username": this.state.username,
                 "password": this.state.password
             }
-        ).then(
+        )
+        .then(
             ( response ) => {
-                console.log( "response", response );
+                localStorage.setItem( "jwt", response.data.token );
+
+                this.props.history.push( `/user/${response.data.user.username}` );
             }
-        );
+        )
+        .catch(
+            ( error, response ) => {
+                console.log( "error login", error );
+            }
+        )
     };
 };
 

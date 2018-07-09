@@ -38,28 +38,31 @@ module.exports = function( app, database ){
           {
               "username": req.body.username
           },
-          function findUser( error, user ){
+          function findUser( error, user, extra ){
               if( error ){
-                  res.send( {
+                  res.status( 401 ).send( {
                       "text": "ERROR FINDING USER",
                       "error": errpr
                   } );
               }
-              else{
-                  if( req.body.password == user.password ){
+              else if( user ){
+                  if( req.body.password === user.password ){
                       token = jwt.encode(
                           {
-                              "iss": user._id,
-                              "random": "blah",
+                              "issuer": user._id,
                               "exp": Date.now() + 3600000
                           },
                           process.env.TOKEN_SECRET
                       );
                   }
                   res.send( {
-                      "text": "USER FOUND",
                       "user": user,
                       "token": token
+                  } );
+              }
+              else{
+                  res.status( 401 ).send( {
+                      "error": "USER NOT FOUND"
                   } );
               }
           }
