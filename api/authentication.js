@@ -24,7 +24,7 @@ module.exports = function( app, database ){
               else{
                   res.send( {
                       "text": "USER CREATED",
-                      "results": results.ops[0]
+                      "user": results.ops[0]
                   } );
               }
           }
