@@ -15,22 +15,28 @@ class Login extends React.Component{
     render(){
         return (
             <div className="container column">
-                <input placeholder="Username" value={ this.state.username } onChange={ this.changeUsername.bind( this ) }/>
-                <input placeholder="Password" type="password" value={ this.state.password } onChange={ this.changePassword.bind( this ) }/>
+                <input placeholder="Username" value={ this.state.username } onChange={ this.changeValue.bind( this, "username" ) }/>
+                <input placeholder="Password" type="password" value={ this.state.password } onChange={ this.changeValue.bind( this, "password" ) }/>
                 <button onClick={ this.login.bind( this ) }>Submit</button>
+                {
+                    this.renderError()
+                }
             </div>
         );
     };
 
-    changeUsername( event ){
-        this.setState( {
-            "username": event.target.value
-        } );
+    renderError(){
+        if( this.state.loginError ){
+            return <p>Username or password incorrect. Please try again.</p>;
+        }
+
+        return "";
     };
 
-    changePassword( event ){
+    changeValue( type, event ){
         this.setState( {
-            "password": event.target.value
+            [type]: event.target.value,
+            "loginError": false
         } );
     };
 
@@ -51,7 +57,9 @@ class Login extends React.Component{
         )
         .catch(
             ( error, response ) => {
-                console.log( "error login", error );
+                this.setState( {
+                    "loginError": true
+                } );
             }
         )
     };

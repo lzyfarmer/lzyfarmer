@@ -9,26 +9,52 @@ class Signup extends React.Component{
         this.state = {
             "username": "",
             "password": "",
-            "lastName": "",
-            "firstName": "",
-            "zipcode": ""
+            "zipcode": "",
+            "userExistsError": false
         }
     };
 
     render(){
         return (
             <div className="container column">
-                <input placeholder="First Name" value={ this.state.firstName } onChange={ this.changeValue.bind( this, "firstName" ) }/>
-                <input placeholder="Last Name" value={ this.state.lastName } onChange={ this.changeValue.bind( this, "lastName" ) }/>
                 <input placeholder="Username" value={ this.state.username } onChange={ this.changeValue.bind( this, "username" ) }/>
                 <input placeholder="Zipcode" value={ this.state.zipcode } onChange={ this.changeValue.bind( this, "zipcode" ) }/>
                 <input placeholder="Password" type="password" value={ this.state.password } onChange={ this.changeValue.bind( this, "password" ) }/>
-                <button onClick={ this.signup.bind( this ) }>Sign Up</button>
+                {
+                    this.renderSubmitButton()
+                }
+                {
+                    this.renderUserExistsError()
+                }
             </div>
         );
     };
 
+    renderSubmitButton(){
+        if(
+            this.state.username &&
+            this.state.zipcode &&
+            this.state.password &&
+            this.state.password.length > 6
+        ){
+            return <button onClick={ this.signup.bind( this ) }>Sign Up</button>;
+        }
+
+        return <button disabled="true" onClick={ this.signup.bind( this ) }>Sign Up</button>
+    };
+
+    renderUserExistsError(){
+        if( this.state.userExistsError ){
+            return <p>Username taken. Please try again.</p>;
+        }
+
+        return "";
+    };
+
     changeValue( type, event ){
+        this.setState( {
+            "userExistsError": false
+        } );
         this.setState( {
             [type]: event.target.value
         } );
@@ -40,23 +66,25 @@ class Signup extends React.Component{
             {
                 "username": this.state.username,
                 "password": this.state.password,
-                "firstName": this.state.firstName,
-                "lastName": this.state.lastName,
-                "zipcode": this.state.zipcode,
+                "zipcode": this.state.zipcode
             }
         )
         .then(
             ( response ) => {
-                // localStorage.setItem( "jwt", response.data.token );
+                localStorage.setItem( "jwt", response.data.token );
 
                 this.props.history.push( `/user/${response.data.user.username}` );
             }
-        )
-        .catch(
-            ( error, response ) => {
-                console.log( "error signup", error );
+        ).
+        catch(
+            ( error ) => {
+                if( error.response.status == 409 ){
+                    this.setState( {
+                        "userExistsError": true
+                    } );
+                }
             }
-        )
+        );
     };
 };
 

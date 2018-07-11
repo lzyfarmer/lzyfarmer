@@ -8,6 +8,7 @@ import Signup from "components/pages/Signup.js";
 import Plant from "components/pages/Plant.js";
 import Explore from "components/pages/Explore.js";
 import UserHome from "components/pages/UserHome.js";
+import CreatePlant from "components/pages/createPlant/CreatePlant.js";
 import NotFound from "components/pages/NotFound.js";
 
 const Main = () => (
@@ -17,6 +18,7 @@ const Main = () => (
             <Route path="/signup" component={ Signup }/>
             <Route path="/plant/:id" component={ Plant }/>
             <Route path="/user/:id" component={ UserHome }/>
+            <Route path="/createPlant" component={ CreatePlant }/>
             <Route path="/explore" component={ Explore }/>
             <Route path="*" component={ NotFound }/>
         </Switch>

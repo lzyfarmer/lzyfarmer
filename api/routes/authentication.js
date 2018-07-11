@@ -3,29 +3,51 @@ var jwt = require( "jwt-simple" );
 module.exports = function( app, database ){
   app.post( "/api/signup", function login( req, res ){
       var user = {
-          "name": {
-              "first": req.body.firstName,
-              "last": req.body.lastName
-          },
           "username": req.body.username,
           "password": req.body.password,
           "zipcode": req.body.zipcode
       };
 
-      database.collection( "users" ).insert(
-          user,
-          function newUser( error, results ){
+      database.collection( "users" ).findOne(
+          {
+              "username": req.body.username
+          },
+          function findUser( error, user, extra ){
               if( error ){
-                  res.send( {
-                      "text": "ERROR CREATING USER",
-                      "error": error
+                  res.status( 401 ).send( {
+                      "text": "ERROR FINDING USER",
+                      "error": errpr
                   } );
               }
+              else if( user ){
+                  res.status( 409 ).send( "Username unavailable" );
+              }
               else{
-                  res.send( {
-                      "text": "USER CREATED",
-                      "user": results.ops[0]
-                  } );
+                  database.collection( "users" ).insert(
+                      user,
+                      function newUser( error, results ){
+                          if( error ){
+                              res.send( {
+                                  "text": "ERROR CREATING USER",
+                                  "error": error
+                              } );
+                          }
+                          else{
+                              token = jwt.encode(
+                                  {
+                                      "issuer": results.ops[0]._id,
+                                      "exp": Date.now() + 3600000
+                                  },
+                                  process.env.TOKEN_SECRET
+                              );
+
+                              res.send( {
+                                  "token": token,
+                                  "user": results.ops[0]
+                              } );
+                          }
+                      }
+                  );
               }
           }
       );
