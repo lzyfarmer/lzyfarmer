@@ -3172,7 +3172,7 @@ var _App = __webpack_require__(77);
 
 var _App2 = _interopRequireDefault(_App);
 
-var _style = __webpack_require__(110);
+var _style = __webpack_require__(111);
 
 var _style2 = _interopRequireDefault(_style);
 
@@ -25235,28 +25235,34 @@ var _Signup = __webpack_require__(98);
 
 var _Signup2 = _interopRequireDefault(_Signup);
 
-var _Plant = __webpack_require__(99);
+var _Store = __webpack_require__(99);
+
+var _Store2 = _interopRequireDefault(_Store);
+
+var _Plant = __webpack_require__(100);
 
 var _Plant2 = _interopRequireDefault(_Plant);
 
-var _Explore = __webpack_require__(100);
+var _Explore = __webpack_require__(101);
 
 var _Explore2 = _interopRequireDefault(_Explore);
 
-var _UserHome = __webpack_require__(101);
+var _UserHome = __webpack_require__(102);
 
 var _UserHome2 = _interopRequireDefault(_UserHome);
 
-var _CreatePlant = __webpack_require__(103);
+var _CreatePlant = __webpack_require__(104);
 
 var _CreatePlant2 = _interopRequireDefault(_CreatePlant);
 
-var _NotFound = __webpack_require__(109);
+var _NotFound = __webpack_require__(110);
 
 var _NotFound2 = _interopRequireDefault(_NotFound);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+// Components
+// Libraries
 var Main = function Main() {
     return _react2.default.createElement(
         "div",
@@ -25266,6 +25272,7 @@ var Main = function Main() {
             null,
             _react2.default.createElement(_reactRouterDom.Route, { exact: true, path: "/", component: _Login2.default }),
             _react2.default.createElement(_reactRouterDom.Route, { path: "/signup", component: _Signup2.default }),
+            _react2.default.createElement(_reactRouterDom.Route, { path: "/store", component: _Store2.default }),
             _react2.default.createElement(_reactRouterDom.Route, { path: "/plant/:id", component: _Plant2.default }),
             _react2.default.createElement(_reactRouterDom.Route, { path: "/user/:id", component: _UserHome2.default }),
             _react2.default.createElement(_reactRouterDom.Route, { path: "/createPlant", component: _CreatePlant2.default }),
@@ -25275,8 +25282,6 @@ var Main = function Main() {
     );
 };
 
-// Components
-// Libraries
 exports.default = Main;
 
 /***/ }),
@@ -26412,6 +26417,36 @@ Object.defineProperty(exports, "__esModule", {
     value: true
 });
 
+var _react = __webpack_require__(0);
+
+var _react2 = _interopRequireDefault(_react);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var Store = function Store() {
+    return _react2.default.createElement(
+        "div",
+        { className: "container column" },
+        _react2.default.createElement(
+            "h1",
+            null,
+            "Store View"
+        )
+    );
+}; // Libraries
+exports.default = Store;
+
+/***/ }),
+/* 100 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 var _react = __webpack_require__(0);
@@ -26455,7 +26490,7 @@ var Plant = function (_React$Component) {
         value: function render() {
             return _react2.default.createElement(
                 "div",
-                { className: "container" },
+                { className: "container column" },
                 _react2.default.createElement(
                     "ul",
                     null,
@@ -26490,7 +26525,7 @@ var Plant = function (_React$Component) {
 exports.default = Plant;
 
 /***/ }),
-/* 100 */
+/* 101 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -26529,7 +26564,7 @@ var Explore = function (_React$Component) {
         value: function render() {
             return _react2.default.createElement(
                 "div",
-                { className: "container" },
+                { className: "container column" },
                 _react2.default.createElement(
                     "h1",
                     null,
@@ -26547,7 +26582,7 @@ var Explore = function (_React$Component) {
 exports.default = Explore;
 
 /***/ }),
-/* 101 */
+/* 102 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -26567,7 +26602,7 @@ var _axios = __webpack_require__(10);
 
 var _axios2 = _interopRequireDefault(_axios);
 
-var _handleApiError = __webpack_require__(102);
+var _handleApiError = __webpack_require__(103);
 
 var _handleApiError2 = _interopRequireDefault(_handleApiError);
 
@@ -26608,7 +26643,7 @@ var UserHome = function (_React$Component) {
         value: function render() {
             return _react2.default.createElement(
                 "div",
-                { className: "container" },
+                { className: "container column" },
                 _react2.default.createElement(
                     "h1",
                     null,
@@ -26658,7 +26693,7 @@ var UserHome = function (_React$Component) {
 exports.default = UserHome;
 
 /***/ }),
-/* 102 */
+/* 103 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -26671,7 +26706,7 @@ module.exports = function handleApiError(error, props) {
 };
 
 /***/ }),
-/* 103 */
+/* 104 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -26691,23 +26726,23 @@ var _axios = __webpack_require__(10);
 
 var _axios2 = _interopRequireDefault(_axios);
 
-var _Upsell = __webpack_require__(104);
+var _Upsell = __webpack_require__(105);
 
 var _Upsell2 = _interopRequireDefault(_Upsell);
 
-var _PlantType = __webpack_require__(105);
+var _PlantType = __webpack_require__(106);
 
 var _PlantType2 = _interopRequireDefault(_PlantType);
 
-var _ContainerType = __webpack_require__(106);
+var _ContainerType = __webpack_require__(107);
 
 var _ContainerType2 = _interopRequireDefault(_ContainerType);
 
-var _SunType = __webpack_require__(107);
+var _SunType = __webpack_require__(108);
 
 var _SunType2 = _interopRequireDefault(_SunType);
 
-var _Confirmation = __webpack_require__(108);
+var _Confirmation = __webpack_require__(109);
 
 var _Confirmation2 = _interopRequireDefault(_Confirmation);
 
@@ -26748,29 +26783,37 @@ var Plant = function (_React$Component) {
             switch (this.state.step) {
                 case 1:
                     return _react2.default.createElement(_Upsell2.default, {
-                        nextStep: this.nextStep.bind(this)
+                        nextStep: this.nextStep.bind(this),
+                        handleNavigate: this.handleNavigate.bind(this)
                     });
 
                 case 2:
                     return _react2.default.createElement(_PlantType2.default, {
+                        formValues: this.state.formValues,
                         nextStep: this.nextStep.bind(this),
-                        previousStep: this.previousStep.bind(this)
+                        previousStep: this.previousStep.bind(this),
+                        updateFormValues: this.updateFormValues.bind(this)
                     });
 
                 case 3:
                     return _react2.default.createElement(_ContainerType2.default, {
+                        formValues: this.state.formValues,
                         nextStep: this.nextStep.bind(this),
-                        previousStep: this.previousStep.bind(this)
+                        previousStep: this.previousStep.bind(this),
+                        updateFormValues: this.updateFormValues.bind(this)
                     });
 
                 case 4:
                     return _react2.default.createElement(_SunType2.default, {
+                        formValues: this.state.formValues,
                         nextStep: this.nextStep.bind(this),
-                        previousStep: this.previousStep.bind(this)
+                        previousStep: this.previousStep.bind(this),
+                        updateFormValues: this.updateFormValues.bind(this)
                     });
 
                 case 5:
                     return _react2.default.createElement(_Confirmation2.default, {
+                        formValues: this.state.formValues,
                         savePlant: this.savePlant.bind(this),
                         previousStep: this.previousStep.bind(this)
                     });
@@ -26779,7 +26822,6 @@ var Plant = function (_React$Component) {
     }, {
         key: "nextStep",
         value: function nextStep() {
-            console.log("nextStep", this.state.step);
             this.setState({
                 "step": this.state.step + 1
             });
@@ -26790,6 +26832,20 @@ var Plant = function (_React$Component) {
             this.setState({
                 "step": this.state.step - 1
             });
+        }
+    }, {
+        key: "updateFormValues",
+        value: function updateFormValues(values) {
+            var updatedForm = Object.assign({}, this.state.formValues, values);
+
+            this.setState({
+                "formValues": updatedForm
+            });
+        }
+    }, {
+        key: "handleNavigate",
+        value: function handleNavigate(route) {
+            this.props.history.push(route);
         }
     }, {
         key: "savePlant",
@@ -26813,7 +26869,7 @@ var Plant = function (_React$Component) {
 exports.default = Plant;
 
 /***/ }),
-/* 104 */
+/* 105 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -26832,11 +26888,23 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 var Upsell = function Upsell(props) {
     return _react2.default.createElement(
         "div",
-        { className: "container" },
+        { className: "container column" },
         _react2.default.createElement(
             "h1",
             null,
             "Upsell"
+        ),
+        _react2.default.createElement(
+            "p",
+            null,
+            "Do you have all the materials needed for planting? You will need a container, soil, and seeds."
+        ),
+        _react2.default.createElement(
+            "button",
+            { onClick: function onClick() {
+                    return props.handleNavigate("/store");
+                } },
+            "Shop Now"
         ),
         _react2.default.createElement(
             "button",
@@ -26850,46 +26918,6 @@ var Upsell = function Upsell(props) {
 exports.default = Upsell;
 
 /***/ }),
-/* 105 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
-
-var _react = __webpack_require__(0);
-
-var _react2 = _interopRequireDefault(_react);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-var PlantType = function PlantType(props) {
-    return _react2.default.createElement(
-        "div",
-        { className: "container" },
-        _react2.default.createElement(
-            "h1",
-            null,
-            "PlantType"
-        ),
-        _react2.default.createElement(
-            "button",
-            { onClick: props.previousStep },
-            "Previous"
-        ),
-        _react2.default.createElement(
-            "button",
-            { onClick: props.nextStep },
-            "Next"
-        )
-    );
-}; // Libraries
-exports.default = PlantType;
-
-/***/ }),
 /* 106 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -26900,34 +26928,101 @@ Object.defineProperty(exports, "__esModule", {
     value: true
 });
 
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
 var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var ContainerType = function ContainerType(props) {
-    return _react2.default.createElement(
-        "div",
-        { className: "container" },
-        _react2.default.createElement(
-            "h1",
-            null,
-            "ContainerType"
-        ),
-        _react2.default.createElement(
-            "button",
-            { onClick: props.previousStep },
-            "Previous"
-        ),
-        _react2.default.createElement(
-            "button",
-            { onClick: props.nextStep },
-            "Next"
-        )
-    );
-}; // Libraries
-exports.default = ContainerType;
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; } // Libraries
+
+
+var PlantType = function (_React$Component) {
+    _inherits(PlantType, _React$Component);
+
+    function PlantType(props) {
+        _classCallCheck(this, PlantType);
+
+        var _this = _possibleConstructorReturn(this, (PlantType.__proto__ || Object.getPrototypeOf(PlantType)).call(this, props));
+
+        _this.state = {
+            "value": props.formValues.plantType
+        };
+        return _this;
+    }
+
+    _createClass(PlantType, [{
+        key: "render",
+        value: function render() {
+            return _react2.default.createElement(
+                "div",
+                { className: "container column" },
+                _react2.default.createElement(
+                    "h1",
+                    null,
+                    "Plant Type"
+                ),
+                _react2.default.createElement(
+                    "select",
+                    { value: this.state.value, onChange: this.updateValue.bind(this) },
+                    _react2.default.createElement(
+                        "option",
+                        { value: "1" },
+                        "Tomato"
+                    ),
+                    _react2.default.createElement(
+                        "option",
+                        { value: "2" },
+                        "Basil"
+                    ),
+                    _react2.default.createElement(
+                        "option",
+                        { value: "3" },
+                        "Lettuce"
+                    ),
+                    _react2.default.createElement(
+                        "option",
+                        { value: "4" },
+                        "Mint"
+                    )
+                ),
+                _react2.default.createElement(
+                    "button",
+                    { onClick: this.props.previousStep },
+                    "Previous"
+                ),
+                _react2.default.createElement(
+                    "button",
+                    { onClick: this.props.nextStep },
+                    "Next"
+                )
+            );
+        }
+    }, {
+        key: "updateValue",
+        value: function updateValue(event) {
+            this.props.updateFormValues({
+                "plantType": event.target.value
+            });
+
+            this.setState({
+                "value": event.target.value
+            });
+        }
+    }]);
+
+    return PlantType;
+}(_react2.default.Component);
+
+;
+
+exports.default = PlantType;
 
 /***/ }),
 /* 107 */
@@ -26940,37 +27035,207 @@ Object.defineProperty(exports, "__esModule", {
     value: true
 });
 
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
 var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var SunType = function SunType(props) {
-    return _react2.default.createElement(
-        "div",
-        { className: "container" },
-        _react2.default.createElement(
-            "h1",
-            null,
-            "SunType"
-        ),
-        _react2.default.createElement(
-            "button",
-            { onClick: props.previousStep },
-            "Previous"
-        ),
-        _react2.default.createElement(
-            "button",
-            { onClick: props.nextStep },
-            "Next"
-        )
-    );
-}; // Libraries
-exports.default = SunType;
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; } // Libraries
+
+
+var ContainerType = function (_React$Component) {
+    _inherits(ContainerType, _React$Component);
+
+    function ContainerType(props) {
+        _classCallCheck(this, ContainerType);
+
+        var _this = _possibleConstructorReturn(this, (ContainerType.__proto__ || Object.getPrototypeOf(ContainerType)).call(this, props));
+
+        _this.state = {
+            "value": props.formValues.containerType
+        };
+        return _this;
+    }
+
+    _createClass(ContainerType, [{
+        key: "render",
+        value: function render() {
+            return _react2.default.createElement(
+                "div",
+                { className: "container column" },
+                _react2.default.createElement(
+                    "h1",
+                    null,
+                    "Container Type"
+                ),
+                _react2.default.createElement(
+                    "form",
+                    null,
+                    _react2.default.createElement(
+                        "label",
+                        null,
+                        _react2.default.createElement("input", { type: "radio", value: "1", checked: this.state.value === "1", onChange: this.updateValue.bind(this) }),
+                        "Small Container"
+                    ),
+                    _react2.default.createElement(
+                        "label",
+                        null,
+                        _react2.default.createElement("input", { type: "radio", value: "2", checked: this.state.value === "2", onChange: this.updateValue.bind(this) }),
+                        "Large Container"
+                    ),
+                    _react2.default.createElement(
+                        "label",
+                        null,
+                        _react2.default.createElement("input", { type: "radio", value: "3", checked: this.state.value === "3", onChange: this.updateValue.bind(this) }),
+                        "In the Ground"
+                    )
+                ),
+                _react2.default.createElement(
+                    "button",
+                    { onClick: this.props.previousStep },
+                    "Previous"
+                ),
+                _react2.default.createElement(
+                    "button",
+                    { onClick: this.props.nextStep },
+                    "Next"
+                )
+            );
+        }
+    }, {
+        key: "updateValue",
+        value: function updateValue(event) {
+            this.props.updateFormValues({
+                "containerType": event.target.value
+            });
+
+            this.setState({
+                "value": event.target.value
+            });
+        }
+    }]);
+
+    return ContainerType;
+}(_react2.default.Component);
+
+;
+
+exports.default = ContainerType;
 
 /***/ }),
 /* 108 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(0);
+
+var _react2 = _interopRequireDefault(_react);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; } // Libraries
+
+
+var SunType = function (_React$Component) {
+    _inherits(SunType, _React$Component);
+
+    function SunType(props) {
+        _classCallCheck(this, SunType);
+
+        var _this = _possibleConstructorReturn(this, (SunType.__proto__ || Object.getPrototypeOf(SunType)).call(this, props));
+
+        _this.state = {
+            "value": props.formValues.sunType
+        };
+        return _this;
+    }
+
+    _createClass(SunType, [{
+        key: "render",
+        value: function render() {
+            return _react2.default.createElement(
+                "div",
+                { className: "container column" },
+                _react2.default.createElement(
+                    "h1",
+                    null,
+                    "Sun Type"
+                ),
+                _react2.default.createElement(
+                    "form",
+                    null,
+                    _react2.default.createElement(
+                        "label",
+                        null,
+                        _react2.default.createElement("input", { type: "radio", value: "1", checked: this.state.value === "1", onChange: this.updateValue.bind(this) }),
+                        "Full Shade"
+                    ),
+                    _react2.default.createElement(
+                        "label",
+                        null,
+                        _react2.default.createElement("input", { type: "radio", value: "2", checked: this.state.value === "2", onChange: this.updateValue.bind(this) }),
+                        "Partial Shade"
+                    ),
+                    _react2.default.createElement(
+                        "label",
+                        null,
+                        _react2.default.createElement("input", { type: "radio", value: "3", checked: this.state.value === "3", onChange: this.updateValue.bind(this) }),
+                        "Full Sun"
+                    )
+                ),
+                _react2.default.createElement(
+                    "button",
+                    { onClick: this.props.previousStep },
+                    "Previous"
+                ),
+                _react2.default.createElement(
+                    "button",
+                    { onClick: this.props.nextStep },
+                    "Next"
+                )
+            );
+        }
+    }, {
+        key: "updateValue",
+        value: function updateValue(event) {
+            this.props.updateFormValues({
+                "sunType": event.target.value
+            });
+
+            this.setState({
+                "value": event.target.value
+            });
+        }
+    }]);
+
+    return SunType;
+}(_react2.default.Component);
+
+;
+
+exports.default = SunType;
+
+/***/ }),
+/* 109 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -26989,11 +27254,29 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 var Confirmation = function Confirmation(props) {
     return _react2.default.createElement(
         "div",
-        { className: "container" },
+        { className: "container column" },
         _react2.default.createElement(
             "h1",
             null,
             "Confirmation"
+        ),
+        _react2.default.createElement(
+            "p",
+            null,
+            "Plant Type: ",
+            props.formValues.plantType
+        ),
+        _react2.default.createElement(
+            "p",
+            null,
+            "Container Type: ",
+            props.formValues.containerType
+        ),
+        _react2.default.createElement(
+            "p",
+            null,
+            "Sun Type: ",
+            props.formValues.sunType
         ),
         _react2.default.createElement(
             "button",
@@ -27014,7 +27297,7 @@ var Confirmation = function Confirmation(props) {
 exports.default = Confirmation;
 
 /***/ }),
-/* 109 */
+/* 110 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -27071,13 +27354,13 @@ var NotFound = function (_React$Component) {
 exports.default = NotFound;
 
 /***/ }),
-/* 110 */
+/* 111 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(111);
+var content = __webpack_require__(112);
 if(typeof content === 'string') content = [[module.i, content, '']];
 // Prepare cssTransformation
 var transform;
@@ -27085,7 +27368,7 @@ var transform;
 var options = {"hmr":true}
 options.transform = transform
 // add the styles to the DOM
-var update = __webpack_require__(113)(content, options);
+var update = __webpack_require__(114)(content, options);
 if(content.locals) module.exports = content.locals;
 // Hot Module Replacement
 if(false) {
@@ -27102,10 +27385,10 @@ if(false) {
 }
 
 /***/ }),
-/* 111 */
+/* 112 */
 /***/ (function(module, exports, __webpack_require__) {
 
-exports = module.exports = __webpack_require__(112)(false);
+exports = module.exports = __webpack_require__(113)(false);
 // imports
 
 
@@ -27116,7 +27399,7 @@ exports.push([module.i, "html,\nbody,\ndiv,\nspan,\napplet,\nobject,\niframe,\nh
 
 
 /***/ }),
-/* 112 */
+/* 113 */
 /***/ (function(module, exports) {
 
 /*
@@ -27198,7 +27481,7 @@ function toComment(sourceMap) {
 
 
 /***/ }),
-/* 113 */
+/* 114 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /*
@@ -27254,7 +27537,7 @@ var singleton = null;
 var	singletonCounter = 0;
 var	stylesInsertedAtTop = [];
 
-var	fixUrls = __webpack_require__(114);
+var	fixUrls = __webpack_require__(115);
 
 module.exports = function(list, options) {
 	if (typeof DEBUG !== "undefined" && DEBUG) {
@@ -27570,7 +27853,7 @@ function updateLink (link, options, obj) {
 
 
 /***/ }),
-/* 114 */
+/* 115 */
 /***/ (function(module, exports) {
 
 

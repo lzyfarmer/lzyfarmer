@@ -18,7 +18,7 @@ class Plant extends React.Component{
             "formValues": {
                 "plantType": "",
                 "containerType": "",
-                "sunType": "",
+                "sunType": ""
             }
         }
     };
@@ -28,28 +28,36 @@ class Plant extends React.Component{
             case 1:
                 return <Upsell
                     nextStep={ this.nextStep.bind( this ) }
+                    handleNavigate={ this.handleNavigate.bind( this ) }
                 />;
 
             case 2:
                 return <PlantType
+                    formValues={ this.state.formValues }
                     nextStep={ this.nextStep.bind( this ) }
                     previousStep={ this.previousStep.bind( this ) }
+                    updateFormValues={ this.updateFormValues.bind( this ) }
                 />;
 
             case 3:
                 return <ContainerType
+                    formValues={ this.state.formValues }
                     nextStep={ this.nextStep.bind( this ) }
                     previousStep={ this.previousStep.bind( this ) }
+                    updateFormValues={ this.updateFormValues.bind( this ) }
                 />;
 
             case 4:
                 return <SunType
+                    formValues={ this.state.formValues }
                     nextStep={ this.nextStep.bind( this ) }
                     previousStep={ this.previousStep.bind( this ) }
+                    updateFormValues={ this.updateFormValues.bind( this ) }
                 />;
 
             case 5:
                 return <Confirmation
+                    formValues={ this.state.formValues }
                     savePlant={ this.savePlant.bind( this ) }
                     previousStep={ this.previousStep.bind( this ) }
                 />;
@@ -66,6 +74,18 @@ class Plant extends React.Component{
         this.setState( {
             "step": this.state.step - 1
         } );
+    };
+
+    updateFormValues( values ){
+        var updatedForm = Object.assign( {}, this.state.formValues, values );
+
+        this.setState( {
+            "formValues": updatedForm
+        } )
+    };
+
+    handleNavigate( route ){
+        this.props.history.push( route );
     };
 
     savePlant(){

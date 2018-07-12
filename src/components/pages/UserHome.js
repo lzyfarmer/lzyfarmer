@@ -21,7 +21,7 @@ class UserHome extends React.Component{
 
     render(){
         return (
-            <div className="container">
+            <div className="container column">
                 <h1>Welcome, { this.state.username }!</h1>
                 <button onClick={ this.createPlant.bind( this ) }>Create Plant</button>
             </div>

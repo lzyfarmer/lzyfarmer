@@ -5,6 +5,7 @@ import { Switch, Route } from "react-router-dom";
 // Components
 import Login from "components/pages/Login.js";
 import Signup from "components/pages/Signup.js";
+import Store from "components/pages/Store.js";
 import Plant from "components/pages/Plant.js";
 import Explore from "components/pages/Explore.js";
 import UserHome from "components/pages/UserHome.js";
@@ -16,6 +17,7 @@ const Main = () => (
         <Switch>
             <Route exact path="/" component={ Login }/>
             <Route path="/signup" component={ Signup }/>
+            <Route path="/store" component={ Store }/>
             <Route path="/plant/:id" component={ Plant }/>
             <Route path="/user/:id" component={ UserHome }/>
             <Route path="/createPlant" component={ CreatePlant }/>

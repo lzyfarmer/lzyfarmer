@@ -17,7 +17,7 @@ class Plant extends React.Component{
 
     render(){
         return (
-            <div className="container">
+            <div className="container column">
                 <ul>
                 {
                     this.state.plants.map(
