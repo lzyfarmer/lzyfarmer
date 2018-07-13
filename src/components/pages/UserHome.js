@@ -3,6 +3,9 @@ import React from "react";
 import axios from "axios";
 
 // Helpers
+import requireAuth from "helpers/requireAuth.js";
+
+// Helpers
 import handleApiError from "helpers/handleApiError.js";
 
 class UserHome extends React.Component{
@@ -16,7 +19,7 @@ class UserHome extends React.Component{
     };
 
     componentWillMount(){
-        this.fetchUser();
+        requireAuth( this.props );
     };
 
     render(){
@@ -24,12 +27,17 @@ class UserHome extends React.Component{
             <div className="container column">
                 <h1>Welcome, { this.state.username }!</h1>
                 <button onClick={ this.createPlant.bind( this ) }>Create Plant</button>
+                <button onClick={ this.logout.bind( this ) }>Logout</button>
             </div>
         );
     };
 
     createPlant(){
         this.props.history.push( "/createPlant" );
+    };
+
+    logout(){
+        localStorage.removeItem( "jwt" )
     };
 
     fetchUser(){
