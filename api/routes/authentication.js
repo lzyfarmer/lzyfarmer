@@ -1,18 +1,19 @@
 var jwt = require( "jwt-simple" );
+var UserModel = require( "../models/User.js" );
 
-module.exports = function( app, database ){
+module.exports = function( app ){
   app.post( "/api/signup", function login( req, res ){
-      var user = {
+      var newUser = new UserModel( {
           "username": req.body.username,
           "password": req.body.password,
           "zipcode": req.body.zipcode
-      };
+      } );
 
-      database.collection( "users" ).findOne(
+      UserModel.findOne(
           {
               "username": req.body.username
           },
-          function findUser( error, user, extra ){
+          function findUser( error, user ){
               if( error ){
                   res.status( 401 ).send( {
                       "text": "ERROR FINDING USER",
@@ -23,9 +24,8 @@ module.exports = function( app, database ){
                   res.status( 409 ).send( "Username unavailable" );
               }
               else{
-                  database.collection( "users" ).insert(
-                      user,
-                      function newUser( error, results ){
+                  newUser.save(
+                      function newUser( error, createdUser ){
                           if( error ){
                               res.send( {
                                   "text": "ERROR CREATING USER",
@@ -35,7 +35,7 @@ module.exports = function( app, database ){
                           else{
                               token = jwt.encode(
                                   {
-                                      "issuer": results.ops[0]._id,
+                                      "issuer": createdUser._id,
                                       "exp": Date.now() + 3600000
                                   },
                                   process.env.TOKEN_SECRET
@@ -43,7 +43,7 @@ module.exports = function( app, database ){
 
                               res.send( {
                                   "token": token,
-                                  "user": results.ops[0]
+                                  "user": createdUser
                               } );
                           }
                       }
@@ -56,11 +56,11 @@ module.exports = function( app, database ){
   app.post( "/api/login", function login( req, res ){
       var token;
 
-      database.collection( "users" ).findOne(
+      UserModel.findOne(
           {
               "username": req.body.username
           },
-          function findUser( error, user, extra ){
+          function findUser( error, user ){
               if( error ){
                   res.status( 401 ).send( {
                       "text": "ERROR FINDING USER",
@@ -77,6 +77,8 @@ module.exports = function( app, database ){
                           process.env.TOKEN_SECRET
                       );
                   }
+
+                  console.log( "findUser", user );
                   res.send( {
                       "user": user,
                       "token": token

@@ -14,7 +14,8 @@ class UserHome extends React.Component{
 
         this.state = {
             "username": this.props.location.pathname.replace( "/user/", "" ),
-            "user": {}
+            "user": {},
+            "plants": []
         }
     };
 
@@ -22,28 +23,63 @@ class UserHome extends React.Component{
         requireAuth( this.props );
     };
 
+    componentDidMount(){
+        this.fetchPlants();
+    };
+
     render(){
         return (
             <div className="container column">
                 <h1>Welcome, { this.state.username }!</h1>
+                <ol className="plants">
+                    {
+                        this.renderPlants()
+                    }
+                </ol>
                 <button onClick={ this.createPlant.bind( this ) }>Create Plant</button>
                 <button onClick={ this.logout.bind( this ) }>Logout</button>
             </div>
         );
     };
 
+    renderPlants(){
+        var plants = this.state.plants;
+
+        return plants.map(
+            ( plant, i ) => (
+                <li key={i} onClick={this.clickPlant.bind( this, plant._id )}>
+                    <p>plantType: {plant.planttype.name}</p>
+                    <p>sunType: {plant.containerType}</p>
+                    <p>containerType: {plant.containerType}</p>
+                </li>
+            )
+        );
+    };
+
+    clickPlant( plantId ){
+        console.log( "plantId", plantId );
+        this.props.history.push( `/plant/${plantId}` );
+    };
+
     createPlant(){
-        this.props.history.push( "/createPlant" );
+        this.props.history.push( {
+            "pathname": "/createPlant",
+            "state": {
+                "username": this.state.username
+            }
+        } );
     };
 
     logout(){
         localStorage.removeItem( "jwt" )
+
+        this.props.history.push( "/" );
     };
 
-    fetchUser(){
+    fetchPlants(){
         axios( {
             "method": "GET",
-            "url": `/api/user/${this.state.username}`,
+            "url": `/api/${this.state.username}/plants`,
             "data": {
                 "username": this.state.username
             },
@@ -53,7 +89,10 @@ class UserHome extends React.Component{
         } )
         .then(
             ( response ) => {
-                console.log( "fetchUser:response", response );
+                console.log( "fetchPlants:response", response );
+                this.setState( {
+                    "plants": response.data
+                } );
             }
         )
         .catch(

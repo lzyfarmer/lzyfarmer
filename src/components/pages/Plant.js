@@ -7,35 +7,53 @@ class Plant extends React.Component{
         super( props );
 
         this.state = {
-            "plants": []
+            "plantId": this.props.location.pathname.replace( "/plant/", "" ),
+            "plant": {}
         }
     };
 
     componentDidMount(){
-        this.fetchUserPlants();
+        this.fetchPlant();
     };
 
     render(){
-        return (
-            <div className="container column">
-                <ul>
-                {
-                    this.state.plants.map(
-                        ( plant ) => {
-                            return <li>{ plant.name }</li>;
-                        }
-                    )
-                }
-                </ul>
-            </div>
-        );
+        if( this.state.plant.planttype ){
+            return (
+                <div className="container column">
+                    <h1>{this.state.plant.planttype.name}</h1>
+                    <p>{this.state.plant.containerType}</p>
+                </div>
+            );
+        }
+        else{
+            return (
+                <div className="container column"></div>
+            );
+        }
     };
 
-    fetchUserPlants(){
-        axios.get( "https://jsonplaceholder.typicode.com/users" ).then(
+    fetchPlant(){
+        axios.get( `/api/plant/${this.state.plantId}` ).then(
             ( response ) => {
+                console.log( "response", response );
                 this.setState( {
-                    "plants": response.data
+                    "plant": response.data
+                } );
+            }
+        );
+
+        axios( {
+            "method": "GET",
+            "url": `/api/plant/${this.state.plantId}`,
+            "headers": {
+                "authorization": localStorage.getItem( "jwt" )
+            }
+        } )
+        .then(
+            ( response ) => {
+                console.log( "response", response );
+                this.setState( {
+                    "plant": response.data
                 } );
             }
         );

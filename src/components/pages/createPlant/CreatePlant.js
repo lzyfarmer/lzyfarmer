@@ -90,13 +90,22 @@ class Plant extends React.Component{
 
     savePlant(){
         console.log( "savePlant:formValues", this.state.formValues );
-        // axios.get( "https://jsonplaceholder.typicode.com/users" ).then(
-        //     ( response ) => {
-        //         this.setState( {
-        //             "plants": response.data
-        //         } );
-        //     }
-        // );
+
+        axios( {
+            "method": "POST",
+            "url": `/api/plants/${this.props.location.state.username}`,
+            "data": {
+                "form": this.state.formValues
+            },
+            "headers": {
+                "authorization": localStorage.getItem( "jwt" )
+            }
+        } ).then(
+            ( response ) => {
+                console.log( "savePlant:response", response );
+                this.props.history.push( `/user/${response.data.username}` );
+            }
+        );
     };
 };
 

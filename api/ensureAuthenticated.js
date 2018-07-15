@@ -4,6 +4,8 @@ module.exports = function ensureAuth( request, response, next ){
     var token;
     var payload = null;
 
+    console.log( "request.headers", request.headers );
+
     // If no JWT request headers, throw error
     if( !request.headers["authorization"] ){
         return response.status( 401 ).send( {

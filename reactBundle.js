@@ -26475,7 +26475,8 @@ var Plant = function (_React$Component) {
         var _this = _possibleConstructorReturn(this, (Plant.__proto__ || Object.getPrototypeOf(Plant)).call(this, props));
 
         _this.state = {
-            "plants": []
+            "plantId": _this.props.location.pathname.replace("/plant/", ""),
+            "plant": {}
         };
         return _this;
     }
@@ -26483,35 +26484,52 @@ var Plant = function (_React$Component) {
     _createClass(Plant, [{
         key: "componentDidMount",
         value: function componentDidMount() {
-            this.fetchUserPlants();
+            this.fetchPlant();
         }
     }, {
         key: "render",
         value: function render() {
-            return _react2.default.createElement(
-                "div",
-                { className: "container column" },
-                _react2.default.createElement(
-                    "ul",
-                    null,
-                    this.state.plants.map(function (plant) {
-                        return _react2.default.createElement(
-                            "li",
-                            null,
-                            plant.name
-                        );
-                    })
-                )
-            );
+            if (this.state.plant.planttype) {
+                return _react2.default.createElement(
+                    "div",
+                    { className: "container column" },
+                    _react2.default.createElement(
+                        "h1",
+                        null,
+                        this.state.plant.planttype.name
+                    ),
+                    _react2.default.createElement(
+                        "p",
+                        null,
+                        this.state.plant.containerType
+                    )
+                );
+            } else {
+                return _react2.default.createElement("div", { className: "container column" });
+            }
         }
     }, {
-        key: "fetchUserPlants",
-        value: function fetchUserPlants() {
+        key: "fetchPlant",
+        value: function fetchPlant() {
             var _this2 = this;
 
-            _axios2.default.get("https://jsonplaceholder.typicode.com/users").then(function (response) {
+            _axios2.default.get("/api/plant/" + this.state.plantId).then(function (response) {
+                console.log("response", response);
                 _this2.setState({
-                    "plants": response.data
+                    "plant": response.data
+                });
+            });
+
+            (0, _axios2.default)({
+                "method": "GET",
+                "url": "/api/plant/" + this.state.plantId,
+                "headers": {
+                    "authorization": localStorage.getItem("jwt")
+                }
+            }).then(function (response) {
+                console.log("response", response);
+                _this2.setState({
+                    "plant": response.data
                 });
             });
         }
@@ -26635,7 +26653,8 @@ var UserHome = function (_React$Component) {
 
         _this.state = {
             "username": _this.props.location.pathname.replace("/user/", ""),
-            "user": {}
+            "user": {},
+            "plants": []
         };
         return _this;
     }
@@ -26644,6 +26663,11 @@ var UserHome = function (_React$Component) {
         key: "componentWillMount",
         value: function componentWillMount() {
             (0, _requireAuth2.default)(this.props);
+        }
+    }, {
+        key: "componentDidMount",
+        value: function componentDidMount() {
+            this.fetchPlants();
         }
     }, {
         key: "render",
@@ -26659,6 +26683,11 @@ var UserHome = function (_React$Component) {
                     "!"
                 ),
                 _react2.default.createElement(
+                    "ol",
+                    { className: "plants" },
+                    this.renderPlants()
+                ),
+                _react2.default.createElement(
                     "button",
                     { onClick: this.createPlant.bind(this) },
                     "Create Plant"
@@ -26671,23 +26700,68 @@ var UserHome = function (_React$Component) {
             );
         }
     }, {
+        key: "renderPlants",
+        value: function renderPlants() {
+            var _this2 = this;
+
+            var plants = this.state.plants;
+
+            return plants.map(function (plant, i) {
+                return _react2.default.createElement(
+                    "li",
+                    { key: i, onClick: _this2.clickPlant.bind(_this2, plant._id) },
+                    _react2.default.createElement(
+                        "p",
+                        null,
+                        "plantType: ",
+                        plant.planttype.name
+                    ),
+                    _react2.default.createElement(
+                        "p",
+                        null,
+                        "sunType: ",
+                        plant.containerType
+                    ),
+                    _react2.default.createElement(
+                        "p",
+                        null,
+                        "containerType: ",
+                        plant.containerType
+                    )
+                );
+            });
+        }
+    }, {
+        key: "clickPlant",
+        value: function clickPlant(plantId) {
+            console.log("plantId", plantId);
+            this.props.history.push("/plant/" + plantId);
+        }
+    }, {
         key: "createPlant",
         value: function createPlant() {
-            this.props.history.push("/createPlant");
+            this.props.history.push({
+                "pathname": "/createPlant",
+                "state": {
+                    "username": this.state.username
+                }
+            });
         }
     }, {
         key: "logout",
         value: function logout() {
             localStorage.removeItem("jwt");
+
+            this.props.history.push("/");
         }
     }, {
-        key: "fetchUser",
-        value: function fetchUser() {
-            var _this2 = this;
+        key: "fetchPlants",
+        value: function fetchPlants() {
+            var _this3 = this;
 
             (0, _axios2.default)({
                 "method": "GET",
-                "url": "/api/user/" + this.state.username,
+                "url": "/api/" + this.state.username + "/plants",
                 "data": {
                     "username": this.state.username
                 },
@@ -26695,9 +26769,12 @@ var UserHome = function (_React$Component) {
                     "authorization": localStorage.getItem("jwt")
                 }
             }).then(function (response) {
-                console.log("fetchUser:response", response);
+                console.log("fetchPlants:response", response);
+                _this3.setState({
+                    "plants": response.data
+                });
             }).catch(function (error) {
-                (0, _handleApiError2.default)(error, _this2.props);
+                (0, _handleApiError2.default)(error, _this3.props);
             });
         }
     }]);
@@ -26897,14 +26974,23 @@ var Plant = function (_React$Component) {
     }, {
         key: "savePlant",
         value: function savePlant() {
+            var _this2 = this;
+
             console.log("savePlant:formValues", this.state.formValues);
-            // axios.get( "https://jsonplaceholder.typicode.com/users" ).then(
-            //     ( response ) => {
-            //         this.setState( {
-            //             "plants": response.data
-            //         } );
-            //     }
-            // );
+
+            (0, _axios2.default)({
+                "method": "POST",
+                "url": "/api/plants/" + this.props.location.state.username,
+                "data": {
+                    "form": this.state.formValues
+                },
+                "headers": {
+                    "authorization": localStorage.getItem("jwt")
+                }
+            }).then(function (response) {
+                console.log("savePlant:response", response);
+                _this2.props.history.push("/user/" + response.data.username);
+            });
         }
     }]);
 
@@ -27020,22 +27106,22 @@ var PlantType = function (_React$Component) {
                     { value: this.state.value, onChange: this.updateValue.bind(this) },
                     _react2.default.createElement(
                         "option",
-                        { value: "1" },
+                        { value: "tomato" },
                         "Tomato"
                     ),
                     _react2.default.createElement(
                         "option",
-                        { value: "2" },
+                        { value: "basil" },
                         "Basil"
                     ),
                     _react2.default.createElement(
                         "option",
-                        { value: "3" },
+                        { value: "lettuce" },
                         "Lettuce"
                     ),
                     _react2.default.createElement(
                         "option",
-                        { value: "4" },
+                        { value: "mint" },
                         "Mint"
                     )
                 ),
@@ -27054,6 +27140,7 @@ var PlantType = function (_React$Component) {
     }, {
         key: "updateValue",
         value: function updateValue(event) {
+            console.log("event.target.value", event.target.value);
             this.props.updateFormValues({
                 "plantType": event.target.value
             });
@@ -27440,7 +27527,7 @@ exports = module.exports = __webpack_require__(114)(false);
 
 
 // module
-exports.push([module.i, "html,\nbody,\ndiv,\nspan,\napplet,\nobject,\niframe,\nh1,\nh2,\nh3,\nh4,\nh5,\nh6,\np,\nblockquote,\npre,\na,\nabbr,\nacronym,\naddress,\nbig,\ncite,\ncode,\ndel,\ndfn,\nem,\nimg,\nins,\nkbd,\nq,\ns,\nsamp,\nsmall,\nstrike,\nstrong,\nsub,\nsup,\ntt,\nvar,\nb,\nu,\ni,\ncenter,\ndl,\ndt,\ndd,\nol,\nul,\nli,\nfieldset,\nform,\nlabel,\nlegend,\ntable,\ncaption,\ntbody,\ntfoot,\nthead,\ntr,\nth,\ntd,\narticle,\naside,\ncanvas,\ndetails,\nembed,\nfigure,\nfigcaption,\nfooter,\nheader,\nhgroup,\nmenu,\nnav,\noutput,\nruby,\nsection,\nsummary,\ntime,\nmark,\naudio,\nvideo {\n  margin: 0;\n  padding: 0;\n  border: 0; }\n\nol,\nul,\nmenu {\n  list-style: none; }\n\n*,\n*:before,\n*:after {\n  box-sizing: inherit;\n  font-size: inherit; }\n\n.container {\n  max-width: 350px;\n  margin: 0 auto;\n  border: 1px solid black;\n  display: flex;\n  position: relative; }\n  .container.column {\n    flex-direction: column; }\n  .container.row {\n    flex-direction: row; }\n", ""]);
+exports.push([module.i, "html,\nbody,\ndiv,\nspan,\napplet,\nobject,\niframe,\nh1,\nh2,\nh3,\nh4,\nh5,\nh6,\np,\nblockquote,\npre,\na,\nabbr,\nacronym,\naddress,\nbig,\ncite,\ncode,\ndel,\ndfn,\nem,\nimg,\nins,\nkbd,\nq,\ns,\nsamp,\nsmall,\nstrike,\nstrong,\nsub,\nsup,\ntt,\nvar,\nb,\nu,\ni,\ncenter,\ndl,\ndt,\ndd,\nol,\nul,\nli,\nfieldset,\nform,\nlabel,\nlegend,\ntable,\ncaption,\ntbody,\ntfoot,\nthead,\ntr,\nth,\ntd,\narticle,\naside,\ncanvas,\ndetails,\nembed,\nfigure,\nfigcaption,\nfooter,\nheader,\nhgroup,\nmenu,\nnav,\noutput,\nruby,\nsection,\nsummary,\ntime,\nmark,\naudio,\nvideo {\n  margin: 0;\n  padding: 0;\n  border: 0; }\n\nol,\nul,\nmenu {\n  list-style: none; }\n\n*,\n*:before,\n*:after {\n  box-sizing: inherit;\n  font-size: inherit; }\n\n.container {\n  max-width: 350px;\n  margin: 0 auto;\n  border: 1px solid black;\n  display: flex;\n  position: relative; }\n  .container.column {\n    flex-direction: column; }\n  .container.row {\n    flex-direction: row; }\n\n.plants {\n  padding: 20px 0; }\n  .plants li {\n    padding: 10px 0; }\n", ""]);
 
 // exports
 

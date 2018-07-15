@@ -1,6 +1,7 @@
 var express = require( "express" );
 var path = require( "path" );
 var cors = require( "cors" );
+var mongoose = require( "mongoose" );
 var bodyParser = require( "body-parser" );
 var MongoClient  = require( "mongodb" ).MongoClient;
 var app = express();
@@ -23,27 +24,28 @@ if( app.get( "env" ) === "production" ){
     } );
 }
 
-MongoClient.connect( process.env.MONGODB_URI, function mongoConnect( error, database ){
-    if( error ){
-        // Use fail.html
-        app.get( "*", function getAll( request, response ){
-            response.sendFile( path.resolve( "./fail.html" ) );
-        } );
+mongoose.connect( process.env.MONGODB_URI, { "useMongoClient": true } );
 
-        console.log( "DATABASE ERROR", error );
-    }
-    else{
-        db = database.db( process.env.DB_NAME );
+db = mongoose.connection;
 
-        router( app, db );
+db.on( "error", function dbError( error ){
+    // Use fail.html
+    app.get( "*", function getAll( request, response ){
+        response.sendFile( path.resolve( "./fail.html" ) );
+    } );
 
-        // Use index.html
-        app.get( "*", function getAll( request, response ){
-            response.sendFile( path.resolve( "./index.html" ) );
-        } );
+    console.log( "DATABASE ERROR", error );
+} );
 
-        app.listen( port );
+db.once( "open", function dbSuccess(){
+    router( app );
 
-        console.log( "listening to port:", port );
-    }
+    // Use index.html
+    app.get( "*", function getAll( request, response ){
+        response.sendFile( path.resolve( "./index.html" ) );
+    } );
+
+    app.listen( port );
+
+    console.log( "listening to port:", port );
 } );
