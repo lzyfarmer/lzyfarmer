@@ -16,42 +16,48 @@ class Plant extends React.Component{
         this.state = {
             "step": 1,
             "formValues": {
-                "plantType": "",
-                "containerType": "",
-                "sunType": ""
+                "plantType": "tomato",
+                "containerType": "1",
+                "sunType": "1"
             }
         }
     };
 
     render(){
+        return (
+            <div className="container column">
+                {
+                    this.renderPage()
+                }
+                {
+                    this.renderButtons()
+                }
+            </div>
+        );
+    };
+
+    renderPage(){
         switch( this.state.step ){
             case 1:
                 return <Upsell
-                    nextStep={ this.nextStep.bind( this ) }
                     handleNavigate={ this.handleNavigate.bind( this ) }
                 />;
 
             case 2:
                 return <PlantType
                     formValues={ this.state.formValues }
-                    nextStep={ this.nextStep.bind( this ) }
-                    previousStep={ this.previousStep.bind( this ) }
                     updateFormValues={ this.updateFormValues.bind( this ) }
                 />;
 
             case 3:
                 return <ContainerType
                     formValues={ this.state.formValues }
-                    nextStep={ this.nextStep.bind( this ) }
-                    previousStep={ this.previousStep.bind( this ) }
                     updateFormValues={ this.updateFormValues.bind( this ) }
                 />;
 
             case 4:
                 return <SunType
                     formValues={ this.state.formValues }
-                    nextStep={ this.nextStep.bind( this ) }
-                    previousStep={ this.previousStep.bind( this ) }
                     updateFormValues={ this.updateFormValues.bind( this ) }
                 />;
 
@@ -59,8 +65,35 @@ class Plant extends React.Component{
                 return <Confirmation
                     formValues={ this.state.formValues }
                     savePlant={ this.savePlant.bind( this ) }
-                    previousStep={ this.previousStep.bind( this ) }
                 />;
+        }
+    };
+
+    renderButtons(){
+        if( this.state.step == 1 ){
+            return (
+                <div>
+                    <button onClick={ this.nextStep.bind( this ) }>Next</button>
+                    <button>Cancel</button>
+                </div>
+            );
+        }
+        if( this.state.step == 5 ){
+            return (
+                <div>
+                    <button onClick={ this.previousStep.bind( this ) }>Previous</button>
+                    <button>Cancel</button>
+                </div>
+            );
+        }
+        else{
+            return (
+                <div>
+                    <button onClick={ this.previousStep.bind( this ) }>Previous</button>
+                    <button onClick={ this.nextStep.bind( this ) }>Next</button>
+                    <button>Cancel</button>
+                </div>
+            );
         }
     };
 
@@ -89,8 +122,6 @@ class Plant extends React.Component{
     };
 
     savePlant(){
-        console.log( "savePlant:formValues", this.state.formValues );
-
         axios( {
             "method": "POST",
             "url": `/api/plants/${this.props.location.state.username}`,
@@ -98,11 +129,11 @@ class Plant extends React.Component{
                 "form": this.state.formValues
             },
             "headers": {
-                "authorization": localStorage.getItem( "jwt" )
+                "authorization": sessionStorage.getItem( "jwt" )
             }
-        } ).then(
+        } )
+        .then(
             ( response ) => {
-                console.log( "savePlant:response", response );
                 this.props.history.push( `/user/${response.data.username}` );
             }
         );

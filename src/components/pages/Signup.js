@@ -71,12 +71,12 @@ class Signup extends React.Component{
         )
         .then(
             ( response ) => {
-                localStorage.setItem( "jwt", response.data.token );
+                sessionStorage.setItem( "jwt", response.data.token );
 
                 this.props.history.push( `/user/${response.data.user.username}` );
             }
-        ).
-        catch(
+        )
+        .catch(
             ( error ) => {
                 if( error.response.status == 409 ){
                     this.setState( {

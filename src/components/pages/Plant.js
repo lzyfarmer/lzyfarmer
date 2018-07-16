@@ -2,6 +2,9 @@
 import React from "react";
 import axios from "axios";
 
+// Helpers
+import handleApiError from "helpers/handleApiError.js";
+
 class Plant extends React.Component{
     constructor( props ){
         super( props );
@@ -20,8 +23,9 @@ class Plant extends React.Component{
         if( this.state.plant.planttype ){
             return (
                 <div className="container column">
-                    <h1>{this.state.plant.planttype.name}</h1>
-                    <p>{this.state.plant.containerType}</p>
+                    <h1>plantType: {this.state.plant.planttype.name}</h1>
+                    <p>containerType: {this.state.plant.containerType}</p>
+                    <p>sunType: {this.state.plant.sunType}</p>
                 </div>
             );
         }
@@ -33,28 +37,23 @@ class Plant extends React.Component{
     };
 
     fetchPlant(){
-        axios.get( `/api/plant/${this.state.plantId}` ).then(
-            ( response ) => {
-                console.log( "response", response );
-                this.setState( {
-                    "plant": response.data
-                } );
-            }
-        );
-
         axios( {
             "method": "GET",
             "url": `/api/plant/${this.state.plantId}`,
             "headers": {
-                "authorization": localStorage.getItem( "jwt" )
+                "authorization": sessionStorage.getItem( "jwt" )
             }
         } )
         .then(
             ( response ) => {
-                console.log( "response", response );
                 this.setState( {
                     "plant": response.data
                 } );
+            }
+        )
+        .catch(
+            ( error ) => {
+                handleApiError( error, this.props );
             }
         );
     };

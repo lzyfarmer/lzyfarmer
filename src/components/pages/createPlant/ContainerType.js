@@ -12,15 +12,13 @@ class ContainerType extends React.Component{
 
     render(){
         return(
-            <div className="container column">
+            <div>
                 <h1>Container Type</h1>
                 <form>
                     <label><input type="radio" value="1" checked={ this.state.value === "1" } onChange={ this.updateValue.bind( this ) }/>Small Container</label>
                     <label><input type="radio" value="2" checked={ this.state.value === "2" } onChange={ this.updateValue.bind( this ) }/>Large Container</label>
                     <label><input type="radio" value="3" checked={ this.state.value === "3" } onChange={ this.updateValue.bind( this ) }/>In the Ground</label>
                 </form>
-                <button onClick={this.props.previousStep}>Previous</button>
-                <button onClick={this.props.nextStep}>Next</button>
             </div>
         );
     };

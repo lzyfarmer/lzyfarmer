@@ -76,13 +76,17 @@ module.exports = function( app ){
                           },
                           process.env.TOKEN_SECRET
                       );
-                  }
 
-                  console.log( "findUser", user );
-                  res.send( {
-                      "user": user,
-                      "token": token
-                  } );
+                      res.send( {
+                          "user": user,
+                          "token": token
+                      } );
+                  }
+                  else{
+                      res.status( 401 ).send( {
+                          "error": "BAD PASSWORD"
+                      } );
+                  }
               }
               else{
                   res.status( 401 ).send( {
@@ -109,8 +113,6 @@ module.exports = function( app ){
       // See if the token can be decoded as a JWT
       try{
           payload = jwt.decode( token, process.env.TOKEN_SECRET );
-
-          console.log( "payload", payload );
       }
       catch( error ){
           return response.status( 401 ).send( {

@@ -88,14 +88,11 @@ module.exports = function( app ){
   } );
 
   app.post( "/api/plants/:username", ensureAuthenticated, function newPlant( req, res ){
-      console.log( "req.body", req.body );
       PlantTypeModel.findOne(
           {
               "name": req.body.form.plantType
           },
           function findPlantType( error, plantType ){
-              console.log( "error", error );
-              console.log( "plantType", plantType );
               if( error ){
                   res.status( 401 ).send();
               }

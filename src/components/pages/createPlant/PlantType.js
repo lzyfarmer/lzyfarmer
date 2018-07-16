@@ -12,7 +12,7 @@ class PlantType extends React.Component{
 
     render(){
         return(
-            <div className="container column">
+            <div>
                 <h1>Plant Type</h1>
                 <select value={this.state.value} onChange={ this.updateValue.bind( this ) }>
                     <option value="tomato">Tomato</option>
@@ -20,8 +20,6 @@ class PlantType extends React.Component{
                     <option value="lettuce">Lettuce</option>
                     <option value="mint">Mint</option>
                 </select>
-                <button onClick={this.props.previousStep}>Previous</button>
-                <button onClick={this.props.nextStep}>Next</button>
             </div>
         );
     };

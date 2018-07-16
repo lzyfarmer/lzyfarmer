@@ -7,7 +7,7 @@ module.exports = function requireAuth( props ){
         "method": "GET",
         "url": `/api/checkAuth`,
         "headers": {
-            "authorization": localStorage.getItem( "jwt" )
+            "authorization": sessionStorage.getItem( "jwt" )
         }
     } )
     .catch(

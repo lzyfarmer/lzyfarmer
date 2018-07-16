@@ -31,7 +31,7 @@ class UserHome extends React.Component{
         return (
             <div className="container column">
                 <h1>Welcome, { this.state.username }!</h1>
-                <ol className="plants">
+                <ol>
                     {
                         this.renderPlants()
                     }
@@ -50,14 +50,13 @@ class UserHome extends React.Component{
                 <li key={i} onClick={this.clickPlant.bind( this, plant._id )}>
                     <p>plantType: {plant.planttype.name}</p>
                     <p>sunType: {plant.containerType}</p>
-                    <p>containerType: {plant.containerType}</p>
+                    <p>containerType: {plant.sunType}</p>
                 </li>
             )
         );
     };
 
     clickPlant( plantId ){
-        console.log( "plantId", plantId );
         this.props.history.push( `/plant/${plantId}` );
     };
 
@@ -71,7 +70,7 @@ class UserHome extends React.Component{
     };
 
     logout(){
-        localStorage.removeItem( "jwt" )
+        sessionStorage.removeItem( "jwt" )
 
         this.props.history.push( "/" );
     };
@@ -84,12 +83,11 @@ class UserHome extends React.Component{
                 "username": this.state.username
             },
             "headers": {
-                "authorization": localStorage.getItem( "jwt" )
+                "authorization": sessionStorage.getItem( "jwt" )
             }
         } )
         .then(
             ( response ) => {
-                console.log( "fetchPlants:response", response );
                 this.setState( {
                     "plants": response.data
                 } );

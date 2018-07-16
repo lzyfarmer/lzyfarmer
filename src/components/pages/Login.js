@@ -50,13 +50,13 @@ class Login extends React.Component{
         )
         .then(
             ( response ) => {
-                localStorage.setItem( "jwt", response.data.token );
+                sessionStorage.setItem( "jwt", response.data.token );
 
                 this.props.history.push( `/user/${response.data.user.username}` );
             }
         )
         .catch(
-            ( error, response ) => {
+            ( error ) => {
                 this.setState( {
                     "loginError": true
                 } );

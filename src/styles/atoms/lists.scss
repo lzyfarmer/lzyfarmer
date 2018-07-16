@@ -1,0 +1,15 @@
+ol{
+    padding: 10px;
+
+    li{
+        cursor: pointer;
+
+        &:not(:last-child){
+            margin-bottom: 10px;
+        }
+
+        &:hover{
+            background-color: #E0E0E0;
+        }
+    }
+}
