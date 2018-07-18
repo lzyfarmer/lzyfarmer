@@ -10,6 +10,7 @@ module.exports = {
     "resolve": {
         "alias": {
             "helpers": "helpers",
+            "components": "components",
         },
         "modules": [ "src", "node_modules" ],
         "extensions": [ ".js" ]

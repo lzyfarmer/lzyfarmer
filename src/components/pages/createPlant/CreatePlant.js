@@ -74,7 +74,6 @@ class Plant extends React.Component{
             return (
                 <div>
                     <button onClick={ this.nextStep.bind( this ) }>Next</button>
-                    <button>Cancel</button>
                 </div>
             );
         }
@@ -82,7 +81,7 @@ class Plant extends React.Component{
             return (
                 <div>
                     <button onClick={ this.previousStep.bind( this ) }>Previous</button>
-                    <button>Cancel</button>
+                    <button onClick={ this.savePlant.bind( this ) }>Save Plant</button>
                 </div>
             );
         }
@@ -91,7 +90,6 @@ class Plant extends React.Component{
                 <div>
                     <button onClick={ this.previousStep.bind( this ) }>Previous</button>
                     <button onClick={ this.nextStep.bind( this ) }>Next</button>
-                    <button>Cancel</button>
                 </div>
             );
         }

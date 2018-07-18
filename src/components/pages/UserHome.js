@@ -4,8 +4,6 @@ import axios from "axios";
 
 // Helpers
 import requireAuth from "helpers/requireAuth.js";
-
-// Helpers
 import handleApiError from "helpers/handleApiError.js";
 
 class UserHome extends React.Component{
@@ -31,13 +29,12 @@ class UserHome extends React.Component{
         return (
             <div className="container column">
                 <h1>Welcome, { this.state.username }!</h1>
+                <button onClick={ this.createPlant.bind( this ) }>Create Plant</button>
                 <ol>
                     {
                         this.renderPlants()
                     }
                 </ol>
-                <button onClick={ this.createPlant.bind( this ) }>Create Plant</button>
-                <button onClick={ this.logout.bind( this ) }>Logout</button>
             </div>
         );
     };

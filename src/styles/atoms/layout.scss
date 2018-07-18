@@ -1,12 +1,12 @@
 body{
     max-width: 350px;
     margin: 0 auto;
+    border: 1px solid black;
+    position: relative;
 }
 
 .container{
-    border: 1px solid black;
     display: flex;
-    position: relative;
     box-sizing: border-box;
 
     &.column{

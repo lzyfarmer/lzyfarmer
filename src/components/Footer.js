@@ -1,5 +1,6 @@
 // Libraries
 import React from "react";
+import { withRouter } from "react-router";
 
 class Footer extends React.Component{
     constructor( props ){
@@ -9,14 +10,25 @@ class Footer extends React.Component{
     };
 
     render(){
-        console.log( "FOOTER props.location", this.props.location );
-
         return(
-            <div>
-                FOOTER
+            <div className="footer container row">
+                <button>Home</button>
+                <button onClick={ this.handleNavigate.bind( this, "/explore" ) }>Explore</button>
+                <button onClick={ this.handleNavigate.bind( this, "/store" ) }>Store</button>
+                <button onClick={ this.clickLogout.bind( this ) }>Logout</button>
             </div>
         );
     };
+
+    handleNavigate( route ){
+        this.props.history.push( route );
+    };
+
+    clickLogout(){
+        sessionStorage.removeItem( "jwt" )
+
+        this.props.history.push( "/" );
+    };
 };
 
-export default Footer;
+export default withRouter( Footer );
