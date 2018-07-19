@@ -8,6 +8,7 @@ var plantSchema = new Schema( {
     "health": Number,
     "lastWaterDate": Date,
     "nextWaterDate": Date,
+    "lastHarvestDate": Date,
     "nextHarvestDate": Date,
     "planttype": { "type" : Schema.Types.ObjectId, "ref": "planttype" },
     "daysOld": Number,

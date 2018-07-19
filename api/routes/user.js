@@ -93,6 +93,7 @@ module.exports = function( app ){
               "name": req.body.form.plantType
           },
           function findPlantType( error, plantType ){
+              console.log( "plantType", plantType );
               if( error ){
                   res.status( 401 ).send();
               }
@@ -102,8 +103,9 @@ module.exports = function( app ){
                       "sunType": req.body.form.sunType,
                       "health": 0,
                       "lastWaterDate": Date.now(),
-                      "nextWaterDate": Date.now() + 60000,
-                      "nextHarvestDate": Date.now() + 60000,
+                      "nextWaterDate": Date.now() + plantType.waterRate,
+                      "lastHarvestDate": Date.now(),
+                      "nextHarvestDate": Date.now() + plantType.harvestRate,
                       "daysOld": 0,
                       "datePlanted": Date.now(),
                       "planttype": plantType._id
@@ -153,5 +155,87 @@ module.exports = function( app ){
               }
           }
       )
+  } );
+
+  app.post( "/api/waterPlant/:id", ensureAuthenticated, function waterPlant( req, res ){
+      PlantModel.findOne(
+          {
+              "_id": req.params.id
+          }
+      ).populate( {
+          "path": "planttype"
+      } ).exec(
+          function foundPlantToWater( error, foundPlant ){
+              if( error ){
+                  res.status( 401 ).send( {
+                      "text": "ERROR FINDING PLANT",
+                      "error": error
+                  } );
+              }
+              else if( foundPlant ){
+                  foundPlant.set( {
+                      "lastWaterDate": Date.now(),
+                      "nextWaterDate": Date.now() + foundPlant.planttype.waterRate
+                  } );
+
+                  foundPlant.save(
+                      function saveUser( error, savedPlant ){
+                          if( error ){
+                              res.status( 401 ).send();
+                          }
+                          else{
+                              res.send( savedPlant );
+                          }
+                      }
+                  );
+              }
+              else{
+                  res.status( 401 ).send( {
+                      "error": "PLANT NOT FOUND"
+                  } );
+              }
+          }
+      );
+  } );
+
+  app.post( "/api/harvestPlant/:id", ensureAuthenticated, function harvestPlant( req, res ){
+      PlantModel.findOne(
+          {
+              "_id": req.params.id
+          }
+      ).populate( {
+          "path": "planttype"
+      } ).exec(
+          function foundPlantToHarvest( error, foundPlant ){
+              if( error ){
+                  res.status( 401 ).send( {
+                      "text": "ERROR FINDING PLANT",
+                      "error": error
+                  } );
+              }
+              else if( foundPlant ){
+                  foundPlant.set( {
+                      "lastHarvestDate": Date.now(),
+                      "nextHarvestDate": Date.now() + foundPlant.planttype.harvestRate
+                  } );
+
+                  foundPlant.save(
+                      function saveUser( error, savedPlant ){
+                          if( error ){
+                              res.status( 401 ).send();
+                          }
+                          else{
+                              res.send( savedPlant );
+                          }
+                      }
+                  );
+              }
+              else{
+                  res.status( 401 ).send( {
+                      "error": "PLANT NOT FOUND"
+                  } );
+              }
+          }
+      );
   } );
 }
