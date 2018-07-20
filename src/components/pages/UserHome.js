@@ -43,18 +43,32 @@ class UserHome extends React.Component{
         var plants = this.state.plants;
 
         return plants.map(
-            ( plant, i ) => (
-                <li key={i} onClick={this.clickPlant.bind( this, plant._id )}>
-                    <p>plantType: {plant.planttype.name}</p>
-                    <p>sunType: {plant.containerType}</p>
-                    <p>containerType: {plant.sunType}</p>
-                </li>
-            )
+            ( plant, i ) => {
+                var nextWaterDate = new Date( plant.nextWaterDate );
+                var nextHarvestDate = new Date( plant.nextHarvestDate );
+                var now = new Date();
+                var canWater = nextWaterDate <= now;
+                var canHarvest = nextHarvestDate <= now;
+                var alertClass = canWater || canHarvest ? "alert" : "";
+
+                return (
+                    <li key={i} className={ alertClass } onClick={this.clickPlant.bind( this, plant._id )}>
+                        <p>plantType: {plant.planttype.name}</p>
+                        <p>sunType: {plant.containerType}</p>
+                        <p>containerType: {plant.sunType}</p>
+                    </li>
+                );
+            }
         );
     };
 
     clickPlant( plantId ){
-        this.props.history.push( `/plant/${plantId}` );
+        this.props.history.push( {
+            "pathname": `/plant/${plantId}`,
+            "state": {
+                "username": this.state.username
+            }
+        } );
     };
 
     createPlant(){

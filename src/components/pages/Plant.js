@@ -28,18 +28,25 @@ class Plant extends React.Component{
     };
 
     render(){
+        var nextWaterDate = new Date( this.state.plant.nextWaterDate );
+        var nextHarvestDate = new Date( this.state.plant.nextHarvestDate );
+        var now = new Date();
+        var canWater = nextWaterDate <= now;
+        var canHarvest = nextHarvestDate <= now;
+
         if( this.state.plant.planttype ){
             return (
                 <div className="container column">
                     <h1>plantType: {this.state.plant.planttype.name}</h1>
                     <p>containerType: {this.state.plant.containerType}</p>
                     <p>sunType: {this.state.plant.sunType}</p>
-                    <p>lastWaterDate: {this.state.plant.lastWaterDate}</p>
-                    <p>nextWaterDate: {this.state.plant.nextWaterDate}</p>
-                    <p>lastHarvestDate: {this.state.plant.lastHarvestDate}</p>
-                    <p>nextHarvestDate: {this.state.plant.nextHarvestDate}</p>
-                    <button onClick={ this.handlePost.bind( this, "water" ) } disabled={true}>Water Plant</button>
-                    <button onClick={ this.handlePost.bind( this, "harvest" ) } disabled={true}>Harvest Plant</button>
+                    <p>lastWaterDate: {moment(this.state.plant.lastWaterDate).format( "MM/DD/YYYY HH:mm:ss" )}</p>
+                    <p>nextWaterDate: {moment(this.state.plant.nextWaterDate).format( "MM/DD/YYYY HH:mm:ss" )}</p>
+                    <p>lastHarvestDate: {moment(this.state.plant.lastHarvestDate).format( "MM/DD/YYYY HH:mm:ss" )}</p>
+                    <p>nextHarvestDate: {moment(this.state.plant.nextHarvestDate).format( "MM/DD/YYYY HH:mm:ss" )}</p>
+                    <button onClick={ this.handlePost.bind( this, "water" ) } disabled={!canWater}>Water Plant</button>
+                    <button onClick={ this.handlePost.bind( this, "harvest" ) } disabled={!canHarvest}>Harvest Plant</button>
+                    <button onClick={ this.deletePlant.bind( this ) }>Delete Plant</button>
                 </div>
             );
         }
@@ -60,7 +67,6 @@ class Plant extends React.Component{
         } )
         .then(
             ( response ) => {
-                console.log( "fetchPlant:response.data", response.data );
                 this.setState( {
                     "plant": response.data
                 } );
@@ -71,28 +77,6 @@ class Plant extends React.Component{
                 handleApiError( error, this.props );
             }
         );
-    };
-
-    calculateDisabledWater(){
-        var next = new Date( this.state.plant.nextWaterDate );
-        var now = Date.now();
-        var bool = next >= now;
-
-        console.log( "cDW:bool", bool );
-        console.log( "cDW:next", next );
-        console.log( "cDW:now", now );
-        return bool;
-    };
-
-    calculateDisabledHarvest(){
-        var next = new Date( this.state.plant.nextHarvestDate );
-        var now = Date.now();
-        var bool = next >= now;
-
-        console.log( "cDH:bool", bool );
-        console.log( "cDH:next", next );
-        console.log( "cDH:now", now );
-        return bool;
     };
 
     handlePost( type ){
@@ -109,6 +93,21 @@ class Plant extends React.Component{
                 this.setState( {
                     "plant": response.data
                 } );
+            }
+        );
+    };
+
+    deletePlant(){
+        axios( {
+            "method": "POST",
+            "url": `/api/deletePlant/${this.state.plantId}`,
+            "headers": {
+                "authorization": sessionStorage.getItem( "jwt" )
+            }
+        } )
+        .then(
+            () => {
+                this.props.history.push( `/user/${this.props.location.state.username}` );
             }
         );
     }

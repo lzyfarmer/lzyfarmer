@@ -11,5 +11,9 @@ ol{
         &:hover{
             background-color: #E0E0E0;
         }
+
+        &.alert{
+            border: 2px solid red;
+        }
     }
 }

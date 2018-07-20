@@ -43086,6 +43086,12 @@ var Plant = function (_React$Component) {
     }, {
         key: "render",
         value: function render() {
+            var nextWaterDate = new Date(this.state.plant.nextWaterDate);
+            var nextHarvestDate = new Date(this.state.plant.nextHarvestDate);
+            var now = new Date();
+            var canWater = nextWaterDate <= now;
+            var canHarvest = nextHarvestDate <= now;
+
             if (this.state.plant.planttype) {
                 return _react2.default.createElement(
                     "div",
@@ -43112,35 +43118,40 @@ var Plant = function (_React$Component) {
                         "p",
                         null,
                         "lastWaterDate: ",
-                        this.state.plant.lastWaterDate
+                        (0, _moment2.default)(this.state.plant.lastWaterDate).format("MM/DD/YYYY HH:mm:ss")
                     ),
                     _react2.default.createElement(
                         "p",
                         null,
                         "nextWaterDate: ",
-                        this.state.plant.nextWaterDate
+                        (0, _moment2.default)(this.state.plant.nextWaterDate).format("MM/DD/YYYY HH:mm:ss")
                     ),
                     _react2.default.createElement(
                         "p",
                         null,
                         "lastHarvestDate: ",
-                        this.state.plant.lastHarvestDate
+                        (0, _moment2.default)(this.state.plant.lastHarvestDate).format("MM/DD/YYYY HH:mm:ss")
                     ),
                     _react2.default.createElement(
                         "p",
                         null,
                         "nextHarvestDate: ",
-                        this.state.plant.nextHarvestDate
+                        (0, _moment2.default)(this.state.plant.nextHarvestDate).format("MM/DD/YYYY HH:mm:ss")
                     ),
                     _react2.default.createElement(
                         "button",
-                        { onClick: this.handlePost.bind(this, "water"), disabled: true },
+                        { onClick: this.handlePost.bind(this, "water"), disabled: !canWater },
                         "Water Plant"
                     ),
                     _react2.default.createElement(
                         "button",
-                        { onClick: this.handlePost.bind(this, "harvest"), disabled: true },
+                        { onClick: this.handlePost.bind(this, "harvest"), disabled: !canHarvest },
                         "Harvest Plant"
+                    ),
+                    _react2.default.createElement(
+                        "button",
+                        { onClick: this.deletePlant.bind(this) },
+                        "Delete Plant"
                     )
                 );
             } else {
@@ -43159,37 +43170,12 @@ var Plant = function (_React$Component) {
                     "authorization": sessionStorage.getItem("jwt")
                 }
             }).then(function (response) {
-                console.log("fetchPlant:response.data", response.data);
                 _this2.setState({
                     "plant": response.data
                 });
             }).catch(function (error) {
                 (0, _handleApiError2.default)(error, _this2.props);
             });
-        }
-    }, {
-        key: "calculateDisabledWater",
-        value: function calculateDisabledWater() {
-            var next = new Date(this.state.plant.nextWaterDate);
-            var now = Date.now();
-            var bool = next >= now;
-
-            console.log("cDW:bool", bool);
-            console.log("cDW:next", next);
-            console.log("cDW:now", now);
-            return bool;
-        }
-    }, {
-        key: "calculateDisabledHarvest",
-        value: function calculateDisabledHarvest() {
-            var next = new Date(this.state.plant.nextHarvestDate);
-            var now = Date.now();
-            var bool = next >= now;
-
-            console.log("cDH:bool", bool);
-            console.log("cDH:next", next);
-            console.log("cDH:now", now);
-            return bool;
         }
     }, {
         key: "handlePost",
@@ -43207,6 +43193,21 @@ var Plant = function (_React$Component) {
                 _this3.setState({
                     "plant": response.data
                 });
+            });
+        }
+    }, {
+        key: "deletePlant",
+        value: function deletePlant() {
+            var _this4 = this;
+
+            (0, _axios2.default)({
+                "method": "POST",
+                "url": "/api/deletePlant/" + this.state.plantId,
+                "headers": {
+                    "authorization": sessionStorage.getItem("jwt")
+                }
+            }).then(function () {
+                _this4.props.history.push("/user/" + _this4.props.location.state.username);
             });
         }
     }]);
@@ -43671,9 +43672,16 @@ var UserHome = function (_React$Component) {
             var plants = this.state.plants;
 
             return plants.map(function (plant, i) {
+                var nextWaterDate = new Date(plant.nextWaterDate);
+                var nextHarvestDate = new Date(plant.nextHarvestDate);
+                var now = new Date();
+                var canWater = nextWaterDate <= now;
+                var canHarvest = nextHarvestDate <= now;
+                var alertClass = canWater || canHarvest ? "alert" : "";
+
                 return _react2.default.createElement(
                     "li",
-                    { key: i, onClick: _this2.clickPlant.bind(_this2, plant._id) },
+                    { key: i, className: alertClass, onClick: _this2.clickPlant.bind(_this2, plant._id) },
                     _react2.default.createElement(
                         "p",
                         null,
@@ -43698,7 +43706,12 @@ var UserHome = function (_React$Component) {
     }, {
         key: "clickPlant",
         value: function clickPlant(plantId) {
-            this.props.history.push("/plant/" + plantId);
+            this.props.history.push({
+                "pathname": "/plant/" + plantId,
+                "state": {
+                    "username": this.state.username
+                }
+            });
         }
     }, {
         key: "createPlant",
@@ -44470,7 +44483,7 @@ exports = module.exports = __webpack_require__(243)(false);
 
 
 // module
-exports.push([module.i, "html,\nbody,\ndiv,\nspan,\napplet,\nobject,\niframe,\nh1,\nh2,\nh3,\nh4,\nh5,\nh6,\np,\nblockquote,\npre,\na,\nabbr,\nacronym,\naddress,\nbig,\ncite,\ncode,\ndel,\ndfn,\nem,\nimg,\nins,\nkbd,\nq,\ns,\nsamp,\nsmall,\nstrike,\nstrong,\nsub,\nsup,\ntt,\nvar,\nb,\nu,\ni,\ncenter,\ndl,\ndt,\ndd,\nol,\nul,\nli,\nfieldset,\nform,\nlabel,\nlegend,\ntable,\ncaption,\ntbody,\ntfoot,\nthead,\ntr,\nth,\ntd,\narticle,\naside,\ncanvas,\ndetails,\nembed,\nfigure,\nfigcaption,\nfooter,\nheader,\nhgroup,\nmenu,\nnav,\noutput,\nruby,\nsection,\nsummary,\ntime,\nmark,\naudio,\nvideo {\n  margin: 0;\n  padding: 0;\n  border: 0; }\n\nol,\nul,\nmenu {\n  list-style: none; }\n\n*,\n*:before,\n*:after {\n  box-sizing: inherit;\n  font-size: inherit; }\n\nbody {\n  max-width: 350px;\n  margin: 0 auto;\n  border: 1px solid black;\n  position: relative; }\n\n.container {\n  display: flex;\n  box-sizing: border-box; }\n  .container.column {\n    flex-direction: column; }\n  .container.row {\n    flex-direction: row; }\n  .container button {\n    width: 100%;\n    margin-top: 10px; }\n\nol {\n  padding: 10px; }\n  ol li {\n    cursor: pointer; }\n    ol li:not(:last-child) {\n      margin-bottom: 10px; }\n    ol li:hover {\n      background-color: #E0E0E0; }\n\n.footer {\n  position: sticky;\n  bottom: 0;\n  justify-content: space-between; }\n  .footer button {\n    width: auto; }\n", ""]);
+exports.push([module.i, "html,\nbody,\ndiv,\nspan,\napplet,\nobject,\niframe,\nh1,\nh2,\nh3,\nh4,\nh5,\nh6,\np,\nblockquote,\npre,\na,\nabbr,\nacronym,\naddress,\nbig,\ncite,\ncode,\ndel,\ndfn,\nem,\nimg,\nins,\nkbd,\nq,\ns,\nsamp,\nsmall,\nstrike,\nstrong,\nsub,\nsup,\ntt,\nvar,\nb,\nu,\ni,\ncenter,\ndl,\ndt,\ndd,\nol,\nul,\nli,\nfieldset,\nform,\nlabel,\nlegend,\ntable,\ncaption,\ntbody,\ntfoot,\nthead,\ntr,\nth,\ntd,\narticle,\naside,\ncanvas,\ndetails,\nembed,\nfigure,\nfigcaption,\nfooter,\nheader,\nhgroup,\nmenu,\nnav,\noutput,\nruby,\nsection,\nsummary,\ntime,\nmark,\naudio,\nvideo {\n  margin: 0;\n  padding: 0;\n  border: 0; }\n\nol,\nul,\nmenu {\n  list-style: none; }\n\n*,\n*:before,\n*:after {\n  box-sizing: inherit;\n  font-size: inherit; }\n\nbody {\n  max-width: 350px;\n  margin: 0 auto;\n  border: 1px solid black;\n  position: relative; }\n\n.container {\n  display: flex;\n  box-sizing: border-box; }\n  .container.column {\n    flex-direction: column; }\n  .container.row {\n    flex-direction: row; }\n  .container button {\n    width: 100%;\n    margin-top: 10px; }\n\nol {\n  padding: 10px; }\n  ol li {\n    cursor: pointer; }\n    ol li:not(:last-child) {\n      margin-bottom: 10px; }\n    ol li:hover {\n      background-color: #E0E0E0; }\n    ol li.alert {\n      border: 2px solid red; }\n\n.footer {\n  position: sticky;\n  bottom: 0;\n  justify-content: space-between; }\n  .footer button {\n    width: auto; }\n", ""]);
 
 // exports
 

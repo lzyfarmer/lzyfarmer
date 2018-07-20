@@ -238,4 +238,23 @@ module.exports = function( app ){
           }
       );
   } );
+
+  app.post( "/api/deletePlant/:id", ensureAuthenticated, function deletePlant( req, res ){
+      PlantModel.deleteOne(
+          {
+              "_id": req.params.id
+          },
+          function foundPlantToDelete( error ){
+              if( error ){
+                  res.status( 401 ).send( {
+                      "text": "ERROR DELETING PLANT",
+                      "error": error
+                  } );
+              }
+              else{
+                  res.status( 200 ).send();
+              }
+          }
+      );
+  } );
 }
