@@ -1,13 +1,12 @@
 {
     "sun": {
-        "1": "Shade",
-        "2": "Partial Sun",
-        "3": "Full Sun"
+        "1": "Partial Sun",
+        "2": "Full Sun",
+        "3": "Artificial"
     },
 
-    "container": {
-        "1": "Small",
-        "2": "Large",
-        "3": "In Ground"
+    "growMedium": {
+        "1": "Soil",
+        "2": "Hydroponic"
     }
 }

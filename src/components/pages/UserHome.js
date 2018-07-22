@@ -15,7 +15,6 @@ class UserHome extends React.Component{
         super( props );
 
         this.state = {
-            "username": this.props.location.pathname.replace( "/user/", "" ),
             "user": {},
             "plants": []
         }
@@ -31,13 +30,11 @@ class UserHome extends React.Component{
 
     render(){
         return (
-            <div className="container">
-                <button onClick={ this.createPlant.bind( this ) }>Create Plant</button>
-                <ol>
-                    {
-                        this.renderPlants()
-                    }
-                </ol>
+            <div className="plants container">
+                {
+                    this.renderPlants()
+                }
+                <button className="light" onClick={ this.createPlant.bind( this ) }>Create Plant</button>
             </div>
         );
     };
@@ -45,27 +42,37 @@ class UserHome extends React.Component{
     renderPlants(){
         var plants = this.state.plants;
 
-        return plants.map(
-            ( plant, i ) => {
-                var nextWaterDate = new Date( plant.nextWaterDate );
-                var nextHarvestDate = new Date( plant.nextHarvestDate );
-                var now = new Date();
-                var canWater = nextWaterDate <= now;
-                var canHarvest = nextHarvestDate <= now;
-                var alert = canWater || canHarvest ? true : false;
+        if( plants.length ){
+            return (
+                <ol>
+                    {
+                        plants.map(
+                            ( plant, i ) => {
+                                var nextWaterDate = new Date( plant.nextWaterDate );
+                                var nextHarvestDate = new Date( plant.nextHarvestDate );
+                                var now = new Date();
+                                var canWater = nextWaterDate <= now;
+                                var canHarvest = nextHarvestDate <= now;
+                                var alert = canWater || canHarvest ? true : false;
 
-                return (
-                    <li key={i} onClick={this.clickPlant.bind( this, plant._id )}>
-                        <h3>{uppercaseFirst(plant.planttype.name)}</h3> 
-                        <p>{plantData.container[plant.containerType]}</p>,
-                        <p>{plantData.sun[plant.sunType]}</p>
-                        {
-                            this.renderAlert( alert )
-                        }
-                    </li>
-                );
-            }
-        );
+                                return (
+                                    <li key={i} onClick={this.clickPlant.bind( this, plant._id )}>
+                                        <h1>{uppercaseFirst(plant.planttype.name)}</h1>
+                                        <p>{plantData.growMedium[plant.growMedium]}</p>,
+                                        <p>{plantData.sun[plant.sunType]}</p>
+                                        {
+                                            this.renderAlert( alert )
+                                        }
+                                    </li>
+                                );
+                            }
+                        )
+                    }
+                </ol>
+            );
+        }
+
+        return <p className="green">No plants found. Please create a plant.</p>;
     };
 
     renderAlert( bool ){
@@ -78,19 +85,13 @@ class UserHome extends React.Component{
 
     clickPlant( plantId ){
         this.props.history.push( {
-            "pathname": `/plant/${plantId}`,
-            "state": {
-                "username": this.state.username
-            }
+            "pathname": `/plant/${plantId}`
         } );
     };
 
     createPlant(){
         this.props.history.push( {
-            "pathname": "/createPlant",
-            "state": {
-                "username": this.state.username
-            }
+            "pathname": "/createPlant"
         } );
     };
 
@@ -103,9 +104,9 @@ class UserHome extends React.Component{
     fetchPlants(){
         axios( {
             "method": "GET",
-            "url": `/api/${this.state.username}/plants`,
+            "url": `/api/${sessionStorage.getItem( "username" )}/plants`,
             "data": {
-                "username": this.state.username
+                "username": sessionStorage.getItem( "username" )
             },
             "headers": {
                 "authorization": sessionStorage.getItem( "jwt" )

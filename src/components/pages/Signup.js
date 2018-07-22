@@ -23,7 +23,7 @@ class Signup extends React.Component{
                 <div className="container absolute">
                     <img src="/src/images/LZYlogo.png" />
                     <input placeholder="Username" value={ this.state.username } onChange={ this.changeValue.bind( this, "username" ) }/>
-                    <input maxlength="5" placeholder="Zipcode" value={ this.state.zipcode } onChange={ this.changeValue.bind( this, "zipcode" ) }/>
+                    <input maxLength="5" placeholder="Zipcode" value={ this.state.zipcode } onChange={ this.changeValue.bind( this, "zipcode" ) }/>
                     <input placeholder="Password" type="password" value={ this.state.password } onChange={ this.changeValue.bind( this, "password" ) }/>
                     {
                         this.renderUserExistsError()

@@ -1,0 +1,16 @@
+.header{
+    width: 100%;
+    justify-content: space-between;
+    background-color: $lzy-dark-green;
+
+    img{
+        width: 100px;
+        cursor: pointer;
+        z-index: 10;
+    }
+
+    p{
+        cursor: pointer;
+        margin-right: $spacing-normal;
+    }
+}

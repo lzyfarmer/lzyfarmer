@@ -5,6 +5,10 @@ import moment from "moment";
 
 // Helpers
 import handleApiError from "helpers/handleApiError.js";
+import uppercaseFirst from "helpers/uppercaseFirst.js";
+
+// Data
+import plantData from "data/plants.json";
 
 function formatDate( value ){
     return moment( value, "MM/DD/YYYY" );
@@ -36,17 +40,17 @@ class Plant extends React.Component{
 
         if( this.state.plant.planttype ){
             return (
-                <div className="container">
-                    <h1>plantType: {this.state.plant.planttype.name}</h1>
-                    <p>containerType: {this.state.plant.containerType}</p>
-                    <p>sunType: {this.state.plant.sunType}</p>
-                    <p>lastWaterDate: {moment(this.state.plant.lastWaterDate).format( "MM/DD/YYYY HH:mm:ss" )}</p>
-                    <p>nextWaterDate: {moment(this.state.plant.nextWaterDate).format( "MM/DD/YYYY HH:mm:ss" )}</p>
-                    <p>lastHarvestDate: {moment(this.state.plant.lastHarvestDate).format( "MM/DD/YYYY HH:mm:ss" )}</p>
-                    <p>nextHarvestDate: {moment(this.state.plant.nextHarvestDate).format( "MM/DD/YYYY HH:mm:ss" )}</p>
-                    <button onClick={ this.handlePost.bind( this, "water" ) } disabled={!canWater}>Water Plant</button>
+                <div className="container absolute plant">
+                    <h1><span className="green">Plant Type:</span> {uppercaseFirst(this.state.plant.planttype.name)}</h1>
+                    <p><span className="green">Grow Medium:</span> {plantData.growMedium[this.state.plant.growMedium]}</p>
+                    <p><span className="green">Sun Type:</span> {plantData.sun[this.state.plant.sunType]}</p>
+                    <p><span className="green">Last Watered:</span> {moment(this.state.plant.lastWaterDate).format( "MM/DD/YYYY hh:mm:ss" )}</p>
+                    <p><span className="green">Next Water:</span> {moment(this.state.plant.nextWaterDate).format( "MM/DD/YYYY hh:mm:ss" )}</p>
+                    <p><span className="green">Last Harvested:</span> {moment(this.state.plant.lastHarvestDate).format( "MM/DD/YYYY hh:mm:ss" )}</p>
+                    <p><span className="green">Next Harvest:</span> {moment(this.state.plant.nextHarvestDate).format( "MM/DD/YYYY hh:mm:ss" )}</p>
+                    <button className="water" onClick={ this.handlePost.bind( this, "water" ) } disabled={!canWater}>Water Plant</button>
                     <button onClick={ this.handlePost.bind( this, "harvest" ) } disabled={!canHarvest}>Harvest Plant</button>
-                    <button onClick={ this.deletePlant.bind( this ) }>Delete Plant</button>
+                    <button className="error" onClick={ this.deletePlant.bind( this ) }>Delete Plant</button>
                 </div>
             );
         }
@@ -80,36 +84,40 @@ class Plant extends React.Component{
     };
 
     handlePost( type ){
-        axios( {
-            "method": "POST",
-            "url": `/api/${type}Plant/${this.state.plantId}`,
-            "headers": {
-                "authorization": sessionStorage.getItem( "jwt" )
-            }
-        } )
-        .then(
-            ( response ) => {
-                console.log( "savePlant:response.data", response.data );
-                this.setState( {
-                    "plant": response.data
-                } );
-            }
-        );
+        if( window.confirm( "Are you sure you want to water/harvest?" ) ){
+            axios( {
+                "method": "POST",
+                "url": `/api/${type}Plant/${this.state.plantId}`,
+                "headers": {
+                    "authorization": sessionStorage.getItem( "jwt" )
+                }
+            } )
+            .then(
+                ( response ) => {
+                    console.log( "savePlant:response.data", response.data );
+                    this.setState( {
+                        "plant": response.data
+                    } );
+                }
+            );
+        }
     };
 
     deletePlant(){
-        axios( {
-            "method": "POST",
-            "url": `/api/deletePlant/${this.state.plantId}`,
-            "headers": {
-                "authorization": sessionStorage.getItem( "jwt" )
-            }
-        } )
-        .then(
-            () => {
-                this.props.history.push( `/user/${this.props.location.state.username}` );
-            }
-        );
+        if( window.confirm( "Are you sure you want to delete this plant?" ) ){
+            axios( {
+                "method": "POST",
+                "url": `/api/deletePlant/${this.state.plantId}`,
+                "headers": {
+                    "authorization": sessionStorage.getItem( "jwt" )
+                }
+            } )
+            .then(
+                () => {
+                    this.props.history.push( `/user/${sessionStorage.getItem( "username" )}` );
+                }
+            );
+        }
     }
 };
 

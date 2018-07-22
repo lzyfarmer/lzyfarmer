@@ -1,26 +1,42 @@
 .footer{
     position: fixed;
     bottom: 0;
-
+    z-index: 10;
     width: 100%;
-
-    display: flex;
-    justify-content: space-between;
 
     @media (min-width: 600px){
         position: absolute;
     }
 
+    ol{
+        display: flex;
+        flex-direction: row;
+        height: 75px;
+
+        li{
+            width: 33.33%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: $spacing-normal 0;
+            cursor: pointer;
+
+            &:hover{
+                background-color: $lzy-hover;
+            }
+
+            p{
+                color: $lzy-dark-green;
+            }
+        }
+    }
+
     background-color: $lzy-light-green;
     border-top: 2px solid $lzy-dark-green;
 
-    button{
-        background-color: $lzy-light-green;
+    img{
+        height: 30px;
         width: auto;
-
-        img{
-            width: 40px;
-        }
     }
 }
 

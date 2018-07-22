@@ -1,7 +1,3 @@
-.error{
-    color: red;
-}
-
 img{
     width: 100%;
 }
@@ -10,6 +6,12 @@ input{
     border: 1px solid grey;
     padding: $spacing-normal $spacing-normal / 2;
     font-size: $font-normal;
+    width: 100%;
+}
+
+select{
+    width: 100%;
+    margin-top: $spacing-normal;
 }
 
 button{
@@ -18,9 +20,65 @@ button{
     padding: $spacing-normal $spacing-normal / 2;
     font-size: $font-normal;
     border: 0;
+    cursor: pointer;
 
     &:disabled{
         background-color: $lzy-disabled-dark-green;
         color: grey;
+        cursor: default;
     }
+
+    &.light{
+        background-color: #FFFFFF;
+        border: 2px solid #FFFFFF;
+        color: $lzy-dark-green;
+
+        &:hover{
+            border: 2px solid $lzy-dark-green;
+        }
+    }
+
+    &.error{
+        color: #FFFFFF;
+        background-color: $lzy-red;
+    }
+
+    &.water{
+        color: #FFFFFF;
+        background-color: $lzy-blue;
+
+        &:disabled{
+            background-color: #7CD5FF;
+        }
+    }
+}
+
+.green{
+    color: $lzy-dark-green;
+}
+
+.error{
+    color: $lzy-red;
+}
+
+.next, .previous{
+    position: absolute;
+    color: $lzy-dark-green;
+    font-size: 40px;
+    padding: 10px;
+    top: 50%;
+    color: red;
+    cursor: pointer;
+}
+
+.next{
+    right: -44px;
+}
+
+.previous{
+    left: -44px;
+}
+
+.wide{
+    width: 100%;
 }

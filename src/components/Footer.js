@@ -11,31 +11,27 @@ class Footer extends React.Component{
 
     render(){
         return(
-            <div className="footer container row">
-                <button onClick={ this.handleNavigate.bind( this, "/user/TestGuy" ) }>
-                    <img src="/src/images/MenuMyPlants.png"/>
-                </button>
-                <button onClick={ this.handleNavigate.bind( this, "/explore" ) }>
-                    <img src="/src/images/MenuCommunity.png"/>
-                </button>
-                <button onClick={ this.handleNavigate.bind( this, "/store" ) }>
-                    <img src="/src/images/MenuSupplies.png"/>
-                </button>
-                <button onClick={ this.clickLogout.bind( this ) }>
-                    Logout
-                </button>
+            <div className="footer">
+                <ol>
+                    <li onClick={ this.handleNavigate.bind( this, `/user/${sessionStorage.getItem( "username" )}` ) }>
+                        <img src="/src/images/MenuMyPlants.png"/>
+                        <p>Plants</p>
+                    </li>
+                    <li onClick={ this.handleNavigate.bind( this, "/explore" ) }>
+                        <img src="/src/images/MenuCommunity.png"/>
+                        <p>Community</p>
+                    </li>
+                    <li onClick={ this.handleNavigate.bind( this, "/store" ) }>
+                        <img src="/src/images/MenuSupplies.png"/>
+                        <p>Shop</p>
+                    </li>
+                </ol>
             </div>
         );
     };
 
     handleNavigate( route ){
         this.props.history.push( route );
-    };
-
-    clickLogout(){
-        sessionStorage.removeItem( "jwt" )
-
-        this.props.history.push( "/" );
     };
 };
 

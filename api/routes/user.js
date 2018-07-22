@@ -95,11 +95,14 @@ module.exports = function( app ){
           function findPlantType( error, plantType ){
               console.log( "plantType", plantType );
               if( error ){
-                  res.status( 401 ).send();
+                  res.status( 401 ).send( {
+                      "error": error,
+                      "text": "findPlantType"
+                  } );
               }
               else{
                   var newPlant = new PlantModel( {
-                      "containerType": req.body.form.containerType,
+                      "growMedium": req.body.form.growMedium,
                       "sunType": req.body.form.sunType,
                       "health": 0,
                       "lastWaterDate": Date.now(),
@@ -114,7 +117,10 @@ module.exports = function( app ){
                   newPlant.save(
                       function newPlant( error, createdPlant ){
                           if( error ){
-                              res.status( 401 ).send();
+                              res.status( 401 ).send( {
+                                  "error": error,
+                                  "text": "saveNewPlant"
+                              } );
                           }
                           else{
                               UserModel.findOne(
@@ -134,7 +140,10 @@ module.exports = function( app ){
                                           user.save(
                                               function saveUser( error, user ){
                                                   if( error ){
-                                                      res.status( 401 ).send();
+                                                      res.status( 401 ).send( {
+                                                          "error": error,
+                                                          "text": "saveUser"
+                                                      } );
                                                   }
                                                   else{
                                                       res.send( user );

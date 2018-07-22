@@ -63,7 +63,7 @@ class Login extends React.Component{
         .then(
             ( response ) => {
                 sessionStorage.setItem( "jwt", response.data.token );
-
+                sessionStorage.setItem( "username", response.data.user.username );
                 this.props.history.push( `/user/${response.data.user.username}` );
             }
         )

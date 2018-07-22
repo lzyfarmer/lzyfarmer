@@ -5,7 +5,7 @@ import axios from "axios";
 // Components
 import Upsell from "./Upsell.js";
 import PlantType from "./PlantType.js";
-import ContainerType from "./ContainerType.js";
+import GrowMedium from "./GrowMedium.js";
 import SunType from "./SunType.js";
 import Confirmation from "./Confirmation.js";
 
@@ -17,7 +17,7 @@ class Plant extends React.Component{
             "step": 1,
             "formValues": {
                 "plantType": "tomato",
-                "containerType": "1",
+                "growMedium": "1",
                 "sunType": "1"
             }
         }
@@ -25,7 +25,7 @@ class Plant extends React.Component{
 
     render(){
         return (
-            <div className="container">
+            <div className="container absolute">
                 {
                     this.renderPage()
                 }
@@ -50,7 +50,7 @@ class Plant extends React.Component{
                 />;
 
             case 3:
-                return <ContainerType
+                return <GrowMedium
                     formValues={ this.state.formValues }
                     updateFormValues={ this.updateFormValues.bind( this ) }
                 />;
@@ -73,23 +73,22 @@ class Plant extends React.Component{
         if( this.state.step == 1 ){
             return (
                 <div>
-                    <button onClick={ this.nextStep.bind( this ) }>Next</button>
+                    <span className="next" onClick={ this.nextStep.bind( this ) }>&#8250;</span>
                 </div>
             );
         }
         if( this.state.step == 5 ){
             return (
                 <div>
-                    <button onClick={ this.previousStep.bind( this ) }>Previous</button>
-                    <button onClick={ this.savePlant.bind( this ) }>Save Plant</button>
+                    <span className="previous" onClick={ this.previousStep.bind( this ) }>&#8249;</span>
                 </div>
             );
         }
         else{
             return (
                 <div>
-                    <button onClick={ this.previousStep.bind( this ) }>Previous</button>
-                    <button onClick={ this.nextStep.bind( this ) }>Next</button>
+                    <span className="previous" onClick={ this.previousStep.bind( this ) }>&#8249;</span>
+                    <span className="next" onClick={ this.nextStep.bind( this ) }>&#8250;</span>
                 </div>
             );
         }
@@ -122,7 +121,7 @@ class Plant extends React.Component{
     savePlant(){
         axios( {
             "method": "POST",
-            "url": `/api/plants/${this.props.location.state.username}`,
+            "url": `/api/plants/${sessionStorage.getItem( "username" )}`,
             "data": {
                 "form": this.state.formValues
             },
@@ -132,7 +131,7 @@ class Plant extends React.Component{
         } )
         .then(
             ( response ) => {
-                this.props.history.push( `/user/${response.data.username}` );
+                this.props.history.push( `/user/${sessionStorage.getItem( "username" )}` );
             }
         );
     };

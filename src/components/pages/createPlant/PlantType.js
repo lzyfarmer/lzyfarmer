@@ -12,8 +12,8 @@ class PlantType extends React.Component{
 
     render(){
         return(
-            <div>
-                <h1>Plant Type</h1>
+            <div className="createPlantMenu wide">
+                <p>Please select the type of plant that you would like to grow:</p>
                 <select value={this.state.value} onChange={ this.updateValue.bind( this ) }>
                     <option value="tomato">Tomato</option>
                     <option value="basil">Basil</option>

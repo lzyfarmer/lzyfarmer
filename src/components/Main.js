@@ -3,7 +3,7 @@ import React from "react";
 import { Switch, Route } from "react-router-dom";
 
 // Components
-import FooterLayout from "components/FooterLayout.js";
+import AuthenticatedLayout from "components/AuthenticatedLayout.js";
 import Login from "components/pages/Login.js";
 import Signup from "components/pages/Signup.js";
 import Store from "components/pages/Store.js";
@@ -17,13 +17,13 @@ const Main = () => (
     <Switch>
         <Route exact path="/" component={ Login }/>
         <Route path="/signup" component={ Signup }/>
-        <FooterLayout>
+        <AuthenticatedLayout>
             <Route path="/plant/:id" component={ Plant }/>
             <Route path="/user/:id" component={ UserHome }/>
             <Route path="/createPlant" component={ CreatePlant }/>
             <Route path="/store" component={ Store }/>
             <Route path="/explore" component={ Explore }/>
-        </FooterLayout>
+        </AuthenticatedLayout>
         <Route path="*" component={ NotFound }/>
     </Switch>
 );

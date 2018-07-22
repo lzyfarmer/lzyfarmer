@@ -3,8 +3,9 @@ import React from "react";
 
 // Components
 import Footer from "components/Footer.js";
+import Header from "components/Header.js";
 
-class FooterLayout extends React.Component{
+class AuthenticatedLayout extends React.Component{
     constructor( props ){
         super( props );
 
@@ -15,6 +16,7 @@ class FooterLayout extends React.Component{
         return(
             <div>
                 <div>
+                    <Header/>
                     { this.props.children }
                     <Footer/>
                 </div>
@@ -23,4 +25,4 @@ class FooterLayout extends React.Component{
     };
 };
 
-export default FooterLayout;
+export default AuthenticatedLayout;

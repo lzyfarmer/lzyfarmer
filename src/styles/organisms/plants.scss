@@ -1,50 +1,53 @@
-ol{
+.plants{
     padding: $spacing-normal;
-    width: 100%;
 
-    li{
-        cursor: pointer;
-        padding: $spacing-normal;
+    >p{
+        margin: 0 auto;
+    }
 
-        display: flex;
-        flex-direction: row;
-        align-items: center;
-        position: relative;
-        border-bottom: 1px solid grey;
+    ol{
+        width: 100%;
 
-        color: $lzy-dark-green;
+        li{
+            cursor: pointer;
+            padding: $spacing-normal;
 
-        &:not(:last-child){
-            margin: $spacing-half 0;
-        }
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            position: relative;
+            border-bottom: 1px solid grey;
 
-        &:hover{
-            background-color: #E0E0E0;
-        }
-
-        &.alert{
-            background-color: #FC8888;
-        }
-
-        *{
             color: $lzy-dark-green;
 
-            &:not(:first-child){
-                margin-left: $spacing-normal;
+            &:not(:last-child){
+                margin: $spacing-half 0;
             }
-        }
 
-        span{
-            position: absolute;
-            right: 10px;
-            color: white;
-            background-color: red;
-            border-radius: 20px;
-            padding: 3px 10px;
-        }
+            &:hover{
+                background-color: $lzy-hover;
+            }
 
-        h3{
-            font-size: 15px;
+            *{
+                color: $lzy-dark-green;
+
+                &:not(:first-child){
+                    margin-left: $spacing-normal;
+                }
+            }
+
+            span{
+                position: absolute;
+                right: 10px;
+                color: white;
+                background-color: red;
+                border-radius: 20px;
+                padding: 3px 10px;
+            }
+
+            h3{
+                font-size: 15px;
+            }
         }
     }
 }

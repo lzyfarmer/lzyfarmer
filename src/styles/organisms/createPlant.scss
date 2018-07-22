@@ -1,0 +1,34 @@
+.createPlantMenu{
+    >p{
+        margin-bottom: $spacing-normal;
+        color: $lzy-dark-green;
+    }
+
+    label{
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+
+        img{
+            width: 100px;
+        }
+
+        input{
+            width: auto;
+        }
+
+        p{
+            margin-left: $spacing-normal;
+        }
+
+        &:not(first-child){
+            margin-top: $spacing-normal;
+        }
+    }
+
+    .confirmation{
+        p{
+            margin-bottom: $spacing-normal;
+        }
+    }
+}
