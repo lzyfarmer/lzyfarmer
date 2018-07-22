@@ -14,20 +14,18 @@ import CreatePlant from "components/pages/createPlant/CreatePlant.js";
 import NotFound from "components/pages/NotFound.js";
 
 const Main = () => (
-    <div className="appBody">
-        <Switch>
-            <Route exact path="/" component={ Login }/>
-            <Route path="/signup" component={ Signup }/>
-            <FooterLayout>
-                <Route path="/plant/:id" component={ Plant }/>
-                <Route path="/user/:id" component={ UserHome }/>
-                <Route path="/createPlant" component={ CreatePlant }/>
-                <Route path="/store" component={ Store }/>
-                <Route path="/explore" component={ Explore }/>
-            </FooterLayout>
-            <Route path="*" component={ NotFound }/>
-        </Switch>
-    </div>
+    <Switch>
+        <Route exact path="/" component={ Login }/>
+        <Route path="/signup" component={ Signup }/>
+        <FooterLayout>
+            <Route path="/plant/:id" component={ Plant }/>
+            <Route path="/user/:id" component={ UserHome }/>
+            <Route path="/createPlant" component={ CreatePlant }/>
+            <Route path="/store" component={ Store }/>
+            <Route path="/explore" component={ Explore }/>
+        </FooterLayout>
+        <Route path="*" component={ NotFound }/>
+    </Switch>
 );
 
 export default Main;

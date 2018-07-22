@@ -1,0 +1,26 @@
+.error{
+    color: red;
+}
+
+img{
+    width: 100%;
+}
+
+input{
+    border: 1px solid grey;
+    padding: $spacing-normal $spacing-normal / 2;
+    font-size: $font-normal;
+}
+
+button{
+    color: white;
+    background-color: $lzy-dark-green;
+    padding: $spacing-normal $spacing-normal / 2;
+    font-size: $font-normal;
+    border: 0;
+
+    &:disabled{
+        background-color: $lzy-disabled-dark-green;
+        color: grey;
+    }
+}

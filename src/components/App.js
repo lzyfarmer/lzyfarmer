@@ -5,7 +5,7 @@ import React from "react";
 import Main from "components/Main.js";
 
 const App = () => (
-    <div>
+    <div className="appBody">
         <Main/>
     </div>
 );

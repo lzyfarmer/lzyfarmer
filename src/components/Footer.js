@@ -12,10 +12,18 @@ class Footer extends React.Component{
     render(){
         return(
             <div className="footer container row">
-                <button>Home</button>
-                <button onClick={ this.handleNavigate.bind( this, "/explore" ) }>Explore</button>
-                <button onClick={ this.handleNavigate.bind( this, "/store" ) }>Store</button>
-                <button onClick={ this.clickLogout.bind( this ) }>Logout</button>
+                <button onClick={ this.handleNavigate.bind( this, "/user/TestGuy" ) }>
+                    <img src="/src/images/MenuMyPlants.png"/>
+                </button>
+                <button onClick={ this.handleNavigate.bind( this, "/explore" ) }>
+                    <img src="/src/images/MenuCommunity.png"/>
+                </button>
+                <button onClick={ this.handleNavigate.bind( this, "/store" ) }>
+                    <img src="/src/images/MenuSupplies.png"/>
+                </button>
+                <button onClick={ this.clickLogout.bind( this ) }>
+                    Logout
+                </button>
             </div>
         );
     };

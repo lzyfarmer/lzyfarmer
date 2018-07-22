@@ -2,6 +2,9 @@
 import React from "react";
 import axios from "axios";
 
+// Components
+import PlantFooter from "components/elements/PlantFooter.js";
+
 class Signup extends React.Component{
     constructor( props ){
         super( props );
@@ -16,16 +19,20 @@ class Signup extends React.Component{
 
     render(){
         return (
-            <div className="container column">
-                <input placeholder="Username" value={ this.state.username } onChange={ this.changeValue.bind( this, "username" ) }/>
-                <input placeholder="Zipcode" value={ this.state.zipcode } onChange={ this.changeValue.bind( this, "zipcode" ) }/>
-                <input placeholder="Password" type="password" value={ this.state.password } onChange={ this.changeValue.bind( this, "password" ) }/>
-                {
-                    this.renderSubmitButton()
-                }
-                {
-                    this.renderUserExistsError()
-                }
+            <div>
+                <div className="container absolute">
+                    <img src="/src/images/LZYlogo.png" />
+                    <input placeholder="Username" value={ this.state.username } onChange={ this.changeValue.bind( this, "username" ) }/>
+                    <input maxlength="5" placeholder="Zipcode" value={ this.state.zipcode } onChange={ this.changeValue.bind( this, "zipcode" ) }/>
+                    <input placeholder="Password" type="password" value={ this.state.password } onChange={ this.changeValue.bind( this, "password" ) }/>
+                    {
+                        this.renderUserExistsError()
+                    }
+                    {
+                        this.renderSubmitButton()
+                    }
+                </div>
+                <PlantFooter/>
             </div>
         );
     };
@@ -37,15 +44,15 @@ class Signup extends React.Component{
             this.state.password &&
             this.state.password.length > 6
         ){
-            return <button onClick={ this.signup.bind( this ) }>Sign Up</button>;
+            return <button onClick={ this.signup.bind( this ) }>Create Account</button>;
         }
 
-        return <button disabled="true" onClick={ this.signup.bind( this ) }>Sign Up</button>
+        return <button disabled="true" onClick={ this.signup.bind( this ) }>Create Account</button>
     };
 
     renderUserExistsError(){
         if( this.state.userExistsError ){
-            return <p>Username taken. Please try again.</p>;
+            return <p className="error">Username taken. Please try again.</p>;
         }
 
         return "";

@@ -5,6 +5,10 @@ import axios from "axios";
 // Helpers
 import requireAuth from "helpers/requireAuth.js";
 import handleApiError from "helpers/handleApiError.js";
+import uppercaseFirst from "helpers/uppercaseFirst.js";
+
+// Data
+import plantData from "data/plants.json";
 
 class UserHome extends React.Component{
     constructor( props ){
@@ -27,8 +31,7 @@ class UserHome extends React.Component{
 
     render(){
         return (
-            <div className="container column">
-                <h1>Welcome, { this.state.username }!</h1>
+            <div className="container">
                 <button onClick={ this.createPlant.bind( this ) }>Create Plant</button>
                 <ol>
                     {
@@ -49,18 +52,29 @@ class UserHome extends React.Component{
                 var now = new Date();
                 var canWater = nextWaterDate <= now;
                 var canHarvest = nextHarvestDate <= now;
-                var alertClass = canWater || canHarvest ? "alert" : "";
+                var alert = canWater || canHarvest ? true : false;
 
                 return (
-                    <li key={i} className={ alertClass } onClick={this.clickPlant.bind( this, plant._id )}>
-                        <p>plantType: {plant.planttype.name}</p>
-                        <p>sunType: {plant.containerType}</p>
-                        <p>containerType: {plant.sunType}</p>
+                    <li key={i} onClick={this.clickPlant.bind( this, plant._id )}>
+                        <h3>{uppercaseFirst(plant.planttype.name)}</h3> 
+                        <p>{plantData.container[plant.containerType]}</p>,
+                        <p>{plantData.sun[plant.sunType]}</p>
+                        {
+                            this.renderAlert( alert )
+                        }
                     </li>
                 );
             }
         );
     };
+
+    renderAlert( bool ){
+        if( bool ){
+            return <span>!</span>;
+        }
+
+        return "";
+    }
 
     clickPlant( plantId ){
         this.props.history.push( {

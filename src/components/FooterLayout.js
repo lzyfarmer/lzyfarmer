@@ -14,8 +14,10 @@ class FooterLayout extends React.Component{
     render(){
         return(
             <div>
-                { this.props.children }
-                <Footer/>
+                <div>
+                    { this.props.children }
+                    <Footer/>
+                </div>
             </div>
         );
     };

@@ -25,7 +25,7 @@ class Plant extends React.Component{
 
     render(){
         return (
-            <div className="container column">
+            <div className="container">
                 {
                     this.renderPage()
                 }

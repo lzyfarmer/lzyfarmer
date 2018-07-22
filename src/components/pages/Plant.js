@@ -36,7 +36,7 @@ class Plant extends React.Component{
 
         if( this.state.plant.planttype ){
             return (
-                <div className="container column">
+                <div className="container">
                     <h1>plantType: {this.state.plant.planttype.name}</h1>
                     <p>containerType: {this.state.plant.containerType}</p>
                     <p>sunType: {this.state.plant.sunType}</p>
