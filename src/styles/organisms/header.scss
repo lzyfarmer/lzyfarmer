@@ -1,16 +1,24 @@
 .header{
     width: 100%;
-    justify-content: space-between;
+    justify-content: center;
     background-color: $lzy-dark-green;
+    background-image: url("/src/images/HeaderLeaves.png");
+    background-size: contain;
+    background-repeat: no-repeat;
+    position: relative;
 
     img{
-        width: 100px;
+        width: 150px;
         cursor: pointer;
         z-index: 10;
+        padding: $spacing-normal 0;
     }
 
     p{
         cursor: pointer;
         margin-right: $spacing-normal;
+        position: absolute;
+        right: 0;
+        bottom: $spacing-normal;
     }
 }

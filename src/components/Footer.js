@@ -14,15 +14,15 @@ class Footer extends React.Component{
             <div className="footer">
                 <ol>
                     <li onClick={ this.handleNavigate.bind( this, `/user/${sessionStorage.getItem( "username" )}` ) }>
-                        <img src="/src/images/MenuMyPlants.png"/>
+                        <img src="/src/images/HomeIcon.png"/>
                         <p>Plants</p>
                     </li>
                     <li onClick={ this.handleNavigate.bind( this, "/explore" ) }>
-                        <img src="/src/images/MenuCommunity.png"/>
+                        <img src="/src/images/CommunityIcon.png"/>
                         <p>Community</p>
                     </li>
                     <li onClick={ this.handleNavigate.bind( this, "/store" ) }>
-                        <img src="/src/images/MenuSupplies.png"/>
+                        <img src="/src/images/ShopIcon.png"/>
                         <p>Shop</p>
                     </li>
                 </ol>

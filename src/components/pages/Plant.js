@@ -40,16 +40,31 @@ class Plant extends React.Component{
 
         if( this.state.plant.planttype ){
             return (
-                <div className="container absolute plant">
-                    <h1><span className="green">Plant Type:</span> {uppercaseFirst(this.state.plant.planttype.name)}</h1>
-                    <p><span className="green">Grow Medium:</span> {plantData.growMedium[this.state.plant.growMedium]}</p>
-                    <p><span className="green">Sun Type:</span> {plantData.sun[this.state.plant.sunType]}</p>
-                    <p><span className="green">Last Watered:</span> {moment(this.state.plant.lastWaterDate).format( "MM/DD/YYYY hh:mm:ss" )}</p>
-                    <p><span className="green">Next Water:</span> {moment(this.state.plant.nextWaterDate).format( "MM/DD/YYYY hh:mm:ss" )}</p>
-                    <p><span className="green">Last Harvested:</span> {moment(this.state.plant.lastHarvestDate).format( "MM/DD/YYYY hh:mm:ss" )}</p>
-                    <p><span className="green">Next Harvest:</span> {moment(this.state.plant.nextHarvestDate).format( "MM/DD/YYYY hh:mm:ss" )}</p>
-                    <button className="water" onClick={ this.handlePost.bind( this, "water" ) } disabled={!canWater}>Water Plant</button>
-                    <button onClick={ this.handlePost.bind( this, "harvest" ) } disabled={!canHarvest}>Harvest Plant</button>
+                <div className="container plant">
+                    <div className="container row">
+                        <h1><span className="green">Plant Type:</span> {uppercaseFirst(this.state.plant.planttype.name)}</h1>
+                        <p>Nomen Latine</p>
+                        <p><span className="green">Planted:</span> {moment(this.state.plant.datePlanted).format( "MM/DD/YYYY hh:mm:ss" )}</p>
+                    </div>
+                    <div className="container row">
+                        <p>Days Old</p>
+                        <img src={ `/src/images/${this.state.plant.planttype.name}Photo.png` }/>
+                        <p>Days Until Harvest</p>
+                    </div>
+                    <div className="container row">
+                        <p><span className="green">Medium:</span> {plantData.growMedium[this.state.plant.growMedium]}</p>
+                        <p><span className="green">Sun Type:</span> {plantData.sun[this.state.plant.sunType]}</p>
+                    </div>
+                    <div className="container row">
+                        <div className="container column">
+                            <button className="water" onClick={ this.handlePost.bind( this, "water" ) } disabled={!canWater}>Water Plant</button>
+                            <p><span className="green">Last Watered:</span> {moment(this.state.plant.lastWaterDate).format( "MM/DD/YYYY hh:mm:ss" )}</p>
+                        </div>
+                        <div className="container column">
+                            <button onClick={ this.handlePost.bind( this, "harvest" ) } disabled={!canHarvest}>Harvest Plant</button>
+                            <p><span className="green">Last Harvested:</span> {moment(this.state.plant.lastHarvestDate).format( "MM/DD/YYYY hh:mm:ss" )}</p>
+                        </div>
+                    </div>
                     <button className="error" onClick={ this.deletePlant.bind( this ) }>Delete Plant</button>
                 </div>
             );
