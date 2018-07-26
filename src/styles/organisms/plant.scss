@@ -1,7 +1,37 @@
 .plant{
     align-items: flex-start;
-    
-    p{
-        margin-top: $spacing-normal;
+
+    .image{
+        .img-container{
+            width: 50%;
+
+            img{
+                width: 100%;
+            }
+        }
+
+        .text{
+            width: 25%;
+            text-align: center;
+
+            h3{
+                font-size: 20px;
+            }
+        }
+    }
+
+    h1{
+        font-size: 20px;
+        text-transform: uppercase;
+        color: #000000;
+    }
+
+    .column{
+        padding: $spacing-normal;
+    }
+
+    .small{
+        font-size: 10px;
+        padding: $spacing-half 0;
     }
 }

@@ -21,7 +21,7 @@ class Footer extends React.Component{
                         <img src="/src/images/CommunityIcon.png"/>
                         <p>Community</p>
                     </li>
-                    <li onClick={ this.handleNavigate.bind( this, "/store" ) }>
+                    <li onClick={ () => { window.location = "https://amazon.com/plants"} }>
                         <img src="/src/images/ShopIcon.png"/>
                         <p>Shop</p>
                     </li>
