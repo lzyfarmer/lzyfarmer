@@ -37,41 +37,51 @@ class Plant extends React.Component{
         var now = new Date();
         var canWater = nextWaterDate <= now;
         var canHarvest = nextHarvestDate <= now;
+        var daysOld;
+        var daysUntilHarvest;
 
         if( this.state.plant.planttype ){
+            daysOld = ( moment().valueOf() - moment( this.state.plant.datePlanted ).valueOf() ) / 86400000;
+
             return (
                 <div className="container plant">
                     <div className="container column center wide">
                         <h1>{uppercaseFirst(this.state.plant.planttype.name)}</h1>
-                        <p>Nomen Latine</p>
-                        <p className="small">Planted on {moment(this.state.plant.datePlanted).format( "MM/DD/YYYY hh:mm:ss" )}</p>
+                        <p className="black">Nomen Latine</p>
+                        <p className="small black">Planted on {moment(this.state.plant.datePlanted).format( "MM/DD/YYYY" )}</p>
                     </div>
                     <div className="container row wide image">
                         <div className="text">
-                            <h3 className="green">15</h3>
+                            <h1 className="green">{ Math.floor( daysOld ) }</h1>
                             <p className="green">days old</p>
                         </div>
                         <div className="img-container">
                             <img src={ `/src/images/${this.state.plant.planttype.name}Photo.png` }/>
                         </div>
                         <div className="text">
-                            <h3 className="green">15</h3>
+                            <h1 className="green">55</h1>
                             <p className="green">days until harvest</p>
                         </div>
                     </div>
+                    <div className="container column center wide">
+                        <h3>Healthy</h3>
+                        <h3>Young Plant</h3>
+                    </div>
                     <div className="container row wide">
                         <div className="container column center wide">
-                            <p><span className="green">Medium:</span> {plantData.growMedium[this.state.plant.growMedium]}</p>
-                            <button className="water" onClick={ this.handlePost.bind( this, "water" ) } disabled={!canWater}>Water Plant</button>
-                            <p className="small">Last Watered: {moment(this.state.plant.lastWaterDate).format( "MM/DD/YYYY" )}</p>
+                            <button className="water" onClick={ this.handlePost.bind( this, "water" ) } disabled={!canWater}>
+                                <p className="white">Water Plant</p>
+                                <p className="white small">Last Watered: {moment(this.state.plant.lastWaterDate).format( "MM/DD/YYYY" )}</p>
+                            </button>
                         </div>
                         <div className="container column center wide">
-                            <p><span className="green">Sun:</span> {plantData.sun[this.state.plant.sunType]}</p>
-                            <button onClick={ this.handlePost.bind( this, "harvest" ) } disabled={!canHarvest}>Harvest Plant</button>
-                            <p className="small">Last Harvested: {moment(this.state.plant.lastHarvestDate).format( "MM/DD/YYYY" )}</p>
+                            <button onClick={ this.handlePost.bind( this, "harvest" ) } disabled={!canHarvest}>
+                                <p className="white">Harvest Plant</p>
+                                <p className="white small">Last Harvested: {moment(this.state.plant.lastHarvestDate).format( "MM/DD/YYYY" )}</p>
+                            </button>
                         </div>
                     </div>
-                    <button className="error" onClick={ this.deletePlant.bind( this ) }>Delete Plant</button>
+                    <p className="delete" onClick={ this.deletePlant.bind( this ) }>Delete Plant</p>
                 </div>
             );
         }

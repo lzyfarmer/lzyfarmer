@@ -41836,6 +41836,7 @@ var AuthenticatedLayout = function (_React$Component) {
                     null,
                     _react2.default.createElement(_Header2.default, null),
                     this.props.children,
+                    _react2.default.createElement("div", { className: "footerBump" }),
                     _react2.default.createElement(_Footer2.default, null)
                 )
             );
@@ -43297,8 +43298,12 @@ var Plant = function (_React$Component) {
             var now = new Date();
             var canWater = nextWaterDate <= now;
             var canHarvest = nextHarvestDate <= now;
+            var daysOld;
+            var daysUntilHarvest;
 
             if (this.state.plant.planttype) {
+                daysOld = ((0, _moment2.default)().valueOf() - (0, _moment2.default)(this.state.plant.datePlanted).valueOf()) / 86400000;
+
                 return _react2.default.createElement(
                     "div",
                     { className: "container plant" },
@@ -43312,14 +43317,14 @@ var Plant = function (_React$Component) {
                         ),
                         _react2.default.createElement(
                             "p",
-                            null,
+                            { className: "black" },
                             "Nomen Latine"
                         ),
                         _react2.default.createElement(
                             "p",
-                            { className: "small" },
+                            { className: "small black" },
                             "Planted on ",
-                            (0, _moment2.default)(this.state.plant.datePlanted).format("MM/DD/YYYY hh:mm:ss")
+                            (0, _moment2.default)(this.state.plant.datePlanted).format("MM/DD/YYYY")
                         )
                     ),
                     _react2.default.createElement(
@@ -43329,9 +43334,9 @@ var Plant = function (_React$Component) {
                             "div",
                             { className: "text" },
                             _react2.default.createElement(
-                                "h3",
+                                "h1",
                                 { className: "green" },
-                                "15"
+                                Math.floor(daysOld)
                             ),
                             _react2.default.createElement(
                                 "p",
@@ -43348,9 +43353,9 @@ var Plant = function (_React$Component) {
                             "div",
                             { className: "text" },
                             _react2.default.createElement(
-                                "h3",
+                                "h1",
                                 { className: "green" },
-                                "15"
+                                "55"
                             ),
                             _react2.default.createElement(
                                 "p",
@@ -43361,63 +43366,63 @@ var Plant = function (_React$Component) {
                     ),
                     _react2.default.createElement(
                         "div",
+                        { className: "container column center wide" },
+                        _react2.default.createElement(
+                            "h3",
+                            null,
+                            "Healthy"
+                        ),
+                        _react2.default.createElement(
+                            "h3",
+                            null,
+                            "Young Plant"
+                        )
+                    ),
+                    _react2.default.createElement(
+                        "div",
                         { className: "container row wide" },
                         _react2.default.createElement(
                             "div",
                             { className: "container column center wide" },
                             _react2.default.createElement(
-                                "p",
-                                null,
-                                _react2.default.createElement(
-                                    "span",
-                                    { className: "green" },
-                                    "Medium:"
-                                ),
-                                " ",
-                                _plants2.default.growMedium[this.state.plant.growMedium]
-                            ),
-                            _react2.default.createElement(
                                 "button",
                                 { className: "water", onClick: this.handlePost.bind(this, "water"), disabled: !canWater },
-                                "Water Plant"
-                            ),
-                            _react2.default.createElement(
-                                "p",
-                                { className: "small" },
-                                "Last Watered: ",
-                                (0, _moment2.default)(this.state.plant.lastWaterDate).format("MM/DD/YYYY")
+                                _react2.default.createElement(
+                                    "p",
+                                    { className: "white" },
+                                    "Water Plant"
+                                ),
+                                _react2.default.createElement(
+                                    "p",
+                                    { className: "white small" },
+                                    "Last Watered: ",
+                                    (0, _moment2.default)(this.state.plant.lastWaterDate).format("MM/DD/YYYY")
+                                )
                             )
                         ),
                         _react2.default.createElement(
                             "div",
                             { className: "container column center wide" },
                             _react2.default.createElement(
-                                "p",
-                                null,
-                                _react2.default.createElement(
-                                    "span",
-                                    { className: "green" },
-                                    "Sun:"
-                                ),
-                                " ",
-                                _plants2.default.sun[this.state.plant.sunType]
-                            ),
-                            _react2.default.createElement(
                                 "button",
                                 { onClick: this.handlePost.bind(this, "harvest"), disabled: !canHarvest },
-                                "Harvest Plant"
-                            ),
-                            _react2.default.createElement(
-                                "p",
-                                { className: "small" },
-                                "Last Harvested: ",
-                                (0, _moment2.default)(this.state.plant.lastHarvestDate).format("MM/DD/YYYY")
+                                _react2.default.createElement(
+                                    "p",
+                                    { className: "white" },
+                                    "Harvest Plant"
+                                ),
+                                _react2.default.createElement(
+                                    "p",
+                                    { className: "white small" },
+                                    "Last Harvested: ",
+                                    (0, _moment2.default)(this.state.plant.lastHarvestDate).format("MM/DD/YYYY")
+                                )
                             )
                         )
                     ),
                     _react2.default.createElement(
-                        "button",
-                        { className: "error", onClick: this.deletePlant.bind(this) },
+                        "p",
+                        { className: "delete", onClick: this.deletePlant.bind(this) },
                         "Delete Plant"
                     )
                 );
@@ -44855,7 +44860,7 @@ exports = module.exports = __webpack_require__(247)(false);
 
 
 // module
-exports.push([module.i, "html,\nbody,\ndiv,\nspan,\napplet,\nobject,\niframe,\nh1,\nh2,\nh3,\nh4,\nh5,\nh6,\np,\nblockquote,\npre,\na,\nabbr,\nacronym,\naddress,\nbig,\ncite,\ncode,\ndel,\ndfn,\nem,\nimg,\nins,\nkbd,\nq,\ns,\nsamp,\nsmall,\nstrike,\nstrong,\nsub,\nsup,\ntt,\nvar,\nb,\nu,\ni,\ncenter,\ndl,\ndt,\ndd,\nol,\nul,\nli,\nfieldset,\nform,\nlabel,\nlegend,\ntable,\ncaption,\ntbody,\ntfoot,\nthead,\ntr,\nth,\ntd,\narticle,\naside,\ncanvas,\ndetails,\nembed,\nfigure,\nfigcaption,\nfooter,\nheader,\nhgroup,\nmenu,\nnav,\noutput,\nruby,\nsection,\nsummary,\ntime,\nmark,\naudio,\nvideo {\n  margin: 0;\n  padding: 0;\n  border: 0;\n  color: white; }\n\nol,\nul,\nmenu {\n  list-style: none; }\n\n*,\n*:before,\n*:after {\n  box-sizing: inherit;\n  font-size: inherit; }\n\nimg {\n  width: 100%; }\n\ninput {\n  border: 1px solid grey;\n  padding: 10px 5px;\n  font-size: 15px;\n  width: 100%; }\n\nselect {\n  width: 100%;\n  margin-top: 10px; }\n\nbutton {\n  color: white;\n  background-color: #1C7B61;\n  padding: 10px 5px;\n  font-size: 15px;\n  border: 0;\n  cursor: pointer; }\n  button:disabled {\n    background-color: #85CDB9;\n    color: grey;\n    cursor: default; }\n  button.light {\n    background-color: #FFFFFF;\n    border: 2px solid #FFFFFF;\n    color: #1C7B61; }\n    button.light:hover {\n      border: 2px solid #1C7B61; }\n  button.error {\n    color: #FFFFFF;\n    background-color: #EF5353; }\n  button.water {\n    color: #FFFFFF;\n    background-color: #16B3FC; }\n    button.water:disabled {\n      background-color: #7CD5FF; }\n\n.green {\n  color: #1C7B61; }\n\n.error {\n  color: #EF5353; }\n\n.next, .previous {\n  position: absolute;\n  color: #1C7B61;\n  font-size: 40px;\n  padding: 10px;\n  top: 50%;\n  color: red;\n  cursor: pointer; }\n\n.next {\n  right: -44px; }\n\n.previous {\n  left: -44px; }\n\n.wide {\n  width: 100%; }\n\n.appBody {\n  width: 100%;\n  height: 100vh;\n  margin: 0 auto;\n  position: relative;\n  background-color: #B6E2D6; }\n  @media (min-width: 600px) {\n    .appBody {\n      max-width: 350px;\n      height: 600px;\n      border: 1px solid grey; } }\n\n.container {\n  display: flex;\n  box-sizing: border-box;\n  align-items: center;\n  justify-content: center;\n  flex-direction: column; }\n  .container.row {\n    flex-direction: row; }\n  .container.absolute {\n    position: absolute;\n    left: 0;\n    right: 0;\n    top: -100px;\n    bottom: 0;\n    width: 75%;\n    margin: 0 auto; }\n    .container.absolute input {\n      margin-top: 10px; }\n  .container.center {\n    justify-content: center; }\n  .container.wide {\n    width: 100%; }\n  .container button {\n    width: 100%;\n    margin-top: 10px; }\n\n.createPlantMenu > p {\n  margin-bottom: 10px;\n  color: #1C7B61; }\n\n.createPlantMenu label {\n  display: flex;\n  flex-direction: row;\n  align-items: center; }\n  .createPlantMenu label img {\n    width: 100px; }\n  .createPlantMenu label input {\n    width: auto; }\n  .createPlantMenu label p {\n    margin-left: 10px; }\n  .createPlantMenu label:not(first-child) {\n    margin-top: 10px; }\n\n.createPlantMenu .confirmation p {\n  margin-bottom: 10px; }\n\n.footer {\n  position: fixed;\n  bottom: 0;\n  z-index: 10;\n  width: 100%;\n  background-color: #FFFFFF;\n  border-top: 2px solid grey; }\n  @media (min-width: 600px) {\n    .footer {\n      position: absolute; } }\n  .footer ol {\n    display: flex;\n    flex-direction: row;\n    height: 75px; }\n    .footer ol li {\n      width: 33.33%;\n      display: flex;\n      flex-direction: column;\n      align-items: center;\n      padding: 10px 0;\n      cursor: pointer; }\n      .footer ol li:hover {\n        background-color: #E0E0E0; }\n      .footer ol li p {\n        color: grey; }\n  .footer img {\n    height: 30px;\n    width: auto; }\n\n.plantFooter {\n  position: absolute;\n  bottom: -4px; }\n\n.header {\n  width: 100%;\n  justify-content: center;\n  background-color: #1C7B61;\n  background-image: url(\"/src/images/HeaderLeaves.png\");\n  background-size: contain;\n  background-repeat: no-repeat;\n  position: relative; }\n  .header img {\n    width: 150px;\n    cursor: pointer;\n    z-index: 10;\n    padding: 10px 0; }\n  .header p {\n    cursor: pointer;\n    margin-right: 10px;\n    position: absolute;\n    right: 0;\n    bottom: 10px; }\n\n.plant {\n  align-items: flex-start; }\n  .plant .image .img-container {\n    width: 50%; }\n    .plant .image .img-container img {\n      width: 100%; }\n  .plant .image .text {\n    width: 25%;\n    text-align: center; }\n    .plant .image .text h3 {\n      font-size: 20px; }\n  .plant h1 {\n    font-size: 20px;\n    text-transform: uppercase;\n    color: #000000; }\n  .plant .column {\n    padding: 10px; }\n  .plant .small {\n    font-size: 10px;\n    padding: 5px 0; }\n\n.plants {\n  padding: 10px; }\n  .plants > p {\n    margin: 0 auto; }\n  .plants ol {\n    width: 100%; }\n    .plants ol li {\n      cursor: pointer;\n      padding: 10px;\n      display: flex;\n      flex-direction: row;\n      align-items: center;\n      position: relative;\n      border-bottom: 1px solid grey;\n      color: #1C7B61; }\n      .plants ol li:not(:last-child) {\n        margin: 5px 0; }\n      .plants ol li:hover {\n        background-color: #E0E0E0; }\n      .plants ol li * {\n        color: #1C7B61; }\n        .plants ol li *:not(:first-child) {\n          margin-left: 10px; }\n      .plants ol li span {\n        position: absolute;\n        right: 10px;\n        color: white;\n        background-color: red;\n        border-radius: 20px;\n        padding: 3px 10px; }\n      .plants ol li h3 {\n        font-size: 15px; }\n", ""]);
+exports.push([module.i, "html,\nbody,\ndiv,\nspan,\napplet,\nobject,\niframe,\nh1,\nh2,\nh3,\nh4,\nh5,\nh6,\np,\nblockquote,\npre,\na,\nabbr,\nacronym,\naddress,\nbig,\ncite,\ncode,\ndel,\ndfn,\nem,\nimg,\nins,\nkbd,\nq,\ns,\nsamp,\nsmall,\nstrike,\nstrong,\nsub,\nsup,\ntt,\nvar,\nb,\nu,\ni,\ncenter,\ndl,\ndt,\ndd,\nol,\nul,\nli,\nfieldset,\nform,\nlabel,\nlegend,\ntable,\ncaption,\ntbody,\ntfoot,\nthead,\ntr,\nth,\ntd,\narticle,\naside,\ncanvas,\ndetails,\nembed,\nfigure,\nfigcaption,\nfooter,\nheader,\nhgroup,\nmenu,\nnav,\noutput,\nruby,\nsection,\nsummary,\ntime,\nmark,\naudio,\nvideo {\n  margin: 0;\n  padding: 0;\n  border: 0;\n  color: white; }\n\nol,\nul,\nmenu {\n  list-style: none; }\n\n*,\n*:before,\n*:after {\n  box-sizing: inherit;\n  font-size: inherit; }\n\nimg {\n  width: 100%; }\n\ninput {\n  border: 1px solid grey;\n  padding: 10px 5px;\n  font-size: 15px;\n  width: 100%; }\n\nselect {\n  width: 100%;\n  margin-top: 10px; }\n\nbutton {\n  color: white;\n  background-color: #1C7B61;\n  padding: 10px 5px;\n  font-size: 15px;\n  border: 0;\n  cursor: pointer; }\n  button:disabled {\n    background-color: #85CDB9;\n    color: grey;\n    cursor: default; }\n  button.light {\n    background-color: #FFFFFF;\n    border: 2px solid #FFFFFF;\n    color: #1C7B61; }\n    button.light:hover {\n      border: 2px solid #1C7B61; }\n  button.error {\n    color: #FFFFFF;\n    background-color: #EF5353; }\n  button.water {\n    color: #FFFFFF;\n    background-color: #16B3FC; }\n    button.water:disabled {\n      background-color: #7CD5FF; }\n\n.green {\n  color: #1C7B61; }\n\n.white {\n  color: #FFFFFF; }\n\n.black {\n  color: #000000; }\n\n.error {\n  color: #EF5353; }\n\n.next, .previous {\n  position: absolute;\n  color: #1C7B61;\n  font-size: 40px;\n  padding: 10px;\n  top: 50%;\n  color: red;\n  cursor: pointer; }\n\n.next {\n  right: -44px; }\n\n.previous {\n  left: -44px; }\n\n.wide {\n  width: 100%; }\n\n.appBody {\n  width: 100%;\n  height: 100vh;\n  margin: 0 auto;\n  position: relative;\n  background-color: #B6E2D6; }\n  @media (min-width: 600px) {\n    .appBody {\n      max-width: 350px;\n      border: 1px solid grey; } }\n\n.container {\n  display: flex;\n  box-sizing: border-box;\n  align-items: center;\n  justify-content: center;\n  flex-direction: column; }\n  .container.row {\n    flex-direction: row; }\n  .container.absolute {\n    position: absolute;\n    left: 0;\n    right: 0;\n    top: -100px;\n    bottom: 0;\n    width: 75%;\n    margin: 0 auto; }\n    .container.absolute input {\n      margin-top: 10px; }\n  .container.center {\n    justify-content: center; }\n  .container.wide {\n    width: 100%; }\n  .container button {\n    width: 100%;\n    margin-top: 10px; }\n\n.createPlantMenu > p {\n  margin-bottom: 10px;\n  color: #1C7B61; }\n\n.createPlantMenu label {\n  display: flex;\n  flex-direction: row;\n  align-items: center; }\n  .createPlantMenu label img {\n    width: 100px; }\n  .createPlantMenu label input {\n    width: auto; }\n  .createPlantMenu label p {\n    margin-left: 10px; }\n  .createPlantMenu label:not(first-child) {\n    margin-top: 10px; }\n\n.createPlantMenu .confirmation p {\n  margin-bottom: 10px; }\n\n.footer {\n  position: fixed;\n  bottom: 0;\n  z-index: 10;\n  width: 100%;\n  background-color: #FFFFFF;\n  border-top: 2px solid grey; }\n  @media (min-width: 600px) {\n    .footer {\n      width: 350px; } }\n  .footer ol {\n    display: flex;\n    flex-direction: row;\n    height: 75px; }\n    .footer ol li {\n      width: 33.33%;\n      display: flex;\n      flex-direction: column;\n      align-items: center;\n      padding: 10px 0;\n      cursor: pointer; }\n      .footer ol li:hover {\n        background-color: #E0E0E0; }\n      .footer ol li p {\n        color: grey; }\n  .footer img {\n    height: 30px;\n    width: auto; }\n\n.plantFooter {\n  position: absolute;\n  bottom: -4px; }\n\n.footerBump {\n  height: 77px;\n  width: 100%;\n  padding-top: 20px; }\n\n.header {\n  width: 100%;\n  justify-content: center;\n  background-color: #1C7B61;\n  background-image: url(\"/src/images/HeaderLeaves.png\");\n  background-size: contain;\n  background-repeat: no-repeat;\n  position: relative; }\n  .header img {\n    width: 150px;\n    cursor: pointer;\n    z-index: 10;\n    padding: 10px 0; }\n  .header p {\n    cursor: pointer;\n    margin-right: 10px;\n    position: absolute;\n    right: 0;\n    bottom: 10px; }\n\n.plant {\n  align-items: flex-start; }\n  .plant .image .img-container {\n    width: 50%; }\n    .plant .image .img-container img {\n      width: 100%; }\n  .plant .image .text {\n    width: 25%;\n    text-align: center; }\n    .plant .image .text h1 {\n      color: #1C7B61; }\n  .plant h1 {\n    font-size: 30px;\n    text-transform: uppercase;\n    color: #000000; }\n  .plant h3 {\n    color: #000000;\n    text-transform: uppercase; }\n  .plant .column {\n    padding: 10px; }\n  .plant .small {\n    font-size: 10px;\n    padding: 5px 0; }\n  .plant .delete {\n    margin: 0 auto;\n    color: red;\n    cursor: pointer; }\n    .plant .delete:hover {\n      text-decoration: underline; }\n\n.plants {\n  padding: 10px; }\n  .plants > p {\n    margin: 0 auto; }\n  .plants ol {\n    width: 100%; }\n    .plants ol li {\n      cursor: pointer;\n      padding: 10px;\n      display: flex;\n      flex-direction: row;\n      align-items: center;\n      position: relative;\n      border-bottom: 1px solid grey;\n      color: #1C7B61; }\n      .plants ol li:not(:last-child) {\n        margin: 5px 0; }\n      .plants ol li:hover {\n        background-color: #E0E0E0; }\n      .plants ol li * {\n        color: #1C7B61; }\n        .plants ol li *:not(:first-child) {\n          margin-left: 10px; }\n      .plants ol li span {\n        position: absolute;\n        right: 10px;\n        color: white;\n        background-color: red;\n        border-radius: 20px;\n        padding: 3px 10px; }\n      .plants ol li h3 {\n        font-size: 15px; }\n", ""]);
 
 // exports
 

@@ -5,7 +5,7 @@
     width: 100%;
 
     @media (min-width: 600px){
-        position: absolute;
+        width: 350px;
     }
 
     ol{
@@ -43,4 +43,10 @@
 .plantFooter{
     position: absolute;
     bottom: -4px;
+}
+
+.footerBump{
+    height: 77px;
+    width: 100%;
+    padding-top: $spacing-double;
 }

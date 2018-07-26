@@ -14,16 +14,21 @@
             width: 25%;
             text-align: center;
 
-            h3{
-                font-size: 20px;
+            h1{
+                color: $lzy-dark-green;
             }
         }
     }
 
     h1{
-        font-size: 20px;
+        font-size: 30px;
         text-transform: uppercase;
         color: #000000;
+    }
+
+    h3{
+        color: #000000;
+        text-transform: uppercase;
     }
 
     .column{
@@ -33,5 +38,15 @@
     .small{
         font-size: 10px;
         padding: $spacing-half 0;
+    }
+
+    .delete{
+        margin: 0 auto;
+        color: red;
+        cursor: pointer;
+
+        &:hover{
+            text-decoration: underline;
+        }
     }
 }

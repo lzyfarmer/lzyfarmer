@@ -18,6 +18,7 @@ class AuthenticatedLayout extends React.Component{
                 <div>
                     <Header/>
                     { this.props.children }
+                    <div className="footerBump"></div>
                     <Footer/>
                 </div>
             </div>
