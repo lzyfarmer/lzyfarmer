@@ -16,13 +16,13 @@ app.use( bodyParser.json() );
 app.use( bodyParser.urlencoded( { "extended": true } ) );
 
 // Force into HTTPS if production
-if( app.get( "env" ) === "production" ){
-    app.use(function(req, res, next) {
-        var protocol = req.get('x-forwarded-proto');
-
-        protocol == "https" ? next() : res.redirect( "https://" + req.hostname + req.url );
-    } );
-}
+// if( app.get( "env" ) === "production" ){
+//     app.use(function(req, res, next) {
+//         var protocol = req.get('x-forwarded-proto');
+//
+//         protocol == "https" ? next() : res.redirect( "https://" + req.hostname + req.url );
+//     } );
+// }
 
 mongoose.connect( process.env.MONGODB_URI, { "useMongoClient": true } );
 
