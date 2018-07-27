@@ -7,6 +7,10 @@
     background-repeat: no-repeat;
     position: fixed;
 
+    @media (min-width: 600px){
+        width: 350px;
+    }
+
     img{
         width: 150px;
         cursor: pointer;
