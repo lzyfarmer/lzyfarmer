@@ -38,16 +38,17 @@ class Plant extends React.Component{
         var canWater = nextWaterDate <= now;
         var canHarvest = nextHarvestDate <= now;
         var daysOld;
-        var daysUntilHarvest;
+        var firstHarvest;
 
         if( this.state.plant.planttype ){
             daysOld = ( moment().valueOf() - moment( this.state.plant.datePlanted ).valueOf() ) / 86400000;
+            firstHarvest = moment( this.state.plant.planttype.harvestAge ).valueOf() / 86400000;
 
             return (
                 <div className="container plant">
                     <div className="container column center wide">
                         <h1>{uppercaseFirst(this.state.plant.planttype.name)}</h1>
-                        <p className="black">Nomen Latine</p>
+                        <p className="black">{this.state.plant.planttype.latinName}</p>
                         <p className="small black">Planted on {moment(this.state.plant.datePlanted).format( "MM/DD/YYYY" )}</p>
                     </div>
                     <div className="container row wide image">
@@ -59,8 +60,9 @@ class Plant extends React.Component{
                             <img src={ `/src/images/${this.state.plant.planttype.name}Photo.png` }/>
                         </div>
                         <div className="text">
-                            <h1 className="green">55</h1>
-                            <p className="green">days until harvest</p>
+                            <p className="green">Harvest at</p>
+                            <h1 className="green">{ Math.floor( firstHarvest ) }</h1>
+                            <p className="green">days</p>
                         </div>
                     </div>
                     <div className="container column center wide">

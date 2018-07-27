@@ -8,7 +8,9 @@ var plantTypeSchema = new Schema(
         "harvestRate": Number,
         "harvestAge": Number,
         "youthCutoff": Number,
-        "matureCutoff": Number
+        "matureCutoff": Number,
+        "latinName": String,
+        "name": String
     },
     { "usePushEach": true }
 );
