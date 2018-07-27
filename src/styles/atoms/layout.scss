@@ -23,13 +23,10 @@
     }
 
     &.absolute{
-        position: absolute;
-        left: 0;
-        right: 0;
-        top: -100px;
-        bottom: 0;
+        height: 70vh;
         width: 75%;
         margin: 0 auto;
+        position: relative;
 
         input{
             margin-top: $spacing-normal;
