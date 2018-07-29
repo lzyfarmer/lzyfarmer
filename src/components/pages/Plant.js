@@ -37,12 +37,17 @@ class Plant extends React.Component{
         var now = new Date();
         var canWater = nextWaterDate <= now;
         var canHarvest = nextHarvestDate <= now;
+        var isMature;
         var daysOld;
         var firstHarvest;
+        var health = canWater ? "Unhealthy" : "Healthy";
+        var maturity;
 
         if( this.state.plant.planttype ){
             daysOld = ( moment().valueOf() - moment( this.state.plant.datePlanted ).valueOf() ) / 86400000;
             firstHarvest = moment( this.state.plant.planttype.harvestAge ).valueOf() / 86400000;
+            isMature = ( moment().valueOf() - moment( this.state.plant.datePlanted ).valueOf() ) >= this.state.plant.planttype.matureCutoff;
+            maturity = isMature ? "Mature Plant" : "Young Plant";
 
             return (
                 <div className="container plant">
@@ -66,8 +71,8 @@ class Plant extends React.Component{
                         </div>
                     </div>
                     <div className="container column center wide">
-                        <h3>Healthy</h3>
-                        <h3>Young Plant</h3>
+                        <h3>{ health }</h3>
+                        <h3>{ maturity }</h3>
                     </div>
                     <div className="container row wide">
                         <div className="container column center wide">
@@ -127,7 +132,6 @@ class Plant extends React.Component{
             } )
             .then(
                 ( response ) => {
-                    console.log( "savePlant:response.data", response.data );
                     this.setState( {
                         "plant": response.data
                     } );

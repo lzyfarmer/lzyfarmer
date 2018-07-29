@@ -25,7 +25,6 @@ class PlantType extends React.Component{
     };
 
     updateValue( event ){
-        console.log( "event.target.value", event.target.value );
         this.props.updateFormValues( {
             "plantType": event.target.value
         } );
