@@ -17,7 +17,7 @@ class Footer extends React.Component{
                         <img src="/src/images/HomeIcon.png"/>
                         <p>Plants</p>
                     </li>
-                    <li onClick={ this.handleNavigate.bind( this, "/explore" ) }>
+                    <li onClick={ this.handleNavigate.bind( this, "/community" ) }>
                         <img src="/src/images/CommunityIcon.png"/>
                         <p>Community</p>
                     </li>

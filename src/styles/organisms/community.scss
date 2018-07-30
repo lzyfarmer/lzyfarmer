@@ -1,0 +1,49 @@
+.community{
+    .communityHeader{
+        text-align: center;
+        padding: $spacing-normal;
+
+        h1{
+            color: #000000;
+            font-size: 20px;
+            padding: $spacing-normal 0;
+        }
+
+        input{
+            margin: $spacing-normal 0;
+        }
+
+        p{
+            cursor: pointer;
+        }
+    }
+
+    ol{
+        background-color: #FFFFFF;
+
+        li{
+            padding: $spacing-normal 20px;
+            position: relative;
+            border-bottom: 1px solid $lzy-light-green;
+
+            .text{
+                padding-top: $spacing-normal;
+                color: #000000;
+            }
+
+            .answer{
+                padding-top: $spacing-normal;
+                color: grey;
+                font-size: 10px;
+            }
+            span{
+                color: $lzy-light-green;
+                position: absolute;
+                right: 5px;
+                top: 50%;
+                transform: translateY(-50%);
+                font-size: 30px;
+            }
+        }
+    }
+}

@@ -20253,7 +20253,7 @@ var _App = __webpack_require__(206);
 
 var _App2 = _interopRequireDefault(_App);
 
-var _style = __webpack_require__(245);
+var _style = __webpack_require__(246);
 
 var _style2 = _interopRequireDefault(_style);
 
@@ -41735,19 +41735,19 @@ var _Plant = __webpack_require__(232);
 
 var _Plant2 = _interopRequireDefault(_Plant);
 
-var _Explore = __webpack_require__(235);
+var _Community = __webpack_require__(235);
 
-var _Explore2 = _interopRequireDefault(_Explore);
+var _Community2 = _interopRequireDefault(_Community);
 
-var _UserHome = __webpack_require__(236);
+var _UserHome = __webpack_require__(237);
 
 var _UserHome2 = _interopRequireDefault(_UserHome);
 
-var _CreatePlant = __webpack_require__(238);
+var _CreatePlant = __webpack_require__(239);
 
 var _CreatePlant2 = _interopRequireDefault(_CreatePlant);
 
-var _NotFound = __webpack_require__(244);
+var _NotFound = __webpack_require__(245);
 
 var _NotFound2 = _interopRequireDefault(_NotFound);
 
@@ -41766,7 +41766,7 @@ var Main = function Main() {
             _react2.default.createElement(_reactRouterDom.Route, { path: "/user/:id", component: _UserHome2.default }),
             _react2.default.createElement(_reactRouterDom.Route, { path: "/createPlant", component: _CreatePlant2.default }),
             _react2.default.createElement(_reactRouterDom.Route, { path: "/store", component: _Store2.default }),
-            _react2.default.createElement(_reactRouterDom.Route, { path: "/explore", component: _Explore2.default })
+            _react2.default.createElement(_reactRouterDom.Route, { path: "/community", component: _Community2.default })
         ),
         _react2.default.createElement(_reactRouterDom.Route, { path: "*", component: _NotFound2.default })
     );
@@ -41912,7 +41912,7 @@ var Footer = function (_React$Component) {
                     ),
                     _react2.default.createElement(
                         "li",
-                        { onClick: this.handleNavigate.bind(this, "/explore") },
+                        { onClick: this.handleNavigate.bind(this, "/community") },
                         _react2.default.createElement("img", { src: "/src/images/CommunityIcon.png" }),
                         _react2.default.createElement(
                             "p",
@@ -43819,6 +43819,10 @@ var _react = __webpack_require__(1);
 
 var _react2 = _interopRequireDefault(_react);
 
+var _community = __webpack_require__(236);
+
+var _community2 = _interopRequireDefault(_community);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -43828,39 +43832,84 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; } // Libraries
 
 
-var Explore = function (_React$Component) {
-    _inherits(Explore, _React$Component);
+// Data
 
-    function Explore() {
-        _classCallCheck(this, Explore);
 
-        return _possibleConstructorReturn(this, (Explore.__proto__ || Object.getPrototypeOf(Explore)).apply(this, arguments));
+var Community = function (_React$Component) {
+    _inherits(Community, _React$Component);
+
+    function Community() {
+        _classCallCheck(this, Community);
+
+        return _possibleConstructorReturn(this, (Community.__proto__ || Object.getPrototypeOf(Community)).apply(this, arguments));
     }
 
-    _createClass(Explore, [{
+    _createClass(Community, [{
         key: "render",
         value: function render() {
             return _react2.default.createElement(
                 "div",
-                { className: "container" },
+                { className: "container column center community" },
                 _react2.default.createElement(
-                    "h1",
-                    null,
-                    "EXPLORE PAGE"
+                    "div",
+                    { className: "communityHeader" },
+                    _react2.default.createElement(
+                        "h1",
+                        null,
+                        "WELCOME TO THE COMMUNITY!"
+                    ),
+                    _react2.default.createElement("input", { type: "search", placeholder: "Search" }),
+                    _react2.default.createElement(
+                        "p",
+                        { className: "green" },
+                        "ASK A NEW QUESTION"
+                    )
+                ),
+                _react2.default.createElement(
+                    "ol",
+                    { className: "container column" },
+                    _community2.default.map(function (question, i) {
+                        return _react2.default.createElement(
+                            "li",
+                            { key: i },
+                            _react2.default.createElement(
+                                "p",
+                                { className: "text" },
+                                question.text
+                            ),
+                            _react2.default.createElement(
+                                "p",
+                                { className: "answer" },
+                                question.answers,
+                                " ANSWERS"
+                            ),
+                            _react2.default.createElement(
+                                "span",
+                                null,
+                                "\u203A"
+                            )
+                        );
+                    })
                 )
             );
         }
     }]);
 
-    return Explore;
+    return Community;
 }(_react2.default.Component);
 
 ;
 
-exports.default = Explore;
+exports.default = Community;
 
 /***/ }),
 /* 236 */
+/***/ (function(module, exports) {
+
+module.exports = [{"text":"Will a lemon plant thrive outdoors under full sun during the summer?","answers":15},{"text":"How do you prevent wildlife of all sizes (deer, rabbits, insects, etc) from destroying your garden?","answers":32},{"text":"What are the essential tools that a minimalist needs to get a small backyard garden started?","answers":27},{"text":"What is the best time of day to water plants and is there a superior method of watering (drip tape, sprinkler, etc)?","answers":11}]
+
+/***/ }),
+/* 237 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -43880,7 +43929,7 @@ var _axios = __webpack_require__(8);
 
 var _axios2 = _interopRequireDefault(_axios);
 
-var _requireAuth = __webpack_require__(237);
+var _requireAuth = __webpack_require__(238);
 
 var _requireAuth2 = _interopRequireDefault(_requireAuth);
 
@@ -44066,7 +44115,7 @@ var UserHome = function (_React$Component) {
 exports.default = UserHome;
 
 /***/ }),
-/* 237 */
+/* 238 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -44096,7 +44145,7 @@ module.exports = function requireAuth(props) {
 };
 
 /***/ }),
-/* 238 */
+/* 239 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -44116,23 +44165,23 @@ var _axios = __webpack_require__(8);
 
 var _axios2 = _interopRequireDefault(_axios);
 
-var _Upsell = __webpack_require__(239);
+var _Upsell = __webpack_require__(240);
 
 var _Upsell2 = _interopRequireDefault(_Upsell);
 
-var _PlantType = __webpack_require__(240);
+var _PlantType = __webpack_require__(241);
 
 var _PlantType2 = _interopRequireDefault(_PlantType);
 
-var _GrowMedium = __webpack_require__(241);
+var _GrowMedium = __webpack_require__(242);
 
 var _GrowMedium2 = _interopRequireDefault(_GrowMedium);
 
-var _SunType = __webpack_require__(242);
+var _SunType = __webpack_require__(243);
 
 var _SunType2 = _interopRequireDefault(_SunType);
 
-var _Confirmation = __webpack_require__(243);
+var _Confirmation = __webpack_require__(244);
 
 var _Confirmation2 = _interopRequireDefault(_Confirmation);
 
@@ -44308,7 +44357,7 @@ var Plant = function (_React$Component) {
 exports.default = Plant;
 
 /***/ }),
-/* 239 */
+/* 240 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -44345,7 +44394,7 @@ var Upsell = function Upsell(props) {
 exports.default = Upsell;
 
 /***/ }),
-/* 240 */
+/* 241 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -44442,7 +44491,7 @@ var PlantType = function (_React$Component) {
 exports.default = PlantType;
 
 /***/ }),
-/* 241 */
+/* 242 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -44541,7 +44590,7 @@ var GrowMedium = function (_React$Component) {
 exports.default = GrowMedium;
 
 /***/ }),
-/* 242 */
+/* 243 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -44651,7 +44700,7 @@ var SunType = function (_React$Component) {
 exports.default = SunType;
 
 /***/ }),
-/* 243 */
+/* 244 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -44768,7 +44817,7 @@ var Confirmation = function (_React$Component) {
 exports.default = Confirmation;
 
 /***/ }),
-/* 244 */
+/* 245 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -44831,13 +44880,13 @@ var NotFound = function (_React$Component) {
 exports.default = NotFound;
 
 /***/ }),
-/* 245 */
+/* 246 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(246);
+var content = __webpack_require__(247);
 if(typeof content === 'string') content = [[module.i, content, '']];
 // Prepare cssTransformation
 var transform;
@@ -44845,7 +44894,7 @@ var transform;
 var options = {"hmr":true}
 options.transform = transform
 // add the styles to the DOM
-var update = __webpack_require__(248)(content, options);
+var update = __webpack_require__(249)(content, options);
 if(content.locals) module.exports = content.locals;
 // Hot Module Replacement
 if(false) {
@@ -44862,21 +44911,21 @@ if(false) {
 }
 
 /***/ }),
-/* 246 */
+/* 247 */
 /***/ (function(module, exports, __webpack_require__) {
 
-exports = module.exports = __webpack_require__(247)(false);
+exports = module.exports = __webpack_require__(248)(false);
 // imports
 
 
 // module
-exports.push([module.i, "html,\nbody,\ndiv,\nspan,\napplet,\nobject,\niframe,\nh1,\nh2,\nh3,\nh4,\nh5,\nh6,\np,\nblockquote,\npre,\na,\nabbr,\nacronym,\naddress,\nbig,\ncite,\ncode,\ndel,\ndfn,\nem,\nimg,\nins,\nkbd,\nq,\ns,\nsamp,\nsmall,\nstrike,\nstrong,\nsub,\nsup,\ntt,\nvar,\nb,\nu,\ni,\ncenter,\ndl,\ndt,\ndd,\nol,\nul,\nli,\nfieldset,\nform,\nlabel,\nlegend,\ntable,\ncaption,\ntbody,\ntfoot,\nthead,\ntr,\nth,\ntd,\narticle,\naside,\ncanvas,\ndetails,\nembed,\nfigure,\nfigcaption,\nfooter,\nheader,\nhgroup,\nmenu,\nnav,\noutput,\nruby,\nsection,\nsummary,\ntime,\nmark,\naudio,\nvideo {\n  margin: 0;\n  padding: 0;\n  border: 0;\n  color: white; }\n\nol,\nul,\nmenu {\n  list-style: none; }\n\n*,\n*:before,\n*:after {\n  box-sizing: inherit;\n  font-size: inherit; }\n\nimg {\n  width: 100%; }\n\ninput {\n  border: 1px solid grey;\n  padding: 10px 5px;\n  font-size: 15px;\n  width: 100%; }\n\nselect {\n  width: 100%;\n  margin-top: 10px; }\n\nbutton {\n  color: white;\n  background-color: #1C7B61;\n  padding: 10px 5px;\n  font-size: 15px;\n  border: 0;\n  cursor: pointer; }\n  button:disabled {\n    background-color: #85CDB9;\n    color: grey;\n    cursor: default; }\n  button.light {\n    background-color: #FFFFFF;\n    border: 2px solid #FFFFFF;\n    color: #1C7B61; }\n    button.light:hover {\n      border: 2px solid #1C7B61; }\n  button.error {\n    color: #FFFFFF;\n    background-color: #EF5353; }\n  button.water {\n    color: #FFFFFF;\n    background-color: #16B3FC; }\n    button.water:disabled {\n      background-color: #7CD5FF; }\n\n.green {\n  color: #1C7B61; }\n\n.white {\n  color: #FFFFFF; }\n\n.black {\n  color: #000000; }\n\n.error {\n  color: #EF5353; }\n\n.next, .previous {\n  position: absolute;\n  color: #1C7B61;\n  font-size: 40px;\n  padding: 10px;\n  top: 50%;\n  color: red;\n  cursor: pointer; }\n\n.next {\n  right: -44px; }\n\n.previous {\n  left: -44px; }\n\n.wide {\n  width: 100%; }\n\n.appBody {\n  width: 100%;\n  height: 100vh;\n  margin: 0 auto;\n  position: relative;\n  background-color: #B6E2D6; }\n  @media (min-width: 600px) {\n    .appBody {\n      max-width: 350px;\n      border: 1px solid grey; } }\n\n.container {\n  display: flex;\n  box-sizing: border-box;\n  align-items: center;\n  justify-content: center;\n  flex-direction: column; }\n  .container.row {\n    flex-direction: row; }\n  .container.absolute {\n    height: 70vh;\n    width: 75%;\n    margin: 0 auto;\n    position: relative; }\n    .container.absolute input {\n      margin-top: 10px; }\n  .container.center {\n    justify-content: center; }\n  .container.wide {\n    width: 100%; }\n  .container button {\n    width: 100%;\n    margin-top: 10px; }\n\n.createPlantMenu > p {\n  margin-bottom: 10px;\n  color: #1C7B61; }\n\n.createPlantMenu label {\n  display: flex;\n  flex-direction: row;\n  align-items: center; }\n  .createPlantMenu label img {\n    width: 100px; }\n  .createPlantMenu label input {\n    width: auto; }\n  .createPlantMenu label p {\n    margin-left: 10px; }\n  .createPlantMenu label:not(first-child) {\n    margin-top: 10px; }\n\n.createPlantMenu .confirmation p {\n  margin-bottom: 10px; }\n\n.footer {\n  position: fixed;\n  bottom: 0;\n  z-index: 10;\n  width: 100%;\n  background-color: #FFFFFF;\n  border-top: 2px solid grey; }\n  @media (min-width: 600px) {\n    .footer {\n      width: 350px; } }\n  .footer ol {\n    display: flex;\n    flex-direction: row;\n    height: 75px; }\n    .footer ol li {\n      width: 33.33%;\n      display: flex;\n      flex-direction: column;\n      align-items: center;\n      padding: 10px 0;\n      cursor: pointer; }\n      .footer ol li:hover {\n        background-color: #E0E0E0; }\n      .footer ol li p {\n        color: grey; }\n  .footer img {\n    height: 30px;\n    width: auto; }\n\n.plantFooter {\n  position: absolute;\n  bottom: -4px; }\n\n.footerBump {\n  height: 77px;\n  width: 100%;\n  padding-top: 20px; }\n\n.header {\n  width: 100%;\n  justify-content: center;\n  background-color: #1C7B61;\n  background-image: url(\"/src/images/HeaderLeaves.png\");\n  background-size: contain;\n  background-repeat: no-repeat;\n  position: fixed; }\n  @media (min-width: 600px) {\n    .header {\n      width: 350px; } }\n  .header img {\n    width: 150px;\n    cursor: pointer;\n    z-index: 10;\n    padding: 10px 0; }\n  .header p {\n    cursor: pointer;\n    margin-right: 10px;\n    position: absolute;\n    right: 0;\n    bottom: 10px; }\n\n.headerBump {\n  width: 100%;\n  height: 87px; }\n\n.plant {\n  align-items: flex-start; }\n  .plant .image .img-container {\n    width: 50%; }\n    .plant .image .img-container img {\n      width: 100%; }\n  .plant .image .text {\n    width: 25%;\n    text-align: center; }\n    .plant .image .text h1 {\n      color: #1C7B61; }\n  .plant h1 {\n    font-size: 30px;\n    text-transform: uppercase;\n    color: #000000; }\n  .plant h3 {\n    color: #000000;\n    text-transform: uppercase; }\n  .plant .column {\n    padding: 10px; }\n  .plant .small {\n    font-size: 10px;\n    padding: 5px 0; }\n  .plant .delete {\n    margin: 0 auto;\n    margin-top: 10px;\n    color: red;\n    cursor: pointer; }\n    .plant .delete:hover {\n      text-decoration: underline; }\n\n.plants {\n  padding: 10px; }\n  .plants > p {\n    margin: 0 auto; }\n  .plants ol {\n    width: 100%; }\n    .plants ol li {\n      cursor: pointer;\n      padding: 10px;\n      display: flex;\n      flex-direction: row;\n      align-items: center;\n      position: relative;\n      border-bottom: 1px solid grey;\n      color: #1C7B61; }\n      .plants ol li:not(:last-child) {\n        margin: 5px 0; }\n      .plants ol li:hover {\n        background-color: #E0E0E0; }\n      .plants ol li * {\n        color: #1C7B61; }\n        .plants ol li *:not(:first-child) {\n          margin-left: 10px; }\n      .plants ol li span {\n        position: absolute;\n        right: 10px;\n        color: white;\n        background-color: red;\n        border-radius: 20px;\n        padding: 3px 10px; }\n      .plants ol li h3 {\n        font-size: 15px; }\n", ""]);
+exports.push([module.i, "html,\nbody,\ndiv,\nspan,\napplet,\nobject,\niframe,\nh1,\nh2,\nh3,\nh4,\nh5,\nh6,\np,\nblockquote,\npre,\na,\nabbr,\nacronym,\naddress,\nbig,\ncite,\ncode,\ndel,\ndfn,\nem,\nimg,\nins,\nkbd,\nq,\ns,\nsamp,\nsmall,\nstrike,\nstrong,\nsub,\nsup,\ntt,\nvar,\nb,\nu,\ni,\ncenter,\ndl,\ndt,\ndd,\nol,\nul,\nli,\nfieldset,\nform,\nlabel,\nlegend,\ntable,\ncaption,\ntbody,\ntfoot,\nthead,\ntr,\nth,\ntd,\narticle,\naside,\ncanvas,\ndetails,\nembed,\nfigure,\nfigcaption,\nfooter,\nheader,\nhgroup,\nmenu,\nnav,\noutput,\nruby,\nsection,\nsummary,\ntime,\nmark,\naudio,\nvideo {\n  margin: 0;\n  padding: 0;\n  border: 0;\n  color: white; }\n\nol,\nul,\nmenu {\n  list-style: none; }\n\n*,\n*:before,\n*:after {\n  box-sizing: inherit;\n  font-size: inherit; }\n\nimg {\n  width: 100%; }\n\ninput {\n  border: 1px solid grey;\n  padding: 10px 5px;\n  font-size: 15px;\n  width: 100%; }\n\nselect {\n  width: 100%;\n  margin-top: 10px; }\n\nbutton {\n  color: white;\n  background-color: #1C7B61;\n  padding: 10px 5px;\n  font-size: 15px;\n  border: 0;\n  cursor: pointer; }\n  button:disabled {\n    background-color: #85CDB9;\n    color: grey;\n    cursor: default; }\n  button.light {\n    background-color: #FFFFFF;\n    border: 2px solid #FFFFFF;\n    color: #1C7B61; }\n    button.light:hover {\n      border: 2px solid #1C7B61; }\n  button.error {\n    color: #FFFFFF;\n    background-color: #EF5353; }\n  button.water {\n    color: #FFFFFF;\n    background-color: #16B3FC; }\n    button.water:disabled {\n      background-color: #7CD5FF; }\n\n.green {\n  color: #1C7B61; }\n\n.white {\n  color: #FFFFFF; }\n\n.black {\n  color: #000000; }\n\n.error {\n  color: #EF5353; }\n\n.next, .previous {\n  position: absolute;\n  color: #1C7B61;\n  font-size: 40px;\n  padding: 10px;\n  top: 50%;\n  color: red;\n  cursor: pointer; }\n\n.next {\n  right: -44px; }\n\n.previous {\n  left: -44px; }\n\n.wide {\n  width: 100%; }\n\n.appBody {\n  width: 100%;\n  height: 100vh;\n  margin: 0 auto;\n  position: relative;\n  background-color: #B6E2D6; }\n  @media (min-width: 600px) {\n    .appBody {\n      max-width: 350px;\n      border: 1px solid grey; } }\n\n.container {\n  display: flex;\n  box-sizing: border-box;\n  align-items: center;\n  justify-content: center;\n  flex-direction: column; }\n  .container.row {\n    flex-direction: row; }\n  .container.absolute {\n    height: 70vh;\n    width: 75%;\n    margin: 0 auto;\n    position: relative; }\n    .container.absolute input {\n      margin-top: 10px; }\n  .container.center {\n    justify-content: center; }\n  .container.wide {\n    width: 100%; }\n  .container button {\n    width: 100%;\n    margin-top: 10px; }\n\n.createPlantMenu > p {\n  margin-bottom: 10px;\n  color: #1C7B61; }\n\n.createPlantMenu label {\n  display: flex;\n  flex-direction: row;\n  align-items: center; }\n  .createPlantMenu label img {\n    width: 100px; }\n  .createPlantMenu label input {\n    width: auto; }\n  .createPlantMenu label p {\n    margin-left: 10px; }\n  .createPlantMenu label:not(first-child) {\n    margin-top: 10px; }\n\n.createPlantMenu .confirmation p {\n  margin-bottom: 10px; }\n\n.footer {\n  position: fixed;\n  bottom: 0;\n  z-index: 10;\n  width: 100%;\n  background-color: #FFFFFF;\n  border-top: 2px solid grey; }\n  @media (min-width: 600px) {\n    .footer {\n      width: 350px; } }\n  .footer ol {\n    display: flex;\n    flex-direction: row;\n    height: 75px; }\n    .footer ol li {\n      width: 33.33%;\n      display: flex;\n      flex-direction: column;\n      align-items: center;\n      padding: 10px 0;\n      cursor: pointer; }\n      .footer ol li:hover {\n        background-color: #E0E0E0; }\n      .footer ol li p {\n        color: grey; }\n  .footer img {\n    height: 30px;\n    width: auto; }\n\n.plantFooter {\n  position: absolute;\n  bottom: -4px; }\n\n.footerBump {\n  height: 77px;\n  width: 100%;\n  padding-top: 20px; }\n\n.header {\n  width: 100%;\n  justify-content: center;\n  background-color: #1C7B61;\n  background-image: url(\"/src/images/HeaderLeaves.png\");\n  background-size: contain;\n  background-repeat: no-repeat;\n  position: fixed; }\n  @media (min-width: 600px) {\n    .header {\n      width: 350px; } }\n  .header img {\n    width: 150px;\n    cursor: pointer;\n    z-index: 10;\n    padding: 10px 0; }\n  .header p {\n    cursor: pointer;\n    margin-right: 10px;\n    position: absolute;\n    right: 0;\n    bottom: 10px; }\n\n.headerBump {\n  width: 100%;\n  height: 87px; }\n\n.plant {\n  align-items: flex-start; }\n  .plant .image .img-container {\n    width: 50%; }\n    .plant .image .img-container img {\n      width: 100%; }\n  .plant .image .text {\n    width: 25%;\n    text-align: center; }\n    .plant .image .text h1 {\n      color: #1C7B61; }\n  .plant h1 {\n    font-size: 30px;\n    text-transform: uppercase;\n    color: #000000; }\n  .plant h3 {\n    color: #000000;\n    text-transform: uppercase; }\n  .plant .column {\n    padding: 10px; }\n  .plant .small {\n    font-size: 10px;\n    padding: 5px 0; }\n  .plant .delete {\n    margin: 0 auto;\n    margin-top: 10px;\n    color: red;\n    cursor: pointer; }\n    .plant .delete:hover {\n      text-decoration: underline; }\n\n.plants {\n  padding: 10px; }\n  .plants > p {\n    margin: 0 auto; }\n  .plants ol {\n    width: 100%; }\n    .plants ol li {\n      cursor: pointer;\n      padding: 10px;\n      display: flex;\n      flex-direction: row;\n      align-items: center;\n      position: relative;\n      border-bottom: 1px solid grey;\n      color: #1C7B61; }\n      .plants ol li:not(:last-child) {\n        margin: 5px 0; }\n      .plants ol li:hover {\n        background-color: #E0E0E0; }\n      .plants ol li * {\n        color: #1C7B61; }\n        .plants ol li *:not(:first-child) {\n          margin-left: 10px; }\n      .plants ol li span {\n        position: absolute;\n        right: 10px;\n        color: white;\n        background-color: red;\n        border-radius: 20px;\n        padding: 3px 10px; }\n      .plants ol li h3 {\n        font-size: 15px; }\n\n.community .communityHeader {\n  text-align: center;\n  padding: 10px; }\n  .community .communityHeader h1 {\n    color: #000000;\n    font-size: 20px;\n    padding: 10px 0; }\n  .community .communityHeader input {\n    margin: 10px 0; }\n  .community .communityHeader p {\n    cursor: pointer; }\n\n.community ol {\n  background-color: #FFFFFF; }\n  .community ol li {\n    padding: 10px 20px;\n    position: relative;\n    border-bottom: 1px solid #B6E2D6; }\n    .community ol li .text {\n      padding-top: 10px;\n      color: #000000; }\n    .community ol li .answer {\n      padding-top: 10px;\n      color: grey;\n      font-size: 10px; }\n    .community ol li span {\n      color: #B6E2D6;\n      position: absolute;\n      right: 5px;\n      top: 50%;\n      transform: translateY(-50%);\n      font-size: 30px; }\n", ""]);
 
 // exports
 
 
 /***/ }),
-/* 247 */
+/* 248 */
 /***/ (function(module, exports) {
 
 /*
@@ -44958,7 +45007,7 @@ function toComment(sourceMap) {
 
 
 /***/ }),
-/* 248 */
+/* 249 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /*
@@ -45014,7 +45063,7 @@ var singleton = null;
 var	singletonCounter = 0;
 var	stylesInsertedAtTop = [];
 
-var	fixUrls = __webpack_require__(249);
+var	fixUrls = __webpack_require__(250);
 
 module.exports = function(list, options) {
 	if (typeof DEBUG !== "undefined" && DEBUG) {
@@ -45330,7 +45379,7 @@ function updateLink (link, options, obj) {
 
 
 /***/ }),
-/* 249 */
+/* 250 */
 /***/ (function(module, exports) {
 
 
