@@ -5,7 +5,7 @@ img{
 input{
     border: 1px solid grey;
     padding: $spacing-normal $spacing-normal / 2;
-    font-size: $font-normal;
+    font-size: 13px;
     width: 100%;
 }
 
@@ -41,15 +41,6 @@ button{
     &.error{
         color: #FFFFFF;
         background-color: $lzy-red;
-    }
-
-    &.water{
-        color: #FFFFFF;
-        background-color: $lzy-blue;
-
-        &:disabled{
-            background-color: #7CD5FF;
-        }
     }
 }
 

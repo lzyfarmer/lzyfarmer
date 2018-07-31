@@ -53,7 +53,7 @@ class UserHome extends React.Component{
                                 var now = new Date();
                                 var canWater = nextWaterDate <= now;
                                 var canHarvest = nextHarvestDate <= now;
-                                var alert = canWater || canHarvest ? true : false;
+                                var alert = canWater ? true : false;
 
                                 return (
                                     <li key={i} onClick={this.clickPlant.bind( this, plant._id )}>

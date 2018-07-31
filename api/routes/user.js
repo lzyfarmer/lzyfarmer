@@ -93,7 +93,6 @@ module.exports = function( app ){
               "name": req.body.form.plantType
           },
           function findPlantType( error, plantType ){
-              console.log( "plantType", plantType );
               if( error ){
                   res.status( 401 ).send( {
                       "error": error,
