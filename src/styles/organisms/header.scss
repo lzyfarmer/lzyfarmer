@@ -6,6 +6,7 @@
     background-size: contain;
     background-repeat: no-repeat;
     position: fixed;
+    z-index: 10;
 
     @media (min-width: 600px){
         width: 350px;
