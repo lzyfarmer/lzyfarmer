@@ -5,6 +5,7 @@ module.exports = function( app ){
   app.post( "/api/signup", function login( req, res ){
       var newUser = new UserModel( {
           "username": req.body.username,
+          "email": req.body.email,
           "password": req.body.password,
           "zipcode": req.body.zipcode
       } );

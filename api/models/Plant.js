@@ -4,8 +4,9 @@ var Schema = mongoose.Schema;
 // Define our model
 var plantSchema = new Schema(
     {
-        "growMedium": String,
+        "soilType": String,
         "sunType": String,
+        "location": String,
         "health": Number,
         "lastWaterDate": Date,
         "nextWaterDate": Date,
@@ -13,7 +14,9 @@ var plantSchema = new Schema(
         "nextHarvestDate": Date,
         "planttype": { "type" : Schema.Types.ObjectId, "ref": "planttype" },
         "daysOld": Number,
-        "datePlanted": Date
+        "datePlanted": Date,
+        "plantAge": String,
+        "log": Array
     },
     { "usePushEach": true }
 );

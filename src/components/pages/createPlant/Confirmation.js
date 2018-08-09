@@ -18,8 +18,10 @@ class Confirmation extends React.Component{
                 <p>Please confirm that you want to create a plant with the following options:</p>
                 <div className="confirmation">
                     <p><span className="green">Plant Type:</span> { uppercaseFirst( this.props.formValues.plantType ) }</p>
-                    <p><span className="green">Grow Medium:</span> { plantData.growMedium[this.props.formValues.growMedium] }</p>
+                    <p><span className="green">Plant Age:</span> { plantData.plantAge[this.props.formValues.plantAge] }</p>
                     <p><span className="green">Sun Type:</span> { plantData.sun[this.props.formValues.sunType] }</p>
+                    <p><span className="green">Soil Type:</span> { plantData.soilType[this.props.formValues.soilType] }</p>
+                    <p><span className="green">Location:</span> { plantData.location[this.props.formValues.location] }</p>
                 </div>
                 <button className="light" onClick={ () => this.props.savePlant() }>Save Plant</button>
             </div>

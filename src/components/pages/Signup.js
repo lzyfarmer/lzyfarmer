@@ -11,6 +11,7 @@ class Signup extends React.Component{
 
         this.state = {
             "username": "",
+            "email": "",
             "password": "",
             "zipcode": "",
             "userExistsError": false
@@ -23,6 +24,7 @@ class Signup extends React.Component{
                 <div className="container absolute">
                     <img src="/src/images/LZYlogo.png" />
                     <input placeholder="Username" value={ this.state.username } onChange={ this.changeValue.bind( this, "username" ) }/>
+                    <input placeholder="Email" type="email" value={ this.state.email } onChange={ this.changeValue.bind( this, "email" ) }/>
                     <input maxLength="5" placeholder="Zipcode" value={ this.state.zipcode } onChange={ this.changeValue.bind( this, "zipcode" ) }/>
                     <input placeholder="Password" type="password" value={ this.state.password } onChange={ this.changeValue.bind( this, "password" ) }/>
                     {
@@ -40,6 +42,7 @@ class Signup extends React.Component{
     renderSubmitButton(){
         if(
             this.state.username &&
+            this.state.email &&
             this.state.zipcode &&
             this.state.password &&
             this.state.password.length > 6
@@ -72,6 +75,7 @@ class Signup extends React.Component{
             "/api/signup",
             {
                 "username": this.state.username,
+                "email": this.state.email,
                 "password": this.state.password,
                 "zipcode": this.state.zipcode
             }
@@ -79,7 +83,7 @@ class Signup extends React.Component{
         .then(
             ( response ) => {
                 sessionStorage.setItem( "jwt", response.data.token );
-
+                sessionStorage.setItem( "username", response.data.user.username );
                 this.props.history.push( `/user/${response.data.user.username}` );
             }
         )

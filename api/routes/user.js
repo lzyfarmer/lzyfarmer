@@ -101,8 +101,10 @@ module.exports = function( app ){
               }
               else{
                   var newPlant = new PlantModel( {
-                      "growMedium": req.body.form.growMedium,
+                      "plantAge": req.body.form.plantAge,
+                      "soilType": req.body.form.soilType,
                       "sunType": req.body.form.sunType,
+                      "location": req.body.form.location,
                       "health": 0,
                       "lastWaterDate": Date.now(),
                       "nextWaterDate": Date.now() + plantType.waterRate,
@@ -186,6 +188,11 @@ module.exports = function( app ){
                       "nextWaterDate": Date.now() + foundPlant.planttype.waterRate
                   } );
 
+                  foundPlant.log.push( {
+                      "type": "water",
+                      "timestamp": Date.now()
+                  } );
+
                   foundPlant.save(
                       function saveUser( error, savedPlant ){
                           if( error ){
@@ -225,6 +232,93 @@ module.exports = function( app ){
                   foundPlant.set( {
                       "lastHarvestDate": Date.now(),
                       "nextHarvestDate": Date.now() + foundPlant.planttype.harvestRate
+                  } );
+
+                  foundPlant.log.push( {
+                      "type": "harvest",
+                      "timestamp": Date.now()
+                  } );
+
+                  foundPlant.save(
+                      function saveUser( error, savedPlant ){
+                          if( error ){
+                              res.status( 401 ).send();
+                          }
+                          else{
+                              res.send( savedPlant );
+                          }
+                      }
+                  );
+              }
+              else{
+                  res.status( 401 ).send( {
+                      "error": "PLANT NOT FOUND"
+                  } );
+              }
+          }
+      );
+  } );
+
+  app.post( "/api/nutrientsPlant/:id", ensureAuthenticated, function harvestPlant( req, res ){
+      PlantModel.findOne(
+          {
+              "_id": req.params.id
+          }
+      ).populate( {
+          "path": "planttype"
+      } ).exec(
+          function foundPlantToNutrient( error, foundPlant ){
+              if( error ){
+                  res.status( 401 ).send( {
+                      "text": "ERROR FINDING PLANT",
+                      "error": error
+                  } );
+              }
+              else if( foundPlant ){
+                  foundPlant.log.push( {
+                      "type": "nutrients",
+                      "timestamp": Date.now()
+                  } );
+
+                  foundPlant.save(
+                      function saveUser( error, savedPlant ){
+                          if( error ){
+                              res.status( 401 ).send();
+                          }
+                          else{
+                              res.send( savedPlant );
+                          }
+                      }
+                  );
+              }
+              else{
+                  res.status( 401 ).send( {
+                      "error": "PLANT NOT FOUND"
+                  } );
+              }
+          }
+      );
+  } );
+
+  app.post( "/api/maintenancePlant/:id", ensureAuthenticated, function harvestPlant( req, res ){
+      PlantModel.findOne(
+          {
+              "_id": req.params.id
+          }
+      ).populate( {
+          "path": "planttype"
+      } ).exec(
+          function foundPlantToMaintenance( error, foundPlant ){
+              if( error ){
+                  res.status( 401 ).send( {
+                      "text": "ERROR FINDING PLANT",
+                      "error": error
+                  } );
+              }
+              else if( foundPlant ){
+                  foundPlant.log.push( {
+                      "type": "maintenance",
+                      "timestamp": Date.now()
                   } );
 
                   foundPlant.save(

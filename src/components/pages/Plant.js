@@ -88,6 +88,18 @@ class Plant extends React.Component{
                             </button>
                         </div>
                     </div>
+                    <div className="container row wide">
+                        <div className="container column center wide">
+                            <button onClick={ this.handlePost.bind( this, "nutrients" ) }>
+                                <p className="white">Nutrients</p>
+                            </button>
+                        </div>
+                        <div className="container column center wide">
+                            <button onClick={ this.handlePost.bind( this, "maintenance" ) }>
+                                <p className="white">Maintenance</p>
+                            </button>
+                        </div>
+                    </div>
                     <p className="delete" onClick={ this.deletePlant.bind( this ) }>Delete Plant</p>
                 </div>
             );
@@ -122,7 +134,7 @@ class Plant extends React.Component{
     };
 
     handlePost( type ){
-        if( window.confirm( "Are you sure you want to water/harvest?" ) ){
+        if( window.confirm( "Are you sure you want to proceed with this action?" ) ){
             axios( {
                 "method": "POST",
                 "url": `/api/${type}Plant/${this.state.plantId}`,

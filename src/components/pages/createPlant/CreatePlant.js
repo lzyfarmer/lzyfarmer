@@ -5,7 +5,9 @@ import axios from "axios";
 // Components
 import Upsell from "./Upsell.js";
 import PlantType from "./PlantType.js";
-import GrowMedium from "./GrowMedium.js";
+import PlantAge from "./PlantAge.js";
+import SoilType from "./SoilType.js";
+import Location from "./Location.js";
 import SunType from "./SunType.js";
 import Confirmation from "./Confirmation.js";
 
@@ -17,7 +19,9 @@ class Plant extends React.Component{
             "step": 1,
             "formValues": {
                 "plantType": "tomato",
-                "growMedium": "1",
+                "plantAge": "1",
+                "soilType": "1",
+                "location": "1",
                 "sunType": "1"
             }
         }
@@ -50,7 +54,7 @@ class Plant extends React.Component{
                 />;
 
             case 3:
-                return <GrowMedium
+                return <PlantAge
                     formValues={ this.state.formValues }
                     updateFormValues={ this.updateFormValues.bind( this ) }
                 />;
@@ -62,6 +66,18 @@ class Plant extends React.Component{
                 />;
 
             case 5:
+                return <SoilType
+                    formValues={ this.state.formValues }
+                    updateFormValues={ this.updateFormValues.bind( this ) }
+                />;
+
+            case 6:
+                return <Location
+                    formValues={ this.state.formValues }
+                    updateFormValues={ this.updateFormValues.bind( this ) }
+                />;
+
+            case 7:
                 return <Confirmation
                     formValues={ this.state.formValues }
                     savePlant={ this.savePlant.bind( this ) }
@@ -77,7 +93,7 @@ class Plant extends React.Component{
                 </div>
             );
         }
-        if( this.state.step == 5 ){
+        if( this.state.step == 7 ){
             return (
                 <div>
                     <span className="previous" onClick={ this.previousStep.bind( this ) }>&#8249;</span>

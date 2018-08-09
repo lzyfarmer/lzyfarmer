@@ -58,7 +58,6 @@ class UserHome extends React.Component{
                                 return (
                                     <li key={i} onClick={this.clickPlant.bind( this, plant._id )}>
                                         <h1>{uppercaseFirst(plant.planttype.name)}</h1>
-                                        <p>{plantData.growMedium[plant.growMedium]}</p>,
                                         <p>{plantData.sun[plant.sunType]}</p>
                                         {
                                             this.renderAlert( alert )

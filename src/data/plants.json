@@ -5,8 +5,22 @@
         "3": "Artificial"
     },
 
-    "growMedium": {
-        "1": "Soil",
-        "2": "Hydroponic"
+    "plantAge": {
+        "1": "Seed",
+        "2": "Young",
+        "3": "Mature"
+    },
+
+    "soilType": {
+        "1": "Current in-ground Soil",
+        "2": "Top Soil",
+        "3": "Potting Mix",
+        "4": "Garden Soil"
+    },
+
+    "location": {
+        "1": "Outdoors",
+        "2": "Outdoors( covered )",
+        "3": "Indoors"
     }
 }
