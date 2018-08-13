@@ -22,5 +22,16 @@
         "1": "Outdoors",
         "2": "Outdoors( covered )",
         "3": "Indoors"
+    },
+
+    "setting": {
+        "1": "Container",
+        "2": "In-ground"
+    },
+
+    "sunTiming": {
+        "1": "Morning Sun",
+        "2": "Afternoon Sun",
+        "3": "Do Not Know"
     }
 }

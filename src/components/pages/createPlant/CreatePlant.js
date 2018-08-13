@@ -10,6 +10,9 @@ import SoilType from "./SoilType.js";
 import Location from "./Location.js";
 import SunType from "./SunType.js";
 import Confirmation from "./Confirmation.js";
+import Setting from "./Setting.js";
+import ContainerSize from "./ContainerSize.js";
+import SunTiming from "./SunTiming.js";
 
 class Plant extends React.Component{
     constructor( props ){
@@ -22,7 +25,10 @@ class Plant extends React.Component{
                 "plantAge": "1",
                 "soilType": "1",
                 "location": "1",
-                "sunType": "1"
+                "sunType": "1",
+                "setting": "1",
+                "containerSize": "0",
+                "sunTiming": "1"
             }
         }
     };
@@ -78,6 +84,24 @@ class Plant extends React.Component{
                 />;
 
             case 7:
+                return <Setting
+                    formValues={ this.state.formValues }
+                    updateFormValues={ this.updateFormValues.bind( this ) }
+                />;
+
+            case 8:
+                return <ContainerSize
+                    formValues={ this.state.formValues }
+                    updateFormValues={ this.updateFormValues.bind( this ) }
+                />;
+
+            case 9:
+                return <SunTiming
+                    formValues={ this.state.formValues }
+                    updateFormValues={ this.updateFormValues.bind( this ) }
+                />;
+
+            case 10:
                 return <Confirmation
                     formValues={ this.state.formValues }
                     savePlant={ this.savePlant.bind( this ) }
@@ -93,7 +117,7 @@ class Plant extends React.Component{
                 </div>
             );
         }
-        if( this.state.step == 7 ){
+        if( this.state.step == 10 ){
             return (
                 <div>
                     <span className="previous" onClick={ this.previousStep.bind( this ) }>&#8249;</span>

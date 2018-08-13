@@ -22,6 +22,9 @@ class Confirmation extends React.Component{
                     <p><span className="green">Sun Type:</span> { plantData.sun[this.props.formValues.sunType] }</p>
                     <p><span className="green">Soil Type:</span> { plantData.soilType[this.props.formValues.soilType] }</p>
                     <p><span className="green">Location:</span> { plantData.location[this.props.formValues.location] }</p>
+                    <p><span className="green">Setting:</span> { plantData.setting[this.props.formValues.setting] }</p>
+                    <p><span className="green">Container Size:</span> { this.props.formValues.containerSize } inches</p>
+                    <p><span className="green">Sun Timing:</span> { plantData.sunTiming[this.props.formValues.sunTiming] }</p>
                 </div>
                 <button className="light" onClick={ () => this.props.savePlant() }>Save Plant</button>
             </div>
