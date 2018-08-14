@@ -20253,7 +20253,7 @@ var _App = __webpack_require__(206);
 
 var _App2 = _interopRequireDefault(_App);
 
-var _style = __webpack_require__(251);
+var _style = __webpack_require__(252);
 
 var _style2 = _interopRequireDefault(_style);
 
@@ -41747,7 +41747,7 @@ var _CreatePlant = __webpack_require__(239);
 
 var _CreatePlant2 = _interopRequireDefault(_CreatePlant);
 
-var _NotFound = __webpack_require__(250);
+var _NotFound = __webpack_require__(251);
 
 var _NotFound2 = _interopRequireDefault(_NotFound);
 
@@ -44062,7 +44062,7 @@ var UserHome = function (_React$Component) {
                             _react2.default.createElement(
                                 "p",
                                 null,
-                                _plants2.default.sun[plant.sunType]
+                                plant.name
                             ),
                             _this2.renderAlert(alert)
                         );
@@ -44232,6 +44232,10 @@ var _SunTiming = __webpack_require__(249);
 
 var _SunTiming2 = _interopRequireDefault(_SunTiming);
 
+var _Name = __webpack_require__(250);
+
+var _Name2 = _interopRequireDefault(_Name);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -44262,7 +44266,8 @@ var Plant = function (_React$Component) {
                 "sunType": "1",
                 "setting": "1",
                 "containerSize": "0",
-                "sunTiming": "1"
+                "sunTiming": "1",
+                "name": ""
             }
         };
         return _this;
@@ -44294,48 +44299,54 @@ var Plant = function (_React$Component) {
                     });
 
                 case 3:
-                    return _react2.default.createElement(_PlantAge2.default, {
+                    return _react2.default.createElement(_Name2.default, {
                         formValues: this.state.formValues,
                         updateFormValues: this.updateFormValues.bind(this)
                     });
 
                 case 4:
-                    return _react2.default.createElement(_SunType2.default, {
+                    return _react2.default.createElement(_PlantAge2.default, {
                         formValues: this.state.formValues,
                         updateFormValues: this.updateFormValues.bind(this)
                     });
 
                 case 5:
-                    return _react2.default.createElement(_SoilType2.default, {
+                    return _react2.default.createElement(_SunType2.default, {
                         formValues: this.state.formValues,
                         updateFormValues: this.updateFormValues.bind(this)
                     });
 
                 case 6:
-                    return _react2.default.createElement(_Location2.default, {
+                    return _react2.default.createElement(_SoilType2.default, {
                         formValues: this.state.formValues,
                         updateFormValues: this.updateFormValues.bind(this)
                     });
 
                 case 7:
-                    return _react2.default.createElement(_Setting2.default, {
+                    return _react2.default.createElement(_Location2.default, {
                         formValues: this.state.formValues,
                         updateFormValues: this.updateFormValues.bind(this)
                     });
 
                 case 8:
-                    return _react2.default.createElement(_ContainerSize2.default, {
+                    return _react2.default.createElement(_Setting2.default, {
                         formValues: this.state.formValues,
                         updateFormValues: this.updateFormValues.bind(this)
                     });
 
                 case 9:
-                    return _react2.default.createElement(_SunTiming2.default, {
+                    return _react2.default.createElement(_ContainerSize2.default, {
                         formValues: this.state.formValues,
                         updateFormValues: this.updateFormValues.bind(this)
                     });
 
                 case 10:
+                    return _react2.default.createElement(_SunTiming2.default, {
+                        formValues: this.state.formValues,
+                        updateFormValues: this.updateFormValues.bind(this)
+                    });
+
+                case 11:
                     return _react2.default.createElement(_Confirmation2.default, {
                         formValues: this.state.formValues,
                         savePlant: this.savePlant.bind(this)
@@ -44356,7 +44367,7 @@ var Plant = function (_React$Component) {
                     )
                 );
             }
-            if (this.state.step == 10) {
+            if (this.state.step == 11) {
                 return _react2.default.createElement(
                     "div",
                     null,
@@ -45095,6 +45106,17 @@ var Confirmation = function (_React$Component) {
                         _react2.default.createElement(
                             "span",
                             { className: "green" },
+                            "Name:"
+                        ),
+                        " ",
+                        this.props.formValues.name
+                    ),
+                    _react2.default.createElement(
+                        "p",
+                        null,
+                        _react2.default.createElement(
+                            "span",
+                            { className: "green" },
                             "Plant Age:"
                         ),
                         " ",
@@ -45498,6 +45520,88 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; } // Libraries
 
 
+var Name = function (_React$Component) {
+    _inherits(Name, _React$Component);
+
+    function Name(props) {
+        _classCallCheck(this, Name);
+
+        var _this = _possibleConstructorReturn(this, (Name.__proto__ || Object.getPrototypeOf(Name)).call(this, props));
+
+        _this.state = {
+            "value": props.formValues.name
+        };
+        return _this;
+    }
+
+    _createClass(Name, [{
+        key: "render",
+        value: function render() {
+            return _react2.default.createElement(
+                "div",
+                { className: "createPlantMenu" },
+                _react2.default.createElement(
+                    "p",
+                    null,
+                    "Please enter a unique name for this plant. This will help to identify it from other plants of the same type:"
+                ),
+                _react2.default.createElement(
+                    "form",
+                    null,
+                    _react2.default.createElement(
+                        "label",
+                        null,
+                        _react2.default.createElement("input", { placeholder: "Custom Name", value: this.state.value, onChange: this.updateValue.bind(this) })
+                    )
+                )
+            );
+        }
+    }, {
+        key: "updateValue",
+        value: function updateValue(event) {
+            this.props.updateFormValues({
+                "name": event.target.value
+            });
+
+            this.setState({
+                "value": event.target.value
+            });
+        }
+    }]);
+
+    return Name;
+}(_react2.default.Component);
+
+;
+
+exports.default = Name;
+
+/***/ }),
+/* 251 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(1);
+
+var _react2 = _interopRequireDefault(_react);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; } // Libraries
+
+
 var NotFound = function (_React$Component) {
     _inherits(NotFound, _React$Component);
 
@@ -45536,13 +45640,13 @@ var NotFound = function (_React$Component) {
 exports.default = NotFound;
 
 /***/ }),
-/* 251 */
+/* 252 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(252);
+var content = __webpack_require__(253);
 if(typeof content === 'string') content = [[module.i, content, '']];
 // Prepare cssTransformation
 var transform;
@@ -45550,7 +45654,7 @@ var transform;
 var options = {"hmr":true}
 options.transform = transform
 // add the styles to the DOM
-var update = __webpack_require__(254)(content, options);
+var update = __webpack_require__(255)(content, options);
 if(content.locals) module.exports = content.locals;
 // Hot Module Replacement
 if(false) {
@@ -45567,21 +45671,21 @@ if(false) {
 }
 
 /***/ }),
-/* 252 */
+/* 253 */
 /***/ (function(module, exports, __webpack_require__) {
 
-exports = module.exports = __webpack_require__(253)(false);
+exports = module.exports = __webpack_require__(254)(false);
 // imports
 
 
 // module
-exports.push([module.i, "html,\nbody,\ndiv,\nspan,\napplet,\nobject,\niframe,\nh1,\nh2,\nh3,\nh4,\nh5,\nh6,\np,\nblockquote,\npre,\na,\nabbr,\nacronym,\naddress,\nbig,\ncite,\ncode,\ndel,\ndfn,\nem,\nimg,\nins,\nkbd,\nq,\ns,\nsamp,\nsmall,\nstrike,\nstrong,\nsub,\nsup,\ntt,\nvar,\nb,\nu,\ni,\ncenter,\ndl,\ndt,\ndd,\nol,\nul,\nli,\nfieldset,\nform,\nlabel,\nlegend,\ntable,\ncaption,\ntbody,\ntfoot,\nthead,\ntr,\nth,\ntd,\narticle,\naside,\ncanvas,\ndetails,\nembed,\nfigure,\nfigcaption,\nfooter,\nheader,\nhgroup,\nmenu,\nnav,\noutput,\nruby,\nsection,\nsummary,\ntime,\nmark,\naudio,\nvideo {\n  margin: 0;\n  padding: 0;\n  border: 0;\n  color: white;\n  font-family: 'Open Sans', sans-serif; }\n\nh1 {\n  font-weight: bold; }\n\nol,\nul,\nmenu {\n  list-style: none; }\n\n*,\n*:before,\n*:after {\n  box-sizing: inherit;\n  font-size: inherit; }\n\nimg {\n  width: 100%; }\n\ninput {\n  border: 1px solid grey;\n  padding: 10px 5px;\n  font-size: 13px;\n  width: 100%; }\n\nselect {\n  width: 100%;\n  margin-top: 10px; }\n\nbutton {\n  color: white;\n  background-color: #1C7B61;\n  padding: 10px 5px;\n  font-size: 15px;\n  border: 0;\n  cursor: pointer; }\n  button:disabled {\n    background-color: #85CDB9;\n    color: grey;\n    cursor: default; }\n  button.light {\n    background-color: #FFFFFF;\n    border: 2px solid #FFFFFF;\n    color: #1C7B61; }\n    button.light:hover {\n      border: 2px solid #1C7B61; }\n  button.error {\n    color: #FFFFFF;\n    background-color: #EF5353; }\n\n.green {\n  color: #1C7B61; }\n\n.white {\n  color: #FFFFFF; }\n\n.black {\n  color: #000000; }\n\n.error {\n  color: #EF5353; }\n\n.next, .previous {\n  position: absolute;\n  color: #1C7B61;\n  font-size: 40px;\n  padding: 10px;\n  top: 50%;\n  color: red;\n  cursor: pointer; }\n\n.next {\n  right: -44px; }\n\n.previous {\n  left: -44px; }\n\n.wide {\n  width: 100%; }\n\n.appBody {\n  width: 100%;\n  height: 100vh;\n  margin: 0 auto;\n  position: relative;\n  background-color: #B6E2D6; }\n  @media (min-width: 600px) {\n    .appBody {\n      max-width: 350px;\n      border: 1px solid grey; } }\n\n.container {\n  display: flex;\n  box-sizing: border-box;\n  align-items: center;\n  justify-content: center;\n  flex-direction: column; }\n  .container.row {\n    flex-direction: row; }\n  .container.absolute {\n    height: 70vh;\n    width: 75%;\n    margin: 0 auto;\n    position: relative; }\n    .container.absolute input {\n      margin-top: 10px; }\n  .container.center {\n    justify-content: center; }\n  .container.wide {\n    width: 100%; }\n  .container button {\n    width: 100%;\n    margin-top: 10px; }\n\n.createPlantMenu > p {\n  margin-bottom: 10px;\n  color: #1C7B61; }\n\n.createPlantMenu label {\n  display: flex;\n  flex-direction: row;\n  align-items: center; }\n  .createPlantMenu label img {\n    width: 100px; }\n  .createPlantMenu label input {\n    width: auto; }\n  .createPlantMenu label p {\n    margin-left: 10px; }\n  .createPlantMenu label:not(first-child) {\n    margin-top: 10px; }\n\n.createPlantMenu .confirmation p {\n  margin-bottom: 10px; }\n\n.footer {\n  position: fixed;\n  bottom: 0;\n  z-index: 10;\n  width: 100%;\n  background-color: #FFFFFF;\n  border-top: 2px solid grey; }\n  @media (min-width: 600px) {\n    .footer {\n      width: 350px; } }\n  .footer ol {\n    display: flex;\n    flex-direction: row;\n    height: 75px; }\n    .footer ol li {\n      width: 33.33%;\n      display: flex;\n      flex-direction: column;\n      align-items: center;\n      padding: 10px 0;\n      cursor: pointer; }\n      .footer ol li:hover {\n        background-color: #E0E0E0; }\n      .footer ol li p {\n        color: grey; }\n  .footer img {\n    height: 30px;\n    width: auto; }\n\n.plantFooter {\n  position: absolute;\n  bottom: -4px; }\n\n.footerBump {\n  height: 77px;\n  width: 100%;\n  padding-top: 20px; }\n\n.header {\n  width: 100%;\n  justify-content: center;\n  background-color: #1C7B61;\n  background-image: url(\"/src/images/HeaderLeaves.png\");\n  background-size: contain;\n  background-repeat: no-repeat;\n  position: fixed;\n  z-index: 10; }\n  @media (min-width: 600px) {\n    .header {\n      width: 350px; } }\n  .header img {\n    width: 150px;\n    cursor: pointer;\n    z-index: 10;\n    padding: 10px 0; }\n  .header p {\n    cursor: pointer;\n    margin-right: 10px;\n    position: absolute;\n    right: 0;\n    bottom: 10px; }\n\n.headerBump {\n  width: 100%;\n  height: 87px; }\n\n.plant {\n  align-items: flex-start; }\n  .plant .image .img-container {\n    width: 50%; }\n    .plant .image .img-container img {\n      width: 100%; }\n  .plant .image .text {\n    width: 25%;\n    text-align: center; }\n    .plant .image .text h1 {\n      color: #1C7B61; }\n  .plant h1 {\n    font-size: 30px;\n    text-transform: uppercase;\n    color: #000000; }\n  .plant h3 {\n    color: #000000;\n    text-transform: uppercase; }\n  .plant .column {\n    padding: 10px; }\n  .plant .small {\n    font-size: 10px;\n    padding: 5px 0; }\n  .plant .delete {\n    margin: 0 auto;\n    margin-top: 10px;\n    color: red;\n    cursor: pointer; }\n    .plant .delete:hover {\n      text-decoration: underline; }\n\n.plants {\n  padding: 10px; }\n  .plants > p {\n    margin: 0 auto; }\n  .plants ol {\n    width: 100%; }\n    .plants ol li {\n      cursor: pointer;\n      padding: 10px;\n      display: flex;\n      flex-direction: row;\n      align-items: center;\n      position: relative;\n      border-bottom: 1px solid grey;\n      color: #1C7B61; }\n      .plants ol li:not(:last-child) {\n        margin: 5px 0; }\n      .plants ol li:hover {\n        background-color: #E0E0E0; }\n      .plants ol li * {\n        color: #1C7B61; }\n        .plants ol li *:not(:first-child) {\n          margin-left: 10px; }\n      .plants ol li span {\n        position: absolute;\n        right: 10px;\n        color: white;\n        background-color: red;\n        border-radius: 20px;\n        padding: 3px 10px; }\n      .plants ol li h3 {\n        font-size: 15px; }\n\n.community .communityHeader {\n  text-align: center;\n  padding: 10px; }\n  .community .communityHeader h1 {\n    color: #000000;\n    font-size: 24px;\n    padding-top: 16px;\n    padding-bottom: 0px; }\n  .community .communityHeader input {\n    margin: 10px 0;\n    width: 200px;\n    padding: 6px; }\n  .community .communityHeader p {\n    cursor: pointer;\n    font-size: 12px; }\n\n.community ol {\n  background-color: #FFFFFF; }\n  .community ol li {\n    padding: 10px 20px;\n    position: relative;\n    border-bottom: 2px solid #B6E2D6; }\n    .community ol li .text {\n      padding-top: 10px;\n      color: #000000;\n      font-size: 14px; }\n    .community ol li .answer {\n      padding-top: 10px;\n      color: grey;\n      font-size: 10px; }\n    .community ol li span {\n      color: #B6E2D6;\n      position: absolute;\n      right: 5px;\n      top: 50%;\n      transform: translateY(-50%);\n      font-size: 30px; }\n", ""]);
+exports.push([module.i, "html,\nbody,\ndiv,\nspan,\napplet,\nobject,\niframe,\nh1,\nh2,\nh3,\nh4,\nh5,\nh6,\np,\nblockquote,\npre,\na,\nabbr,\nacronym,\naddress,\nbig,\ncite,\ncode,\ndel,\ndfn,\nem,\nimg,\nins,\nkbd,\nq,\ns,\nsamp,\nsmall,\nstrike,\nstrong,\nsub,\nsup,\ntt,\nvar,\nb,\nu,\ni,\ncenter,\ndl,\ndt,\ndd,\nol,\nul,\nli,\nfieldset,\nform,\nlabel,\nlegend,\ntable,\ncaption,\ntbody,\ntfoot,\nthead,\ntr,\nth,\ntd,\narticle,\naside,\ncanvas,\ndetails,\nembed,\nfigure,\nfigcaption,\nfooter,\nheader,\nhgroup,\nmenu,\nnav,\noutput,\nruby,\nsection,\nsummary,\ntime,\nmark,\naudio,\nvideo {\n  margin: 0;\n  padding: 0;\n  border: 0;\n  color: white;\n  font-family: 'Open Sans', sans-serif; }\n\nh1 {\n  font-weight: bold; }\n\nol,\nul,\nmenu {\n  list-style: none; }\n\n*,\n*:before,\n*:after {\n  box-sizing: inherit;\n  font-size: inherit; }\n\nimg {\n  width: 100%; }\n\ninput {\n  border: 1px solid grey;\n  padding: 10px 5px;\n  font-size: 13px;\n  width: 100%; }\n\nselect {\n  width: 100%;\n  margin-top: 10px; }\n\nbutton {\n  color: white;\n  background-color: #1C7B61;\n  padding: 10px 5px;\n  font-size: 15px;\n  border: 0;\n  cursor: pointer; }\n  button:disabled {\n    background-color: #85CDB9;\n    color: grey;\n    cursor: default; }\n  button.light {\n    background-color: #FFFFFF;\n    border: 2px solid #FFFFFF;\n    color: #1C7B61; }\n    button.light:hover {\n      border: 2px solid #1C7B61; }\n  button.error {\n    color: #FFFFFF;\n    background-color: #EF5353; }\n\n.green {\n  color: #1C7B61; }\n\n.white {\n  color: #FFFFFF; }\n\n.black {\n  color: #000000; }\n\n.error {\n  color: #EF5353; }\n\n.next, .previous {\n  position: absolute;\n  color: #1C7B61;\n  font-size: 40px;\n  padding: 10px;\n  top: 50%;\n  color: red;\n  cursor: pointer; }\n\n.next {\n  right: -44px; }\n\n.previous {\n  left: -44px; }\n\n.wide {\n  width: 100%; }\n\n.appBody {\n  width: 100%;\n  height: 100vh;\n  margin: 0 auto;\n  position: relative;\n  background-color: #B6E2D6; }\n  @media (min-width: 600px) {\n    .appBody {\n      max-width: 350px;\n      border: 1px solid grey; } }\n\n.container {\n  display: flex;\n  box-sizing: border-box;\n  align-items: center;\n  justify-content: center;\n  flex-direction: column; }\n  .container.row {\n    flex-direction: row; }\n  .container.absolute {\n    height: 70vh;\n    width: 75%;\n    margin: 0 auto;\n    position: relative; }\n    .container.absolute input {\n      margin-top: 10px; }\n  .container.center {\n    justify-content: center; }\n  .container.wide {\n    width: 100%; }\n  .container button {\n    width: 100%;\n    margin-top: 10px; }\n\n.createPlantMenu > p {\n  margin-bottom: 10px;\n  color: #1C7B61; }\n\n.createPlantMenu label {\n  display: flex;\n  flex-direction: row;\n  align-items: center; }\n  .createPlantMenu label img {\n    width: 100px; }\n  .createPlantMenu label input {\n    width: auto; }\n  .createPlantMenu label p {\n    margin-left: 10px; }\n  .createPlantMenu label:not(first-child) {\n    margin-top: 10px; }\n\n.createPlantMenu .confirmation p {\n  margin-bottom: 10px; }\n\n.footer {\n  position: fixed;\n  bottom: 0;\n  z-index: 10;\n  width: 100%;\n  background-color: #FFFFFF;\n  border-top: 2px solid grey; }\n  @media (min-width: 600px) {\n    .footer {\n      width: 350px; } }\n  .footer ol {\n    display: flex;\n    flex-direction: row;\n    height: 75px; }\n    .footer ol li {\n      width: 33.33%;\n      display: flex;\n      flex-direction: column;\n      align-items: center;\n      padding: 10px 0;\n      cursor: pointer; }\n      .footer ol li:hover {\n        background-color: #E0E0E0; }\n      .footer ol li p {\n        color: grey; }\n  .footer img {\n    height: 30px;\n    width: auto; }\n\n.plantFooter {\n  position: absolute;\n  bottom: -4px; }\n\n.footerBump {\n  height: 77px;\n  width: 100%;\n  padding-top: 20px; }\n\n.header {\n  width: 100%;\n  justify-content: center;\n  background-color: #1C7B61;\n  background-image: url(\"/src/images/HeaderLeaves.png\");\n  background-size: contain;\n  background-repeat: no-repeat;\n  position: fixed;\n  z-index: 10; }\n  @media (min-width: 600px) {\n    .header {\n      width: 350px; } }\n  .header img {\n    width: 150px;\n    cursor: pointer;\n    z-index: 10;\n    padding: 10px 0; }\n  .header p {\n    cursor: pointer;\n    margin-right: 10px;\n    position: absolute;\n    right: 0;\n    bottom: 10px; }\n\n.headerBump {\n  width: 100%;\n  height: 87px; }\n\n.plant {\n  align-items: flex-start; }\n  .plant .image .img-container {\n    width: 50%; }\n    .plant .image .img-container img {\n      width: 100%; }\n  .plant .image .text {\n    width: 25%;\n    text-align: center; }\n    .plant .image .text h1 {\n      color: #1C7B61; }\n  .plant h1 {\n    font-size: 30px;\n    text-transform: uppercase;\n    color: #000000; }\n  .plant h3 {\n    color: #000000;\n    text-transform: uppercase; }\n  .plant .column {\n    padding: 10px; }\n  .plant .small {\n    font-size: 10px;\n    padding: 5px 0; }\n  .plant .delete {\n    margin: 0 auto;\n    margin-top: 10px;\n    color: red;\n    cursor: pointer; }\n    .plant .delete:hover {\n      text-decoration: underline; }\n\n.plants {\n  padding: 10px; }\n  .plants > p {\n    margin: 0 auto; }\n  .plants ol {\n    width: 100%; }\n    .plants ol li {\n      cursor: pointer;\n      padding: 10px;\n      display: flex;\n      flex-direction: row;\n      align-items: center;\n      position: relative;\n      border-bottom: 1px solid grey;\n      color: #1C7B61; }\n      .plants ol li:not(:last-child) {\n        margin: 5px 0; }\n      .plants ol li:hover {\n        background-color: #E0E0E0; }\n      .plants ol li * {\n        color: #1C7B61; }\n        .plants ol li *:not(:first-child) {\n          margin-left: 10px; }\n      .plants ol li span {\n        position: absolute;\n        right: 10px;\n        color: white;\n        background-color: red;\n        border-radius: 20px;\n        padding: 3px 10px; }\n      .plants ol li p {\n        font-size: 12px; }\n      .plants ol li h3 {\n        font-size: 15px; }\n\n.community .communityHeader {\n  text-align: center;\n  padding: 10px; }\n  .community .communityHeader h1 {\n    color: #000000;\n    font-size: 24px;\n    padding-top: 16px;\n    padding-bottom: 0px; }\n  .community .communityHeader input {\n    margin: 10px 0;\n    width: 200px;\n    padding: 6px; }\n  .community .communityHeader p {\n    cursor: pointer;\n    font-size: 12px; }\n\n.community ol {\n  background-color: #FFFFFF; }\n  .community ol li {\n    padding: 10px 20px;\n    position: relative;\n    border-bottom: 2px solid #B6E2D6; }\n    .community ol li .text {\n      padding-top: 10px;\n      color: #000000;\n      font-size: 14px; }\n    .community ol li .answer {\n      padding-top: 10px;\n      color: grey;\n      font-size: 10px; }\n    .community ol li span {\n      color: #B6E2D6;\n      position: absolute;\n      right: 5px;\n      top: 50%;\n      transform: translateY(-50%);\n      font-size: 30px; }\n", ""]);
 
 // exports
 
 
 /***/ }),
-/* 253 */
+/* 254 */
 /***/ (function(module, exports) {
 
 /*
@@ -45663,7 +45767,7 @@ function toComment(sourceMap) {
 
 
 /***/ }),
-/* 254 */
+/* 255 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /*
@@ -45719,7 +45823,7 @@ var singleton = null;
 var	singletonCounter = 0;
 var	stylesInsertedAtTop = [];
 
-var	fixUrls = __webpack_require__(255);
+var	fixUrls = __webpack_require__(256);
 
 module.exports = function(list, options) {
 	if (typeof DEBUG !== "undefined" && DEBUG) {
@@ -46035,7 +46139,7 @@ function updateLink (link, options, obj) {
 
 
 /***/ }),
-/* 255 */
+/* 256 */
 /***/ (function(module, exports) {
 
 

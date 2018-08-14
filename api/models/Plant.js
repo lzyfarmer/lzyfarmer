@@ -5,6 +5,7 @@ var Schema = mongoose.Schema;
 var plantSchema = new Schema(
     {
         "soilType": String,
+        "name": String,
         "sunType": String,
         "location": String,
         "setting": String,

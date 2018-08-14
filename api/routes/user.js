@@ -102,6 +102,7 @@ module.exports = function( app ){
               else{
                   var newPlant = new PlantModel( {
                       "plantAge": req.body.form.plantAge,
+                      "name": req.body.form.name,
                       "soilType": req.body.form.soilType,
                       "sunType": req.body.form.sunType,
                       "location": req.body.form.location,

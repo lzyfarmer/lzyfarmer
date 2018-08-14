@@ -13,6 +13,7 @@ import Confirmation from "./Confirmation.js";
 import Setting from "./Setting.js";
 import ContainerSize from "./ContainerSize.js";
 import SunTiming from "./SunTiming.js";
+import Name from "./Name.js";
 
 class Plant extends React.Component{
     constructor( props ){
@@ -28,7 +29,8 @@ class Plant extends React.Component{
                 "sunType": "1",
                 "setting": "1",
                 "containerSize": "0",
-                "sunTiming": "1"
+                "sunTiming": "1",
+                "name": ""
             }
         }
     };
@@ -60,48 +62,54 @@ class Plant extends React.Component{
                 />;
 
             case 3:
-                return <PlantAge
+                return <Name
                     formValues={ this.state.formValues }
                     updateFormValues={ this.updateFormValues.bind( this ) }
                 />;
 
             case 4:
-                return <SunType
+                return <PlantAge
                     formValues={ this.state.formValues }
                     updateFormValues={ this.updateFormValues.bind( this ) }
                 />;
 
             case 5:
-                return <SoilType
+                return <SunType
                     formValues={ this.state.formValues }
                     updateFormValues={ this.updateFormValues.bind( this ) }
                 />;
 
             case 6:
-                return <Location
+                return <SoilType
                     formValues={ this.state.formValues }
                     updateFormValues={ this.updateFormValues.bind( this ) }
                 />;
 
             case 7:
-                return <Setting
+                return <Location
                     formValues={ this.state.formValues }
                     updateFormValues={ this.updateFormValues.bind( this ) }
                 />;
 
             case 8:
-                return <ContainerSize
+                return <Setting
                     formValues={ this.state.formValues }
                     updateFormValues={ this.updateFormValues.bind( this ) }
                 />;
 
             case 9:
-                return <SunTiming
+                return <ContainerSize
                     formValues={ this.state.formValues }
                     updateFormValues={ this.updateFormValues.bind( this ) }
                 />;
 
             case 10:
+                return <SunTiming
+                    formValues={ this.state.formValues }
+                    updateFormValues={ this.updateFormValues.bind( this ) }
+                />;
+
+            case 11:
                 return <Confirmation
                     formValues={ this.state.formValues }
                     savePlant={ this.savePlant.bind( this ) }
@@ -117,7 +125,7 @@ class Plant extends React.Component{
                 </div>
             );
         }
-        if( this.state.step == 10 ){
+        if( this.state.step == 11 ){
             return (
                 <div>
                     <span className="previous" onClick={ this.previousStep.bind( this ) }>&#8249;</span>
