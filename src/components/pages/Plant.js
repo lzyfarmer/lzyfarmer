@@ -53,7 +53,7 @@ class Plant extends React.Component{
                 <div className="container plant">
                     <div className="container column center wide">
                         <h1>{uppercaseFirst(this.state.plant.planttype.name)}</h1>
-                        <p className="black">{this.state.plant.planttype.latinName}</p>
+                        <p className="black">{this.state.plant.name}</p>
                         <p className="small black">Planted on {moment(this.state.plant.datePlanted).format( "MM/DD/YYYY" )}</p>
                     </div>
                     <div className="container row wide image">
