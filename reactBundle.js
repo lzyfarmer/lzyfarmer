@@ -43106,10 +43106,10 @@ var Signup = function (_React$Component) {
                     "div",
                     { className: "container absolute" },
                     _react2.default.createElement("img", { src: "/src/images/LZYlogo.png" }),
-                    _react2.default.createElement("input", { placeholder: "Username", value: this.state.username, onChange: this.changeValue.bind(this, "username") }),
-                    _react2.default.createElement("input", { placeholder: "Email", type: "email", value: this.state.email, onChange: this.changeValue.bind(this, "email") }),
-                    _react2.default.createElement("input", { maxLength: "5", placeholder: "Zipcode", value: this.state.zipcode, onChange: this.changeValue.bind(this, "zipcode") }),
-                    _react2.default.createElement("input", { placeholder: "Password", type: "password", value: this.state.password, onChange: this.changeValue.bind(this, "password") }),
+                    _react2.default.createElement("input", { placeholder: "Username - required", value: this.state.username, onChange: this.changeValue.bind(this, "username") }),
+                    _react2.default.createElement("input", { placeholder: "Email - required", type: "email", value: this.state.email, onChange: this.changeValue.bind(this, "email") }),
+                    _react2.default.createElement("input", { maxLength: "5", placeholder: "Zipcode - required", value: this.state.zipcode, onChange: this.changeValue.bind(this, "zipcode") }),
+                    _react2.default.createElement("input", { placeholder: "Password - minimum 7 characters", type: "password", value: this.state.password, onChange: this.changeValue.bind(this, "password") }),
                     this.renderUserExistsError(),
                     this.renderSubmitButton()
                 ),
@@ -43289,7 +43289,8 @@ var Plant = function (_React$Component) {
             "plantId": _this.props.location.pathname.replace("/plant/", ""),
             "plant": {
                 "nextWaterDate": 0,
-                "nextHarvestDate": 0
+                "nextHarvestDate": 0,
+                "health": 1
             }
         };
         return _this;
@@ -43311,7 +43312,6 @@ var Plant = function (_React$Component) {
             var isMature;
             var daysOld;
             var firstHarvest;
-            var health = canWater ? "Unhealthy" : "Healthy";
             var maturity;
 
             if (this.state.plant.planttype) {
@@ -43391,12 +43391,45 @@ var Plant = function (_React$Component) {
                         _react2.default.createElement(
                             "h3",
                             null,
-                            health
+                            maturity
+                        )
+                    ),
+                    _react2.default.createElement(
+                        "div",
+                        { className: "container column wide" },
+                        _react2.default.createElement(
+                            "label",
+                            null,
+                            "Health"
                         ),
                         _react2.default.createElement(
-                            "h3",
-                            null,
-                            maturity
+                            "select",
+                            { value: this.state.plant.health, onChange: this.updateHealth.bind(this) },
+                            _react2.default.createElement(
+                                "option",
+                                { value: "1" },
+                                "1"
+                            ),
+                            _react2.default.createElement(
+                                "option",
+                                { value: "2" },
+                                "2"
+                            ),
+                            _react2.default.createElement(
+                                "option",
+                                { value: "3" },
+                                "3"
+                            ),
+                            _react2.default.createElement(
+                                "option",
+                                { value: "4" },
+                                "4"
+                            ),
+                            _react2.default.createElement(
+                                "option",
+                                { value: "5" },
+                                "5"
+                            )
                         )
                     ),
                     _react2.default.createElement(
@@ -43520,19 +43553,44 @@ var Plant = function (_React$Component) {
             }
         }
     }, {
+        key: "updateHealth",
+        value: function updateHealth(event) {
+            var _this4 = this;
+
+            var health = event.target.value;
+
+            (0, _axios2.default)({
+                "method": "POST",
+                "url": "/api/updateHealth/" + this.state.plantId,
+                "data": {
+                    "health": health
+                },
+                "headers": {
+                    "authorization": sessionStorage.getItem("jwt")
+                }
+            }).then(function (response) {
+                _this4.setState({
+                    "plant": response.data
+                });
+            });
+        }
+    }, {
         key: "deletePlant",
         value: function deletePlant() {
-            var _this4 = this;
+            var _this5 = this;
 
             if (window.confirm("Are you sure you want to delete this plant?")) {
                 (0, _axios2.default)({
                     "method": "POST",
                     "url": "/api/deletePlant/" + this.state.plantId,
+                    "data": {
+                        "username": sessionStorage.getItem("username")
+                    },
                     "headers": {
                         "authorization": sessionStorage.getItem("jwt")
                     }
                 }).then(function () {
-                    _this4.props.history.push("/user/" + sessionStorage.getItem("username"));
+                    _this5.props.history.push("/user/" + sessionStorage.getItem("username"));
                 });
             }
         }
@@ -45776,7 +45834,7 @@ exports = module.exports = __webpack_require__(255)(false);
 
 
 // module
-exports.push([module.i, "html,\nbody,\ndiv,\nspan,\napplet,\nobject,\niframe,\nh1,\nh2,\nh3,\nh4,\nh5,\nh6,\np,\nblockquote,\npre,\na,\nabbr,\nacronym,\naddress,\nbig,\ncite,\ncode,\ndel,\ndfn,\nem,\nimg,\nins,\nkbd,\nq,\ns,\nsamp,\nsmall,\nstrike,\nstrong,\nsub,\nsup,\ntt,\nvar,\nb,\nu,\ni,\ncenter,\ndl,\ndt,\ndd,\nol,\nul,\nli,\nfieldset,\nform,\nlabel,\nlegend,\ntable,\ncaption,\ntbody,\ntfoot,\nthead,\ntr,\nth,\ntd,\narticle,\naside,\ncanvas,\ndetails,\nembed,\nfigure,\nfigcaption,\nfooter,\nheader,\nhgroup,\nmenu,\nnav,\noutput,\nruby,\nsection,\nsummary,\ntime,\nmark,\naudio,\nvideo {\n  margin: 0;\n  padding: 0;\n  border: 0;\n  color: white;\n  font-family: 'Open Sans', sans-serif; }\n\nh1 {\n  font-weight: bold; }\n\nol,\nul,\nmenu {\n  list-style: none; }\n\n*,\n*:before,\n*:after {\n  box-sizing: inherit;\n  font-size: inherit; }\n\nimg {\n  width: 100%; }\n\ninput {\n  border: 1px solid grey;\n  padding: 10px 5px;\n  font-size: 13px;\n  width: 100%; }\n\nselect {\n  width: 100%;\n  margin-top: 10px; }\n\nbutton {\n  color: white;\n  background-color: #1C7B61;\n  padding: 10px 5px;\n  font-size: 15px;\n  border: 0;\n  cursor: pointer; }\n  button:disabled {\n    background-color: #85CDB9;\n    color: grey;\n    cursor: default; }\n  button.light {\n    background-color: #FFFFFF;\n    border: 2px solid #FFFFFF;\n    color: #1C7B61; }\n    button.light:hover {\n      border: 2px solid #1C7B61; }\n  button.error {\n    color: #FFFFFF;\n    background-color: #EF5353; }\n\n.green {\n  color: #1C7B61; }\n\n.white {\n  color: #FFFFFF; }\n\n.black {\n  color: #000000; }\n\n.error {\n  color: #EF5353; }\n\n.next, .previous {\n  position: absolute;\n  color: #1C7B61;\n  font-size: 40px;\n  padding: 10px;\n  top: 50%;\n  color: red;\n  cursor: pointer; }\n\n.next {\n  right: -44px; }\n\n.previous {\n  left: -44px; }\n\n.wide {\n  width: 100%; }\n\n.appBody {\n  width: 100%;\n  height: 100vh;\n  margin: 0 auto;\n  position: relative;\n  background-color: #B6E2D6; }\n  @media (min-width: 600px) {\n    .appBody {\n      max-width: 350px;\n      border: 1px solid grey; } }\n\n.container {\n  display: flex;\n  box-sizing: border-box;\n  align-items: center;\n  justify-content: center;\n  flex-direction: column; }\n  .container.row {\n    flex-direction: row; }\n  .container.absolute {\n    height: 70vh;\n    width: 75%;\n    margin: 0 auto;\n    position: relative; }\n    .container.absolute input {\n      margin-top: 10px; }\n  .container.center {\n    justify-content: center; }\n  .container.wide {\n    width: 100%; }\n  .container button {\n    width: 100%;\n    margin-top: 10px; }\n\n.createPlantMenu > p {\n  margin-bottom: 10px;\n  color: #1C7B61; }\n\n.createPlantMenu label {\n  display: flex;\n  flex-direction: row;\n  align-items: center; }\n  .createPlantMenu label img {\n    width: 100px; }\n  .createPlantMenu label input {\n    width: auto; }\n  .createPlantMenu label p {\n    margin-left: 10px; }\n  .createPlantMenu label:not(first-child) {\n    margin-top: 10px; }\n\n.createPlantMenu .confirmation p {\n  margin-bottom: 10px; }\n\n.footer {\n  position: fixed;\n  bottom: 0;\n  z-index: 10;\n  width: 100%;\n  background-color: #FFFFFF;\n  border-top: 2px solid grey; }\n  @media (min-width: 600px) {\n    .footer {\n      width: 350px; } }\n  .footer ol {\n    display: flex;\n    flex-direction: row;\n    height: 75px; }\n    .footer ol li {\n      width: 33.33%;\n      display: flex;\n      flex-direction: column;\n      align-items: center;\n      padding: 10px 0;\n      cursor: pointer; }\n      .footer ol li:hover {\n        background-color: #E0E0E0; }\n      .footer ol li p {\n        color: grey; }\n  .footer img {\n    height: 30px;\n    width: auto; }\n\n.plantFooter {\n  position: absolute;\n  bottom: -4px; }\n\n.footerBump {\n  height: 77px;\n  width: 100%;\n  padding-top: 20px; }\n\n.header {\n  width: 100%;\n  justify-content: center;\n  background-color: #1C7B61;\n  background-image: url(\"/src/images/HeaderLeaves.png\");\n  background-size: contain;\n  background-repeat: no-repeat;\n  position: fixed;\n  z-index: 10; }\n  @media (min-width: 600px) {\n    .header {\n      width: 350px; } }\n  .header img {\n    width: 150px;\n    cursor: pointer;\n    z-index: 10;\n    padding: 10px 0; }\n  .header p {\n    cursor: pointer;\n    margin-right: 10px;\n    position: absolute;\n    right: 0;\n    bottom: 10px; }\n\n.headerBump {\n  width: 100%;\n  height: 87px; }\n\n.plant {\n  align-items: flex-start; }\n  .plant .image .img-container {\n    width: 50%; }\n    .plant .image .img-container img {\n      width: 100%; }\n  .plant .image .text {\n    width: 25%;\n    text-align: center; }\n    .plant .image .text h1 {\n      color: #1C7B61; }\n  .plant h1 {\n    font-size: 30px;\n    text-transform: uppercase;\n    color: #000000; }\n  .plant h3 {\n    color: #000000;\n    text-transform: uppercase; }\n  .plant .column {\n    padding: 10px; }\n  .plant .small {\n    font-size: 11px;\n    padding: 5px 0; }\n  .plant .delete {\n    margin: 0 auto;\n    margin-top: 10px;\n    color: red;\n    cursor: pointer; }\n    .plant .delete:hover {\n      text-decoration: underline; }\n\n.plants {\n  padding: 10px; }\n  .plants > p {\n    margin: 0 auto; }\n  .plants ol {\n    width: 100%; }\n    .plants ol li {\n      cursor: pointer;\n      padding: 10px;\n      display: flex;\n      flex-direction: row;\n      align-items: center;\n      position: relative;\n      border-bottom: 1px solid grey;\n      color: #1C7B61; }\n      .plants ol li:not(:last-child) {\n        margin: 5px 0; }\n      .plants ol li:hover {\n        background-color: #E0E0E0; }\n      .plants ol li * {\n        color: #1C7B61; }\n        .plants ol li *:not(:first-child) {\n          margin-left: 10px; }\n      .plants ol li span {\n        position: absolute;\n        right: 10px;\n        color: white;\n        background-color: red;\n        border-radius: 20px;\n        padding: 3px 10px; }\n      .plants ol li p {\n        font-size: 12px; }\n      .plants ol li h3 {\n        font-size: 15px; }\n\n.community .communityHeader {\n  text-align: center;\n  padding: 10px; }\n  .community .communityHeader h1 {\n    color: #000000;\n    font-size: 24px;\n    padding-top: 16px;\n    padding-bottom: 0px; }\n  .community .communityHeader input {\n    margin: 10px 0;\n    width: 200px;\n    padding: 6px; }\n  .community .communityHeader p {\n    cursor: pointer;\n    font-size: 12px; }\n\n.community ol {\n  background-color: #FFFFFF; }\n  .community ol li {\n    padding: 10px 20px;\n    position: relative;\n    border-bottom: 2px solid #B6E2D6; }\n    .community ol li .text {\n      padding-top: 10px;\n      color: #000000;\n      font-size: 14px; }\n    .community ol li .answer {\n      padding-top: 10px;\n      color: grey;\n      font-size: 10px; }\n    .community ol li span {\n      color: #B6E2D6;\n      position: absolute;\n      right: 5px;\n      top: 50%;\n      transform: translateY(-50%);\n      font-size: 30px; }\n", ""]);
+exports.push([module.i, "html,\nbody,\ndiv,\nspan,\napplet,\nobject,\niframe,\nh1,\nh2,\nh3,\nh4,\nh5,\nh6,\np,\nblockquote,\npre,\na,\nabbr,\nacronym,\naddress,\nbig,\ncite,\ncode,\ndel,\ndfn,\nem,\nimg,\nins,\nkbd,\nq,\ns,\nsamp,\nsmall,\nstrike,\nstrong,\nsub,\nsup,\ntt,\nvar,\nb,\nu,\ni,\ncenter,\ndl,\ndt,\ndd,\nol,\nul,\nli,\nfieldset,\nform,\nlabel,\nlegend,\ntable,\ncaption,\ntbody,\ntfoot,\nthead,\ntr,\nth,\ntd,\narticle,\naside,\ncanvas,\ndetails,\nembed,\nfigure,\nfigcaption,\nfooter,\nheader,\nhgroup,\nmenu,\nnav,\noutput,\nruby,\nsection,\nsummary,\ntime,\nmark,\naudio,\nvideo {\n  margin: 0;\n  padding: 0;\n  border: 0;\n  color: white;\n  font-family: 'Open Sans', sans-serif; }\n\nh1 {\n  font-weight: bold; }\n\nol,\nul,\nmenu {\n  list-style: none; }\n\n*,\n*:before,\n*:after {\n  box-sizing: inherit;\n  font-size: inherit; }\n\nimg {\n  width: 100%; }\n\ninput {\n  border: 1px solid grey;\n  padding: 10px 5px;\n  font-size: 13px;\n  width: 100%; }\n\nselect {\n  width: 100%;\n  margin-top: 10px; }\n\nbutton {\n  color: white;\n  background-color: #1C7B61;\n  padding: 10px 5px;\n  font-size: 15px;\n  border: 0;\n  cursor: pointer; }\n  button:disabled {\n    background-color: #85CDB9;\n    color: grey;\n    cursor: default; }\n  button.light {\n    background-color: #FFFFFF;\n    border: 2px solid #FFFFFF;\n    color: #1C7B61; }\n    button.light:hover {\n      border: 2px solid #1C7B61; }\n  button.error {\n    color: #FFFFFF;\n    background-color: #EF5353; }\n\n.green {\n  color: #1C7B61; }\n\n.white {\n  color: #FFFFFF; }\n\n.black {\n  color: #000000; }\n\n.error {\n  color: #EF5353; }\n\n.next, .previous {\n  position: absolute;\n  color: #1C7B61;\n  font-size: 40px;\n  padding: 10px;\n  top: 50%;\n  color: red;\n  cursor: pointer; }\n\n.next {\n  right: -44px; }\n\n.previous {\n  left: -44px; }\n\n.wide {\n  width: 100%; }\n\n.appBody {\n  width: 100%;\n  height: 100vh;\n  margin: 0 auto;\n  position: relative;\n  background-color: #B6E2D6; }\n  @media (min-width: 600px) {\n    .appBody {\n      max-width: 350px;\n      border: 1px solid grey; } }\n\n.container {\n  display: flex;\n  box-sizing: border-box;\n  align-items: center;\n  justify-content: center;\n  flex-direction: column; }\n  .container.row {\n    flex-direction: row; }\n  .container.absolute {\n    height: 70vh;\n    width: 75%;\n    margin: 0 auto;\n    position: relative; }\n    .container.absolute input {\n      margin-top: 10px; }\n  .container.center {\n    justify-content: center; }\n  .container.wide {\n    width: 100%; }\n  .container button {\n    width: 100%;\n    margin-top: 10px; }\n\n.createPlantMenu > p {\n  margin-bottom: 10px;\n  color: #1C7B61; }\n\n.createPlantMenu label {\n  display: flex;\n  flex-direction: row;\n  align-items: center; }\n  .createPlantMenu label img {\n    width: 100px; }\n  .createPlantMenu label input {\n    width: auto; }\n  .createPlantMenu label p {\n    margin-left: 10px; }\n  .createPlantMenu label:not(first-child) {\n    margin-top: 10px; }\n\n.createPlantMenu .confirmation p {\n  margin-bottom: 10px; }\n\n.footer {\n  position: fixed;\n  bottom: 0;\n  z-index: 10;\n  width: 100%;\n  background-color: #FFFFFF;\n  border-top: 2px solid grey; }\n  @media (min-width: 600px) {\n    .footer {\n      width: 350px; } }\n  .footer ol {\n    display: flex;\n    flex-direction: row;\n    height: 75px; }\n    .footer ol li {\n      width: 33.33%;\n      display: flex;\n      flex-direction: column;\n      align-items: center;\n      padding: 10px 0;\n      cursor: pointer; }\n      .footer ol li:hover {\n        background-color: #E0E0E0; }\n      .footer ol li p {\n        color: grey; }\n  .footer img {\n    height: 30px;\n    width: auto; }\n\n.plantFooter {\n  position: absolute;\n  bottom: -4px; }\n\n.footerBump {\n  height: 77px;\n  width: 100%;\n  padding-top: 20px; }\n\n.header {\n  width: 100%;\n  justify-content: center;\n  background-color: #1C7B61;\n  background-image: url(\"/src/images/HeaderLeaves.png\");\n  background-size: contain;\n  background-repeat: no-repeat;\n  position: fixed;\n  z-index: 10; }\n  @media (min-width: 600px) {\n    .header {\n      width: 350px; } }\n  .header img {\n    width: 150px;\n    cursor: pointer;\n    z-index: 10;\n    padding: 10px 0; }\n  .header p {\n    cursor: pointer;\n    margin-right: 10px;\n    position: absolute;\n    right: 0;\n    bottom: 10px; }\n\n.headerBump {\n  width: 100%;\n  height: 87px; }\n\n.plant {\n  align-items: flex-start; }\n  .plant .image .img-container {\n    width: 50%; }\n    .plant .image .img-container img {\n      width: 100%; }\n  .plant .image .text {\n    width: 25%;\n    text-align: center; }\n    .plant .image .text h1 {\n      color: #1C7B61; }\n  .plant h1 {\n    font-size: 30px;\n    text-transform: uppercase;\n    color: #000000; }\n  .plant h3 {\n    color: #000000;\n    text-transform: uppercase; }\n  .plant .column {\n    padding: 10px; }\n  .plant .small {\n    font-size: 11px;\n    padding: 5px 0; }\n  .plant .delete {\n    margin: 0 auto;\n    margin-top: 10px;\n    color: red;\n    cursor: pointer; }\n    .plant .delete:hover {\n      text-decoration: underline; }\n  .plant select {\n    padding: 2px 10px; }\n\n.plants {\n  padding: 10px; }\n  .plants > p {\n    margin: 0 auto; }\n  .plants ol {\n    width: 100%; }\n    .plants ol li {\n      cursor: pointer;\n      padding: 10px;\n      display: flex;\n      flex-direction: row;\n      align-items: center;\n      position: relative;\n      border-bottom: 1px solid grey;\n      color: #1C7B61; }\n      .plants ol li:not(:last-child) {\n        margin: 5px 0; }\n      .plants ol li:hover {\n        background-color: #E0E0E0; }\n      .plants ol li * {\n        color: #1C7B61; }\n        .plants ol li *:not(:first-child) {\n          margin-left: 10px; }\n      .plants ol li span {\n        position: absolute;\n        right: 10px;\n        color: white;\n        background-color: red;\n        border-radius: 20px;\n        padding: 3px 10px; }\n      .plants ol li p {\n        font-size: 12px; }\n      .plants ol li h3 {\n        font-size: 15px; }\n\n.community .communityHeader {\n  text-align: center;\n  padding: 10px; }\n  .community .communityHeader h1 {\n    color: #000000;\n    font-size: 24px;\n    padding-top: 16px;\n    padding-bottom: 0px; }\n  .community .communityHeader input {\n    margin: 10px 0;\n    width: 200px;\n    padding: 6px; }\n  .community .communityHeader p {\n    cursor: pointer;\n    font-size: 12px; }\n\n.community ol {\n  background-color: #FFFFFF; }\n  .community ol li {\n    padding: 10px 20px;\n    position: relative;\n    border-bottom: 2px solid #B6E2D6; }\n    .community ol li .text {\n      padding-top: 10px;\n      color: #000000;\n      font-size: 14px; }\n    .community ol li .answer {\n      padding-top: 10px;\n      color: grey;\n      font-size: 10px; }\n    .community ol li span {\n      color: #B6E2D6;\n      position: absolute;\n      right: 5px;\n      top: 50%;\n      transform: translateY(-50%);\n      font-size: 30px; }\n", ""]);
 
 // exports
 

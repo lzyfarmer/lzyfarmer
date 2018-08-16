@@ -131,7 +131,7 @@ module.exports = function( app ){
                       "setting": req.body.form.setting,
                       "containerSize": req.body.form.containerSize,
                       "sunTiming": req.body.form.sunTiming,
-                      "health": 0,
+                      "health": 1,
                       "lastWaterDate": Date.now(),
                       "nextWaterDate": Date.now() + plantType.waterRate,
                       "lastHarvestDate": Date.now(),
@@ -367,20 +367,99 @@ module.exports = function( app ){
       );
   } );
 
-  app.post( "/api/deletePlant/:id", ensureAuthenticated, function deletePlant( req, res ){
-      PlantModel.deleteOne(
+  app.post( "/api/updateHealth/:id", ensureAuthenticated, function updateHealth( req, res ){
+      PlantModel.findOne(
           {
               "_id": req.params.id
-          },
-          function foundPlantToDelete( error ){
+          }
+      ).populate( {
+          "path": "planttype"
+      } ).exec(
+          function foundPlantToWater( error, foundPlant ){
               if( error ){
                   res.status( 401 ).send( {
-                      "text": "ERROR DELETING PLANT",
+                      "text": "ERROR FINDING PLANT",
                       "error": error
                   } );
               }
+              else if( foundPlant ){
+                  foundPlant.set( {
+                      "health": req.body.health
+                  } );
+
+                  foundPlant.log.push( {
+                      "type": "health",
+                      "value": req.body.health,
+                      "timestamp": Date.now()
+                  } );
+
+                  foundPlant.save(
+                      function saveUser( error, savedPlant ){
+                          if( error ){
+                              res.status( 401 ).send();
+                          }
+                          else{
+                              res.send( savedPlant );
+                          }
+                      }
+                  );
+              }
               else{
-                  res.status( 200 ).send();
+                  res.status( 401 ).send( {
+                      "error": "PLANT NOT FOUND"
+                  } );
+              }
+          }
+      );
+  } );
+
+  app.post( "/api/deletePlant/:id", ensureAuthenticated, function deletePlant( req, res ){
+      UserModel.findOne(
+          {
+              "username": req.body.username
+          }
+      ).populate( {
+          "path": "plants",
+          "populate": {
+              "path": "planttype"
+          }
+      } ).exec(
+          function findUserPlants( error, user ){
+              if( error ){
+                  res.status( 401 ).send( {
+                      "text": "ERROR FINDING USER",
+                      "error": error
+                  } );
+              }
+              else if( user ){
+                  var filteredPlants = user.plants.filter(
+                      function( plant ){
+                          return plant._id != req.params.id
+                      }
+                  );
+
+                  user.set( {
+                      "plants": filteredPlants
+                  } );
+
+                  user.save(
+                      function saveUser( error, user ){
+                          if( error ){
+                              res.status( 401 ).send( {
+                                  "error": error,
+                                  "text": "saveUser"
+                              } );
+                          }
+                          else{
+                              res.send( user );
+                          }
+                      }
+                  );
+              }
+              else{
+                  res.status( 401 ).send( {
+                      "error": "USER NOT FOUND"
+                  } );
               }
           }
       );

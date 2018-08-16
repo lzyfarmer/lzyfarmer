@@ -24,7 +24,8 @@ class Plant extends React.Component{
             "plantId": this.props.location.pathname.replace( "/plant/", "" ),
             "plant": {
                 "nextWaterDate": 0,
-                "nextHarvestDate": 0
+                "nextHarvestDate": 0,
+                "health": 1
             }
         }
     };
@@ -42,7 +43,6 @@ class Plant extends React.Component{
         var isMature;
         var daysOld;
         var firstHarvest;
-        var health = canWater ? "Unhealthy" : "Healthy";
         var maturity;
 
         if( this.state.plant.planttype ){
@@ -73,8 +73,17 @@ class Plant extends React.Component{
                         </div>
                     </div>
                     <div className="container column center wide">
-                        <h3>{ health }</h3>
                         <h3>{ maturity }</h3>
+                    </div>
+                    <div className="container column wide">
+                        <label>Health</label>
+                        <select value={this.state.plant.health} onChange={ this.updateHealth.bind( this ) }>
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                            <option value="5">5</option>
+                        </select>
                     </div>
                     <div className="container row wide">
                         <div className="container column center wide">
@@ -154,11 +163,36 @@ class Plant extends React.Component{
         }
     };
 
+    updateHealth( event ){
+        var health = event.target.value;
+
+        axios( {
+            "method": "POST",
+            "url": `/api/updateHealth/${this.state.plantId}`,
+            "data": {
+                "health": health
+            },
+            "headers": {
+                "authorization": sessionStorage.getItem( "jwt" )
+            }
+        } )
+        .then(
+            ( response ) => {
+                this.setState( {
+                    "plant": response.data
+                } );
+            }
+        );
+    };
+
     deletePlant(){
         if( window.confirm( "Are you sure you want to delete this plant?" ) ){
             axios( {
                 "method": "POST",
                 "url": `/api/deletePlant/${this.state.plantId}`,
+                "data": {
+                    "username": sessionStorage.getItem( "username" )
+                },
                 "headers": {
                     "authorization": sessionStorage.getItem( "jwt" )
                 }

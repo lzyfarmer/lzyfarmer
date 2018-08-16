@@ -20,7 +20,6 @@ class PlantType extends React.Component{
     };
 
     render(){
-        console.log( "types", this.state.types );
         return(
             <div className="createPlantMenu wide">
                 <p>Please select the type of plant that you would like to grow:</p>
