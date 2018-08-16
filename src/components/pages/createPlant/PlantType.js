@@ -1,24 +1,35 @@
 // Libraries
 import React from "react";
+import axios from "axios";
+
+// Helpers
+import uppercaseFirst from "helpers/uppercaseFirst.js";
 
 class PlantType extends React.Component{
     constructor( props ){
         super( props );
 
         this.state = {
-            "value": props.formValues.plantType
+            "value": props.formValues.plantType,
+            "types": []
         };
     };
 
+    componentDidMount(){
+        this.fetchTypes();
+    };
+
     render(){
+        console.log( "types", this.state.types );
         return(
             <div className="createPlantMenu wide">
                 <p>Please select the type of plant that you would like to grow:</p>
                 <select value={this.state.value} onChange={ this.updateValue.bind( this ) }>
-                    <option value="tomato">Tomato</option>
-                    <option value="basil">Basil</option>
-                    <option value="lettuce">Lettuce</option>
-                    <option value="mint">Mint</option>
+                {
+                    this.state.types.map(
+                        ( type, i ) => <option value={type.name} key={i}>{uppercaseFirst(type.name)}</option>
+                    )
+                }
                 </select>
             </div>
         );
@@ -32,6 +43,28 @@ class PlantType extends React.Component{
         this.setState( {
             "value": event.target.value
         } );
+    };
+
+    fetchTypes(){
+        axios( {
+            "method": "GET",
+            "url": `/api/planttypes`,
+            "headers": {
+                "authorization": sessionStorage.getItem( "jwt" )
+            }
+        } )
+        .then(
+            ( response ) => {
+                this.setState( {
+                    "types": response.data
+                } );
+            }
+        )
+        .catch(
+            ( error ) => {
+                handleApiError( error, this.props );
+            }
+        )
     };
 };
 

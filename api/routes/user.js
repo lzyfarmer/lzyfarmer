@@ -60,6 +60,28 @@ module.exports = function( app ){
       );
   } );
 
+  app.get( "/api/planttypes", ensureAuthenticated, function getTypes( req, res ){
+      PlantTypeModel.find(
+          {},
+          function findPlantTypes( error, plantTypes ){
+              if( error ){
+                  res.status( 401 ).send( {
+                      "text": "ERROR FINDING PLANTTYPES",
+                      "error": error
+                  } );
+              }
+              else if( plantTypes ){
+                  res.send( plantTypes );
+              }
+              else{
+                  res.status( 401 ).send( {
+                      "error": "PLANTTYPES NOT FOUND"
+                  } );
+              }
+          }
+      );
+  } );
+
   app.get( "/api/plant/:id", ensureAuthenticated, function getUserPlants( req, res ){
       PlantModel.findOne(
           {

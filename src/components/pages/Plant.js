@@ -3,6 +3,8 @@ import React from "react";
 import axios from "axios";
 import moment from "moment";
 
+// Components
+import Image from "components/elements/Image.js";
 // Helpers
 import handleApiError from "helpers/handleApiError.js";
 import uppercaseFirst from "helpers/uppercaseFirst.js";
@@ -62,7 +64,7 @@ class Plant extends React.Component{
                             <p className="green">days old</p>
                         </div>
                         <div className="img-container">
-                            <img src={ `/src/images/${this.state.plant.planttype.name}Photo.png` }/>
+                            <Image src={ `/src/images/${this.state.plant.planttype.name}Photo.png` }/>
                         </div>
                         <div className="text">
                             <p className="green">Harvest at</p>
@@ -167,7 +169,7 @@ class Plant extends React.Component{
                 }
             );
         }
-    }
+    };
 };
 
 export default Plant;
