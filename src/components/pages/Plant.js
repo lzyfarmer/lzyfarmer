@@ -78,11 +78,11 @@ class Plant extends React.Component{
                     <div className="container column wide">
                         <label>Health</label>
                         <select value={this.state.plant.health} onChange={ this.updateHealth.bind( this ) }>
-                            <option value="1">1</option>
-                            <option value="2">2</option>
-                            <option value="3">3</option>
-                            <option value="4">4</option>
-                            <option value="5">5</option>
+                            <option value="1">1 - Terrible</option>
+                            <option value="2">2 - Not Good</option>
+                            <option value="3">3 - Ok</option>
+                            <option value="4">4 - Good</option>
+                            <option value="5">5 - Great</option>
                         </select>
                     </div>
                     <div className="container row wide">
